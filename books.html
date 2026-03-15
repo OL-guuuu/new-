@@ -1,538 +1,762 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <title>📚 الكتب والروايات | المنصة</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <title>الكتب والروايات | المنصة</title>
+
   <style>
-    .hero.book-hero { padding-bottom: 28px; }
-    .stats-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px; }
-    .stat-chip { min-width:120px; text-align:center; padding:12px 16px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.03); }
-    .stat-chip b { display:block; font-size:1.35rem; color:var(--green); }
-
-    .tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:20px; }
-    .tab-btn {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text2);
-      border-radius:12px;
-      padding:10px 14px;
-      font:inherit;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .tab-btn.active {
-      color:var(--text);
-      border-color:rgba(16,185,129,.35);
-      background:rgba(16,185,129,.08);
+    .page-hero {
+      padding-bottom: 34px;
     }
 
-    .toolbar {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:16px;
-    }
-    .toolbar-group { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .filters { display:flex; gap:8px; flex-wrap:wrap; }
-    .filter-btn {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text2);
-      border-radius:999px;
-      padding:8px 12px;
-      font:inherit;
-      font-size:.92rem;
-      cursor:pointer;
-    }
-    .filter-btn.active {
-      color:var(--text);
-      border-color:rgba(16,185,129,.35);
-      background:rgba(16,185,129,.08);
+    .page-hero .preview-panel {
+      min-height: 500px;
     }
 
-    .search-box { min-width:260px; max-width:360px; }
+    .preview-section-title {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
 
-    .section-block { display:none; }
-    .section-block.active { display:block; }
+    .preview-list {
+      display: grid;
+      gap: 10px;
+    }
 
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+    .preview-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+      padding: 12px;
+    }
+
+    .preview-item strong {
+      display: block;
+      font-size: 0.94rem;
+      margin-bottom: 4px;
+    }
+
+    .preview-item p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+
+    .tabs-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .section-block {
+      display: none;
+    }
+
+    .section-block.active {
+      display: block;
+    }
+
+    .toolbar-shell {
+      position: sticky;
+      top: 86px;
+      z-index: 40;
+      margin-bottom: 18px;
+    }
+
+    .toolbar-card {
+      padding: 14px;
+    }
+
+    .search-box {
+      min-width: 260px;
+      max-width: 360px;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
 
     .book-card {
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow:var(--shadow);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow: var(--shadow-md);
+      transition: 0.18s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.12);
     }
 
     .book-cover {
-      height:240px;
-      background:linear-gradient(135deg, rgba(16,185,129,.12), rgba(124,58,237,.12));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
+      height: 260px;
+      background: linear-gradient(180deg, #101010 0%, #181818 100%);
+      position: relative;
+      overflow: hidden;
     }
 
     .book-cover img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .book-fallback {
-      font-size:3rem;
-      opacity:.85;
+    .book-cover-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: var(--text-3);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 24%),
+        linear-gradient(180deg, #101010 0%, #151515 100%);
     }
 
-    .book-body { padding:16px; }
-    .book-title { font-size:1.08rem; font-weight:800; margin-bottom:6px; }
-    .book-author { color:var(--green); font-weight:700; font-size:.92rem; margin-bottom:6px; }
-    .book-meta { color:var(--text3); font-size:.9rem; margin-bottom:10px; }
+    .book-body {
+      padding: 16px;
+    }
+
+    .book-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    .book-author {
+      color: var(--text-2);
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    .book-sub {
+      color: var(--text-3);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
     .book-desc {
-      color:var(--text2);
-      line-height:1.8;
-      font-size:.94rem;
-      min-height:70px;
+      color: var(--text-2);
+      line-height: 1.85;
+      font-size: 0.94rem;
+      min-height: 80px;
     }
 
-    .tag-row { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
-    .tag {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text2);
-      border-radius:999px;
-      padding:5px 8px;
-      font-size:.8rem;
+    .score-row {
+      margin-top: 12px;
     }
 
-    .progress {
-      height:6px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      overflow:hidden;
-      margin-top:12px;
-    }
-    .progress > span {
-      display:block;
-      height:100%;
-      background:linear-gradient(90deg, var(--violet), var(--green));
+    .score-bar {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
     }
 
-    .card-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    .score-bar > span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #bcbcbc, #ffffff);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
 
     .small-btn {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text);
-      border-radius:10px;
-      padding:8px 10px;
-      font:inherit;
-      font-size:.9rem;
-      cursor:pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.16s ease;
     }
 
-    .small-btn.danger {
-      border-color:rgba(239,68,68,.25);
-      color:#ffb4b4;
-      background:rgba(239,68,68,.08);
+    .small-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.05);
     }
 
     .small-btn.primary {
-      background:linear-gradient(135deg, var(--green), #059669);
-      color:#00140d;
-      border:none;
+      background: #ffffff;
+      color: #111111;
+      border: none;
     }
 
-    .panel {
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow:var(--shadow);
+    .small-btn.danger {
+      color: #ffd1d1;
+      background: rgba(255,255,255,0.03);
     }
 
-    .table-wrap { overflow:auto; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
 
-    table.data-table {
-      width:100%;
-      border-collapse:collapse;
+    .stats-box {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.025);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stats-box strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .stats-box span {
+      color: var(--text-3);
+      font-size: 0.9rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .dashboard-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .mini-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-stat {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.025);
+      color: var(--text-2);
+      font-size: 0.9rem;
+    }
+
+    .mini-stat strong {
+      color: var(--text);
+    }
+
+    .pw-panel {
+      max-width: 460px;
+      margin-inline: auto;
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
     .data-table th,
     .data-table td {
-      border-bottom:1px solid var(--border);
-      padding:12px 10px;
-      text-align:right;
-      vertical-align:top;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 10px;
+      text-align: right;
+      vertical-align: top;
     }
 
     .data-table th {
-      color:var(--text2);
-      font-size:.92rem;
+      color: var(--text-3);
+      font-size: 0.92rem;
+      font-weight: 700;
     }
 
     .data-table td {
-      font-size:.94rem;
+      color: var(--text);
+      font-size: 0.95rem;
     }
 
-    .muted { color:var(--text3); }
+    .helper-note {
+      color: var(--text-3);
+      font-size: 0.92rem;
+    }
 
-    .empty {
-      padding:26px;
-      text-align:center;
-      color:var(--text3);
-      border:1px dashed var(--border);
-      border-radius:18px;
+    .empty-state {
+      padding: 32px;
+      border: 1px dashed var(--border);
+      border-radius: 20px;
+      text-align: center;
+      color: var(--text-3);
+      background: rgba(255,255,255,0.02);
     }
 
     .modal-backdrop {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:1000;
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,0.72);
+      z-index: 2000;
     }
-    .modal-backdrop.open { display:flex; }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
 
     .modal {
-      width:min(820px, 100%);
-      max-height:calc(100vh - 32px);
-      overflow:auto;
-      border:1px solid var(--border);
-      border-radius:20px;
-      background:var(--bg3);
-      box-shadow:var(--shadow);
+      width: min(860px, 100%);
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: #0b0b0b;
+      box-shadow: var(--shadow-lg);
     }
 
     .modal-head,
     .modal-foot {
-      padding:18px 18px;
-      border-bottom:1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .modal-foot {
-      border-top:1px solid var(--border);
-      border-bottom:none;
-      justify-content:flex-end;
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      justify-content: flex-end;
     }
 
-    .modal-body { padding:18px; }
+    .modal-body {
+      padding: 18px;
+    }
 
     .close-btn {
-      border:none;
-      background:transparent;
-      color:var(--text2);
-      font-size:1.2rem;
-      cursor:pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      font-size: 1.2rem;
+      cursor: pointer;
     }
 
-    .split-2 {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .dash-top {
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:18px;
+    .discover-results {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
     }
 
-    .stats-mini {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .discover-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,0.025);
     }
 
-    .mini-box {
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:rgba(255,255,255,.02);
+    @media (max-width: 980px) {
+      .page-hero .preview-panel {
+        min-height: auto;
+      }
     }
 
-    .mini-box b { color:var(--green); }
+    @media (max-width: 760px) {
+      .toolbar-shell {
+        position: static;
+      }
 
-    .discover-grid { display:grid; gap:12px; }
+      .search-box {
+        min-width: 100%;
+        max-width: none;
+      }
 
-    .result-card {
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:14px;
-      background:rgba(255,255,255,.03);
-    }
-
-    .pw-box { max-width:460px; margin:0 auto; }
-
-    @media (max-width:700px){
-      .split-2 { grid-template-columns:1fr; }
-      .toolbar { align-items:stretch; }
-      .search-box { min-width:100%; max-width:none; }
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body>
+<body class="page-shell">
   <header class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">✦ المنصة</a>
+      <a class="brand" href="index.html">المنصة</a>
+
       <nav class="nav-links">
         <a class="nav-link" href="index.html">الرئيسية</a>
-        <a class="nav-link" href="movies.html">🎬 الأفلام والمسلسلات</a>
-        <a class="nav-link active" href="books.html">📚 الكتب</a>
-        <a class="nav-link" href="podcasts.html">🎙️ البودكاست</a>
+        <a class="nav-link" href="movies.html">الأفلام والمسلسلات</a>
+        <a class="nav-link active" href="books.html">الكتب والروايات</a>
+        <a class="nav-link" href="podcasts.html">البودكاست</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero book-hero">
-      <span class="pill">📚 Books V2 — مربوطة مع assets + Cloudflare + Supabase</span>
-      <h1>كتب وروايات<br>بنسخة منظمة وجاهزة للتوسعة</h1>
-      <p>
-        هذه هي النسخة الكاملة الأولى لصفحة الكتب: مكتبة عامة، مكتبة خاصة، لوحة تحكم،
-        تصنيف واكتشاف بالذكاء الاصطناعي، وربط فعلي مع Supabase وCloudflare Worker.
-      </p>
+  <main>
+    <!-- HERO -->
+    <section class="hero page-hero container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hero-badge">قسم القراءة • مكتبة عامة • قراءاتك • AI</span>
+          <h1>كتب وروايات<br />بواجهة أنظف،<br />وتجربة أوضح</h1>
+          <p>
+            استكشف المكتبة العامة، أضف ما يعجبك إلى قراءاتك الخاصة، واطلب من الذكاء الاصطناعي
+            اقتراح أعمال جديدة — ضمن صفحة هادئة، مرتبة، وسهلة الاستخدام.
+          </p>
 
-      <div class="stats-row">
-        <div class="stat-chip"><b id="stat-total">0</b><span>إجمالي الكتب</span></div>
-        <div class="stat-chip"><b id="stat-public">0</b><span>المكتبة العامة</span></div>
-        <div class="stat-chip"><b id="stat-private">0</b><span>قراءاتي</span></div>
-        <div class="stat-chip"><b id="stat-filtered">0</b><span>النتائج الظاهرة</span></div>
-      </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="hero-go-public" type="button">ابدأ بالمكتبة العامة</button>
+            <button class="btn btn-secondary" id="hero-open-discover" type="button">اكتشف بالذكاء الاصطناعي</button>
+          </div>
 
-      <div class="tabs">
-        <button class="tab-btn active" data-view="public">📖 المكتبة العامة</button>
-        <button class="tab-btn" data-view="private">🔖 قراءاتي</button>
-        <button class="tab-btn" data-view="dashboard">⚙️ لوحة التحكم</button>
-      </div>
-    </section>
+          <div class="stats-grid">
+            <div class="stats-box">
+              <strong id="stat-total">0</strong>
+              <span>إجمالي العناصر</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-public">0</strong>
+              <span>المكتبة العامة</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-private">0</strong>
+              <span>قراءاتي</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-visible">0</strong>
+              <span>النتائج الظاهرة</span>
+            </div>
+          </div>
+        </div>
 
-    <section id="view-public" class="section-block active">
-      <div class="toolbar">
-        <div class="toolbar-group filters" id="public-filters"></div>
-        <div class="toolbar-group">
-          <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة...">
-          <button id="discover-public-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+        <div class="hero-side">
+          <div class="preview-panel">
+            <div class="preview-top">
+              <div>
+                <div class="preview-title">كيف تستخدم هذا القسم؟</div>
+                <div class="preview-sub">رحلة واضحة من التصفح إلى الحفظ</div>
+              </div>
+              <span class="preview-tag">قسم القراءة</span>
+            </div>
+
+            <div class="preview-section-title">تدفق العمل</div>
+            <div class="preview-list">
+              <div class="preview-item">
+                <strong>1) استكشف المكتبة العامة</strong>
+                <p>ابحث داخل الكتب والروايات واستخدم التصنيفات للوصول سريعًا إلى ما يهمك.</p>
+              </div>
+
+              <div class="preview-item">
+                <strong>2) أضف إلى قراءاتك</strong>
+                <p>احفظ الكتب التي تهمك في قائمتك الخاصة وعد إليها لاحقًا بسهولة.</p>
+              </div>
+
+              <div class="preview-item">
+                <strong>3) دع الذكاء الاصطناعي يقترح عليك</strong>
+                <p>استخدم الاكتشاف الذكي أو التصنيف التلقائي لتسريع التنظيم والعثور على اقتراحات مناسبة.</p>
+              </div>
+            </div>
+
+            <div class="preview-section-title" style="margin-top:18px;">نمط الصفحة</div>
+            <div class="preview-list">
+              <div class="preview-item">
+                <strong>واجهة أبسط</strong>
+                <p>تباين أوضح ومسافات أفضل بدل ازدحام العناصر أو كثرة الألوان.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="public-content"></div>
-    </section>
 
-    <section id="view-private" class="section-block">
-      <div class="toolbar">
-        <div class="toolbar-group filters" id="private-filters"></div>
-        <div class="toolbar-group">
-          <input id="private-search" class="input search-box" placeholder="ابحث في قراءاتي...">
-          <button id="add-private-btn" class="btn btn-ghost" type="button">＋ إضافة كتاب يدويًا</button>
-          <button id="discover-private-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+      <div class="tabs-wrap">
+        <div class="tabs">
+          <button class="tab-btn active" data-view="public">المكتبة العامة</button>
+          <button class="tab-btn" data-view="private">قراءاتي</button>
+          <button class="tab-btn" data-view="dashboard">لوحة التحكم</button>
         </div>
       </div>
-      <div id="private-content"></div>
     </section>
 
-    <section id="view-dashboard" class="section-block">
-      <div id="dashboard-locked" class="panel pw-box">
-        <h2 class="section-title">🔐 لوحة التحكم محمية</h2>
-        <p class="muted">أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة.</p>
-        <div class="split-2">
-          <input id="dashboard-password" class="input code" type="password" placeholder="كلمة المرور">
+    <!-- PUBLIC -->
+    <section id="view-public" class="section-block active section-sm container">
+      <div class="toolbar-shell">
+        <div class="panel toolbar-card">
+          <div class="toolbar">
+            <div class="toolbar-group filters" id="public-filters"></div>
+
+            <div class="toolbar-group">
+              <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة..." />
+              <button id="public-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="public-grid" class="media-grid"></div>
+      <div id="public-empty" class="empty-state" style="display:none;">
+        لا توجد نتائج مطابقة في المكتبة العامة.
+      </div>
+    </section>
+
+    <!-- PRIVATE -->
+    <section id="view-private" class="section-block section-sm container">
+      <div class="toolbar-shell">
+        <div class="panel toolbar-card">
+          <div class="toolbar">
+            <div class="toolbar-group filters" id="private-filters"></div>
+
+            <div class="toolbar-group">
+              <input id="private-search" class="input search-box" placeholder="ابحث في قراءاتي..." />
+              <button id="private-add-btn" class="btn btn-ghost" type="button">إضافة يدويًا</button>
+              <button id="private-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="private-grid" class="media-grid"></div>
+      <div id="private-empty" class="empty-state" style="display:none;">
+        لا توجد عناصر في قراءاتك الخاصة بعد.
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="section-block section-sm container">
+      <div id="dashboard-locked" class="panel pw-panel" style="padding:20px;">
+        <div class="section-head" style="margin-bottom:12px;">
+          <h2>لوحة التحكم</h2>
+          <p>أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة وإعدادات التخزين السحابي.</p>
+        </div>
+
+        <div class="form-grid-2">
+          <input id="dashboard-password" class="input" type="password" placeholder="كلمة المرور" />
           <button id="unlock-dashboard-btn" class="btn btn-primary" type="button">دخول</button>
         </div>
       </div>
 
       <div id="dashboard-content" style="display:none;">
-        <div class="dash-top">
-          <div class="stats-mini" id="dash-stats"></div>
-          <div class="toolbar-group">
-            <button id="add-public-btn" class="btn btn-primary" type="button">＋ إضافة كتاب</button>
-            <button id="discover-dashboard-btn" class="btn btn-ghost" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
-          </div>
-        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-top">
+            <div class="mini-stats" id="dashboard-stats"></div>
 
-        <div class="panel" style="margin-bottom:16px;">
-          <h3 style="margin-top:0;">🗄️ إعدادات Supabase</h3>
-          <form id="supabase-form">
-            <div class="split-2">
-              <div>
-                <div class="muted" style="margin-bottom:6px;">Project URL</div>
-                <input id="supa-url" class="input code" placeholder="https://xxxx.supabase.co">
-              </div>
-              <div>
-                <div class="muted" style="margin-bottom:6px;">Anon Key</div>
-                <input id="supa-key" class="input code" placeholder="eyJhbGci...">
-              </div>
+            <div class="toolbar-group">
+              <button id="dashboard-add-btn" class="btn btn-primary" type="button">إضافة كتاب</button>
+              <button id="dashboard-discover-btn" class="btn btn-secondary" type="button">اكتشف بالذكاء الاصطناعي</button>
             </div>
-            <div class="btn-row">
-              <button class="btn btn-primary" type="submit">حفظ بيانات Supabase</button>
-            </div>
-          </form>
-
-          <div class="badge-row">
-            <span class="badge">dbTable: <span id="page-db-table" class="code">—</span></span>
-            <span class="badge">userTable: <span id="page-user-table" class="code">—</span></span>
-            <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
-            <span class="badge">Cloudflare: <span id="page-worker-url" class="code">—</span></span>
-            <span class="badge">Supabase: <span id="page-supa-status">—</span></span>
           </div>
-        </div>
 
-        <div class="panel table-wrap">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>العنوان</th>
-                <th>المؤلف</th>
-                <th>السنة</th>
-                <th>التصنيف</th>
-                <th>التقييم</th>
-                <th>إجراءات</th>
-              </tr>
-            </thead>
-            <tbody id="dashboard-table-body"></tbody>
-          </table>
+          <div class="panel" style="padding:20px;">
+            <div class="section-head" style="margin-bottom:14px;">
+              <h2 style="font-size:1.25rem;">إعدادات Supabase</h2>
+              <p>يمكنك تفعيل الحفظ السحابي للمكتبة العامة ولقراءاتك الخاصة من هنا.</p>
+            </div>
+
+            <form id="supabase-form">
+              <div class="form-grid-2">
+                <div>
+                  <div class="field-label">Project URL</div>
+                  <input id="supa-url" class="input" placeholder="https://xxxx.supabase.co" />
+                </div>
+                <div>
+                  <div class="field-label">Anon Key</div>
+                  <input id="supa-key" class="input" placeholder="eyJhbGci..." />
+                </div>
+              </div>
+
+              <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
+                <button class="btn btn-primary" type="submit">حفظ الإعدادات</button>
+              </div>
+            </form>
+
+            <div class="badge-row" style="margin-top:16px;">
+              <span class="badge">dbTable: <span id="page-db-table">—</span></span>
+              <span class="badge">userTable: <span id="page-user-table">—</span></span>
+              <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
+              <span class="badge">Cloudflare: <span id="page-worker-url">—</span></span>
+              <span class="badge">Supabase: <span id="page-supa-status">—</span></span>
+            </div>
+          </div>
+
+          <div class="panel table-wrap" style="padding:20px;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>العنوان</th>
+                  <th>المؤلف</th>
+                  <th>السنة</th>
+                  <th>التصنيف</th>
+                  <th>التقييم</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-tbody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal: Add/Edit -->
-  <div id="form-modal-backdrop" class="modal-backdrop">
+  <!-- FORM MODAL -->
+  <div id="item-modal-backdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-head">
         <div>
-          <strong id="form-modal-title">إضافة كتاب</strong>
-          <div class="muted" id="form-modal-subtitle">المكتبة العامة</div>
+          <strong id="item-modal-title">إضافة كتاب</strong>
+          <div class="helper-note" id="item-modal-subtitle">المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="form-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="item-modal-backdrop">✕</button>
       </div>
 
       <div class="modal-body">
-        <div class="notice" style="margin-bottom:16px;">
-          يمكنك إدخال البيانات يدويًا أو الضغط على زر <strong>✨ تصنيف تلقائي</strong> بعد كتابة العنوان والوصف.
-        </div>
-
-        <input type="hidden" id="form-mode">
-        <input type="hidden" id="form-target">
-        <input type="hidden" id="form-id">
-
-        <div class="split-2">
-          <div>
-            <div class="muted" style="margin-bottom:6px;">العنوان *</div>
-            <input id="f-title" class="input" placeholder="مثال: 1984">
-          </div>
-          <div>
-            <div class="muted" style="margin-bottom:6px;">المؤلف</div>
-            <input id="f-author" class="input" placeholder="مثال: جورج أورويل">
+        <div class="panel" style="padding:14px; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <strong>تصنيف تلقائي</strong>
+              <div class="helper-note">بعد كتابة العنوان والوصف، يمكن للذكاء الاصطناعي مساعدتك في اختيار التصنيف المناسب.</div>
+            </div>
+            <button id="classify-btn" class="btn btn-secondary" type="button">تصنيف الآن</button>
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <input type="hidden" id="form-mode" />
+        <input type="hidden" id="form-target" />
+        <input type="hidden" id="form-id" />
+
+        <div class="form-grid-2">
           <div>
-            <div class="muted" style="margin-bottom:6px;">السنة</div>
-            <input id="f-year" class="input" placeholder="1949">
+            <div class="field-label">العنوان *</div>
+            <input id="f-title" class="input" placeholder="مثال: 1984" />
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">عدد الصفحات</div>
-            <input id="f-pages" class="input" placeholder="328 صفحة">
+            <div class="field-label">المؤلف</div>
+            <input id="f-author" class="input" placeholder="مثال: George Orwell" />
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">الحالة</div>
-            <select id="f-status" class="input">
+            <div class="field-label">السنة</div>
+            <input id="f-year" class="input" placeholder="1949" />
+          </div>
+          <div>
+            <div class="field-label">عدد الصفحات</div>
+            <input id="f-pages" class="input" placeholder="328 صفحة" />
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:12px;">
+          <div>
+            <div class="field-label">الحالة</div>
+            <select id="f-status" class="select input">
               <option value="complete">قرأته</option>
               <option value="ongoing">أقرأه الآن</option>
               <option value="cancelled">توقفت</option>
             </select>
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">التصنيف</div>
-            <select id="f-filter" class="input"></select>
+            <div class="field-label">التصنيف</div>
+            <select id="f-filter" class="select input"></select>
           </div>
         </div>
 
         <div style="margin-top:12px;">
-          <div class="muted" style="margin-bottom:6px;">الوصف</div>
+          <div class="field-label">الوصف</div>
           <textarea id="f-desc" class="textarea" placeholder="اكتب وصفًا مختصرًا..."></textarea>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">التاغات (مفصولة بفواصل)</div>
-            <input id="f-tags" class="input" placeholder="ديستوبيا، سياسة، مستقبل">
+            <div class="field-label">التاغات (مفصولة بفواصل)</div>
+            <input id="f-tags" class="input" placeholder="ديستوبيا، سياسة، مستقبل" />
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">الأجواء</div>
-            <input id="f-vibes" class="input" placeholder="مظلم، فلسفي، عميق">
+            <div class="field-label">الأجواء</div>
+            <input id="f-vibes" class="input" placeholder="مظلم، فلسفي، عميق" />
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">التقييم (0–100)</div>
-            <input id="f-bar" class="input code" type="number" min="0" max="100" value="80">
+            <div class="field-label">التقييم (0–100)</div>
+            <input id="f-bar" class="input" type="number" min="0" max="100" value="80" />
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">صورة الغلاف (اختياري)</div>
-            <input id="f-poster" class="input code" placeholder="سيتم جلبها تلقائيًا إن أمكن">
+            <div class="field-label">صورة الغلاف (اختياري)</div>
+            <input id="f-poster" class="input" placeholder="سيتم جلبها تلقائيًا إن أمكن" />
           </div>
         </div>
       </div>
 
       <div class="modal-foot">
-        <button id="classify-btn" class="btn btn-ghost" type="button">✨ تصنيف تلقائي</button>
-        <button id="save-form-btn" class="btn btn-primary" type="button">💾 حفظ</button>
+        <button class="btn btn-ghost" data-close="item-modal-backdrop" type="button">إلغاء</button>
+        <button id="save-item-btn" class="btn btn-primary" type="button">حفظ</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Discover -->
+  <!-- DISCOVER MODAL -->
   <div id="discover-modal-backdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-head">
         <div>
-          <strong>🔍 اكتشف كتبًا بالذكاء الاصطناعي</strong>
-          <div class="muted" id="discover-subtitle">سيتم الإضافة إلى المكتبة العامة</div>
+          <strong>اكتشف بالذكاء الاصطناعي</strong>
+          <div class="helper-note" id="discover-target-label">سيتم الإضافة إلى المكتبة العامة</div>
         </div>
         <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
       </div>
 
       <div class="modal-body">
-        <input type="hidden" id="discover-target" value="public">
+        <input type="hidden" id="discover-target" value="public" />
 
-        <div class="split-2">
+        <div class="form-grid-2">
           <div>
-            <div class="muted" style="margin-bottom:6px;">النوع</div>
-            <select id="d-kind" class="input">
+            <div class="field-label">النوع</div>
+            <select id="d-kind" class="select input">
               <option value="روايات وكتب">روايات وكتب</option>
               <option value="روايات فقط">روايات فقط</option>
               <option value="كتب فكرية فقط">كتب فكرية فقط</option>
             </select>
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">الفترة</div>
-            <select id="d-era" class="input">
+            <div class="field-label">الفترة</div>
+            <select id="d-era" class="select input">
               <option value="حديثة نسبيًا">حديثة نسبيًا</option>
               <option value="كلاسيكية">كلاسيكية</option>
               <option value="مختلطة">مختلطة</option>
@@ -540,10 +764,10 @@
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">الموضوع</div>
-            <select id="d-topic" class="input">
+            <div class="field-label">الموضوع</div>
+            <select id="d-topic" class="select input">
               <option value="خيال علمي">خيال علمي</option>
               <option value="غموض وجريمة">غموض وجريمة</option>
               <option value="رعب نفسي">رعب نفسي</option>
@@ -553,8 +777,8 @@
             </select>
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">الطول</div>
-            <select id="d-length" class="input">
+            <div class="field-label">الطول</div>
+            <select id="d-length" class="select input">
               <option value="قصير">قصير</option>
               <option value="متوسط">متوسط</option>
               <option value="طويل">طويل</option>
@@ -563,15 +787,15 @@
         </div>
 
         <div style="margin-top:12px;">
-          <div class="muted" style="margin-bottom:6px;">تفضيلات إضافية</div>
+          <div class="field-label">تفضيلات إضافية</div>
           <textarea id="d-notes" class="textarea" placeholder="مثال: أريد شيئًا مثل 1984 لكن أقصر، أو رواية فلسفية مظلمة..."></textarea>
         </div>
 
-        <div class="btn-row">
-          <button id="run-discover-btn" class="btn btn-primary" type="button">🚀 ابحث الآن</button>
+        <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
+          <button id="run-discover-btn" class="btn btn-primary" type="button">ابحث الآن</button>
         </div>
 
-        <div id="discover-results" class="discover-grid" style="margin-top:16px;"></div>
+        <div id="discover-results" class="discover-results"></div>
       </div>
     </div>
   </div>
@@ -580,6 +804,7 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+
   <script>
     const {
       toast,
@@ -594,81 +819,129 @@
       dbUpdate,
       dbDelete,
       callAI,
-      parseAIJson,
-      wirePage
+      parseAIJson
     } = window.AppCommon;
 
-    const PAGE_KEY = 'books';
+    const PAGE_KEY = "books";
     const PAGE = getPageConfig(PAGE_KEY);
     const FILTERS = PAGE.filters;
     const FILTER_KEYS = Object.keys(FILTERS);
 
     const state = {
+      currentView: "public",
+      dashboardUnlocked: false,
       publicItems: [],
       privateItems: [],
-      publicFilter: 'all',
-      privateFilter: 'all',
-      publicQuery: '',
-      privateQuery: '',
-      dashboardUnlocked: false,
-      currentView: 'public'
+      publicFilter: "all",
+      privateFilter: "all",
+      publicQuery: "",
+      privateQuery: ""
     };
 
-    const SAMPLE_PUBLIC = [
+    const DEFAULT_PUBLIC = [
       {
-        id: '1',
-        title: '1984',
-        author: 'George Orwell',
-        year: '1949',
-        pages: '328 صفحة',
-        status: 'complete',
-        filter: 'fiction',
-        type: 'fiction',
-        desc: 'رواية ديستوبية كلاسيكية عن المراقبة والسيطرة الفكرية والمجتمع الشمولي.',
-        tags: ['ديستوبيا', 'سياسة', 'رقابة'],
-        vibes: 'مظلم وفلسفي',
+        id: "1",
+        title: "1984",
+        author: "George Orwell",
+        year: "1949",
+        pages: "328 صفحة",
+        status: "complete",
+        filter: "fiction",
+        type: "fiction",
+        desc: "رواية ديستوبية كلاسيكية عن المراقبة والسيطرة الفكرية والمجتمع الشمولي.",
+        tags: ["ديستوبيا", "سياسة", "رقابة"],
+        vibes: "مظلم وفلسفي",
         bar: 98,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       },
       {
-        id: '2',
-        title: 'Dune',
-        author: 'Frank Herbert',
-        year: '1965',
-        pages: '412 صفحة',
-        status: 'complete',
-        filter: 'sci',
-        type: 'sci',
-        desc: 'ملحمة خيال علمي عن السياسة والدين والسلطة والصراع على مورد نادر في عالم صحراوي.',
-        tags: ['خيال علمي', 'سياسة', 'ملحمي'],
-        vibes: 'واسع وعميق',
+        id: "2",
+        title: "Dune",
+        author: "Frank Herbert",
+        year: "1965",
+        pages: "412 صفحة",
+        status: "complete",
+        filter: "sci",
+        type: "sci",
+        desc: "ملحمة خيال علمي عن السياسة والدين والسلطة والصراع على مورد نادر في عالم صحراوي.",
+        tags: ["خيال علمي", "سياسة", "ملحمي"],
+        vibes: "واسع وعميق",
         bar: 96,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       },
       {
-        id: '3',
-        title: 'The Name of the Rose',
-        author: 'Umberto Eco',
-        year: '1980',
-        pages: '512 صفحة',
-        status: 'complete',
-        filter: 'mystery',
-        type: 'mystery',
-        desc: 'رواية غموض تاريخية تدور في دير مع سلسلة جرائم وأسرار فكرية معقدة.',
-        tags: ['غموض', 'تاريخي', 'جريمة'],
-        vibes: 'غامض وثقيل',
+        id: "3",
+        title: "The Name of the Rose",
+        author: "Umberto Eco",
+        year: "1980",
+        pages: "512 صفحة",
+        status: "complete",
+        filter: "mystery",
+        type: "mystery",
+        desc: "رواية غموض تاريخية تدور في دير مع سلسلة جرائم وأسرار فكرية معقدة.",
+        tags: ["غموض", "تاريخي", "جريمة"],
+        vibes: "غامض وثقيل",
         bar: 93,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       }
     ];
 
+    function setPageMeta() {
+      const supa = getSupabaseConfig();
+
+      const dbTable = document.getElementById("page-db-table");
+      const userTable = document.getElementById("page-user-table");
+      const contentType = document.getElementById("page-content-type");
+      const workerUrl = document.getElementById("page-worker-url");
+      const supaStatus = document.getElementById("page-supa-status");
+
+      if (dbTable) dbTable.textContent = PAGE.dbTable;
+      if (userTable) userTable.textContent = PAGE.userTable;
+      if (contentType) contentType.textContent = PAGE.contentType;
+      if (workerUrl) workerUrl.textContent = window.APP_CONFIG.WORKER_URL || "—";
+      if (supaStatus) supaStatus.textContent = supa.connected ? "متصل" : "غير مهيأ";
+    }
+
+    function normalizeItem(item, target = "public") {
+      const out = { ...item };
+
+      out.id = String(out.id || Date.now());
+      out.title = out.title || "بدون عنوان";
+      out.author = out.author || "";
+      out.year = out.year || "";
+      out.pages = out.pages || "";
+      out.status = out.status || "complete";
+      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : "fiction";
+      out.type = out.type || out.filter;
+      out.desc = out.desc || out.desc_ar || "";
+      out.tags = Array.isArray(out.tags)
+        ? out.tags
+        : (typeof out.tags === "string"
+            ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
+            : []);
+      out.vibes = out.vibes || "";
+      out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
+      out.badge_extra = out.badge_extra || "";
+      out.poster = out.poster || "";
+
+      if (target === "private") {
+        out.user_id = out.user_id || ensureUserId();
+      }
+
+      return out;
+    }
+
     function loadLocalPublic() {
-      const raw = storageGet(PAGE.localKey, '');
-      if (!raw) return SAMPLE_PUBLIC.slice();
-      try { return JSON.parse(raw); } catch { return SAMPLE_PUBLIC.slice(); }
+      const raw = storageGet(PAGE.localKey, "");
+      if (!raw) return DEFAULT_PUBLIC.slice();
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return DEFAULT_PUBLIC.slice();
+      }
     }
 
     function saveLocalPublic() {
@@ -676,171 +949,188 @@
     }
 
     function loadLocalPrivate() {
-      const raw = storageGet(PAGE.myLocalKey, '');
+      const raw = storageGet(PAGE.myLocalKey, "");
       if (!raw) return [];
-      try { return JSON.parse(raw); } catch { return []; }
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return [];
+      }
     }
 
     function saveLocalPrivate() {
       storageSet(PAGE.myLocalKey, JSON.stringify(state.privateItems));
     }
 
-    function normalizeItem(item, target = 'public') {
-      const out = { ...item };
-      out.id = String(out.id || Date.now());
-      out.title = out.title || 'بدون عنوان';
-      out.author = out.author || '';
-      out.year = out.year || '';
-      out.pages = out.pages || '';
-      out.status = out.status || 'complete';
-      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : 'fiction';
-      out.type = out.type || out.filter;
-      out.desc = out.desc || out.desc_ar || '';
-      out.tags = Array.isArray(out.tags)
-        ? out.tags
-        : (typeof out.tags === 'string'
-            ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
-            : []);
-      out.vibes = out.vibes || '';
-      out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
-      out.badge_extra = out.badge_extra || '';
-      out.poster = out.poster || '';
-
-      if (target === 'private') {
-        out.user_id = out.user_id || ensureUserId();
-      }
-
-      return out;
-    }
-
     async function loadData() {
       const supa = getSupabaseConfig();
 
-      state.publicItems = loadLocalPublic().map(item => normalizeItem(item, 'public'));
-      state.privateItems = loadLocalPrivate().map(item => normalizeItem(item, 'private'));
+      state.publicItems = loadLocalPublic().map(item => normalizeItem(item, "public"));
+      state.privateItems = loadLocalPrivate().map(item => normalizeItem(item, "private"));
 
       if (supa.connected) {
         try {
-          const publicData = await dbFetch(PAGE.dbTable, 'select=*');
-          if (Array.isArray(publicData)) {
-            state.publicItems = publicData.map(item => normalizeItem(item, 'public'));
+          const publicRows = await dbFetch(PAGE.dbTable, "select=*");
+          if (Array.isArray(publicRows)) {
+            state.publicItems = publicRows.map(item => normalizeItem(item, "public"));
             saveLocalPublic();
           }
-        } catch {
-          toast('ℹ️ تعذر تحميل المكتبة العامة من Supabase — تم استخدام النسخة المحلية');
+        } catch (e) {
+          toast("ℹ️ تعذر تحميل المكتبة العامة من Supabase — تم استخدام النسخة المحلية");
         }
 
         try {
           const userId = ensureUserId();
-          const privateData = await dbFetch(PAGE.userTable, `select=*&user_id=eq.${encodeURIComponent(userId)}`);
-          if (Array.isArray(privateData)) {
-            state.privateItems = privateData.map(item => normalizeItem(item, 'private'));
+          const privateRows = await dbFetch(
+            PAGE.userTable,
+            `select=*&user_id=eq.${encodeURIComponent(userId)}`
+          );
+          if (Array.isArray(privateRows)) {
+            state.privateItems = privateRows.map(item => normalizeItem(item, "private"));
             saveLocalPrivate();
           }
-        } catch {
-          toast('ℹ️ تعذر تحميل قراءاتي من Supabase — تم استخدام النسخة المحلية');
+        } catch (e) {
+          toast("ℹ️ تعذر تحميل قراءاتك الخاصة من Supabase — تم استخدام النسخة المحلية");
         }
       }
     }
 
-    function buildFilters(containerId, activeValue, onClick) {
+    function statusLabel(status) {
+      return ({
+        complete: "قرأته",
+        ongoing: "أقرأه الآن",
+        cancelled: "توقفت"
+      }[status] || status || "—");
+    }
+
+    function buildFilterButtons(containerId, activeKey, onChange) {
       const container = document.getElementById(containerId);
-      container.innerHTML = '';
+      container.innerHTML = "";
 
       Object.entries(FILTERS).forEach(([key, label]) => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn' + (key === activeValue ? ' active' : '');
-        btn.type = 'button';
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "filter-btn" + (key === activeKey ? " active" : "");
         btn.textContent = label;
-        btn.addEventListener('click', () => onClick(key));
+        btn.addEventListener("click", () => onChange(key));
         container.appendChild(btn);
       });
     }
 
-    function filterItems(items, filterKey, query) {
+    function textMatches(item, query) {
+      const q = (query || "").trim().toLowerCase();
+      if (!q) return true;
+
+      const text = [
+        item.title,
+        item.author,
+        item.year,
+        item.pages,
+        item.desc,
+        item.vibes,
+        ...(item.tags || [])
+      ].join(" ").toLowerCase();
+
+      return text.includes(q);
+    }
+
+    function getFilteredItems(target) {
+      const items = target === "public" ? state.publicItems : state.privateItems;
+      const filterKey = target === "public" ? state.publicFilter : state.privateFilter;
+      const query = target === "public" ? state.publicQuery : state.privateQuery;
+
       return items.filter(item => {
-        const matchFilter = filterKey === 'all' || item.filter === filterKey;
-        const q = (query || '').trim().toLowerCase();
-        if (!q) return matchFilter;
-
-        const text = [
-          item.title,
-          item.author,
-          item.desc,
-          item.year,
-          item.pages,
-          item.vibes,
-          ...(item.tags || [])
-        ].join(' ').toLowerCase();
-
-        return matchFilter && text.includes(q);
+        const passFilter = filterKey === "all" || item.filter === filterKey;
+        return passFilter && textMatches(item, query);
       });
     }
 
-    function createCard(item, target) {
-      const card = document.createElement('article');
-      card.className = 'book-card';
+    function createCoverHtml(item) {
+      if (item.poster) {
+        return `
+          <div class="book-cover">
+            <img
+              src="${item.poster}"
+              alt="${item.title}"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="book-cover-fallback">📚</div>
+          </div>
+        `;
+      }
 
-      const poster = item.poster
-        ? `<div class="book-cover"><img src="${item.poster}" alt="${item.title}" onerror="this.closest('.book-cover').innerHTML='<div class=\\'book-fallback\\'>📚</div>'"></div>`
-        : `<div class="book-cover"><div class="book-fallback">📚</div></div>`;
+      return `
+        <div class="book-cover">
+          <div class="book-cover-fallback" style="display:flex;">📚</div>
+        </div>
+      `;
+    }
+
+    function createCard(item, target) {
+      const card = document.createElement("article");
+      card.className = "book-card";
 
       const actions = [];
 
-      if (target === 'public') {
-        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">➕ أضف إلى قراءاتي</button>`);
+      if (target === "public") {
+        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">أضف إلى قراءاتي</button>`);
       }
 
-      if (target === 'private') {
-        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">✏️ تعديل</button>`);
-        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">🗑️ حذف</button>`);
+      if (target === "private") {
+        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">تعديل</button>`);
+        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">حذف</button>`);
       }
 
       card.innerHTML = `
-        ${poster}
+        ${createCoverHtml(item)}
         <div class="book-body">
           <div class="book-title">${item.title}</div>
-          ${item.author ? `<div class="book-author">✍️ ${item.author}</div>` : ''}
-          <div class="book-meta">
-            ${item.year || '—'}
-            ${item.pages ? '• ' + item.pages : ''}
-            ${item.status ? '• ' + statusLabel(item.status) : ''}
+          ${item.author ? `<div class="book-author">✍️ ${item.author}</div>` : ""}
+          <div class="book-sub">
+            ${item.year || "—"}
+            ${item.pages ? " • " + item.pages : ""}
+            ${item.status ? " • " + statusLabel(item.status) : ""}
           </div>
-          <div class="book-desc">${item.desc || 'لا يوجد وصف بعد.'}</div>
-          <div class="tag-row">
+
+          <div class="book-desc">${item.desc || "لا يوجد وصف بعد."}</div>
+
+          <div class="tag-row" style="margin-top:12px;">
             <span class="tag">${FILTERS[item.filter] || item.filter}</span>
-            ${(item.tags || []).slice(0,3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join("")}
           </div>
-          <div class="progress"><span style="width:${item.bar || 0}%"></span></div>
-          <div class="muted" style="margin-top:8px;">التقييم: ${item.bar || 0}% ${item.vibes ? '• ' + item.vibes : ''}</div>
-          <div class="card-actions">${actions.join('')}</div>
+
+          <div class="score-row">
+            <div class="score-bar"><span style="width:${item.bar || 0}%"></span></div>
+          </div>
+
+          <div class="helper-note" style="margin-top:8px;">
+            التقييم: ${item.bar || 0}% ${item.vibes ? "• " + item.vibes : ""}
+          </div>
+
+          <div class="card-actions">${actions.join("")}</div>
         </div>
       `;
 
       return card;
     }
 
-    function statusLabel(status) {
-      return ({ complete: 'قرأته', ongoing: 'أقرأه الآن', cancelled: 'توقفت' }[status] || status || '—');
-    }
-
     function renderPublic() {
-      buildFilters('public-filters', state.publicFilter, key => {
+      buildFilterButtons("public-filters", state.publicFilter, key => {
         state.publicFilter = key;
         renderPublic();
       });
 
-      const items = filterItems(state.publicItems, state.publicFilter, state.publicQuery);
-      const wrap = document.getElementById('public-content');
+      const items = getFilteredItems("public");
+      const grid = document.getElementById("public-grid");
+      const empty = document.getElementById("public-empty");
+
+      grid.innerHTML = "";
 
       if (!items.length) {
-        wrap.innerHTML = '<div class="empty">لا توجد نتائج في المكتبة العامة بهذا الفلتر.</div>';
+        empty.style.display = "block";
       } else {
-        const grid = document.createElement('div');
-        grid.className = 'cards-grid';
-        items.forEach(item => grid.appendChild(createCard(item, 'public')));
-        wrap.innerHTML = '';
-        wrap.appendChild(grid);
+        empty.style.display = "none";
+        items.forEach(item => grid.appendChild(createCard(item, "public")));
       }
 
       bindPublicCardActions();
@@ -848,22 +1138,22 @@
     }
 
     function renderPrivate() {
-      buildFilters('private-filters', state.privateFilter, key => {
+      buildFilterButtons("private-filters", state.privateFilter, key => {
         state.privateFilter = key;
         renderPrivate();
       });
 
-      const items = filterItems(state.privateItems, state.privateFilter, state.privateQuery);
-      const wrap = document.getElementById('private-content');
+      const items = getFilteredItems("private");
+      const grid = document.getElementById("private-grid");
+      const empty = document.getElementById("private-empty");
+
+      grid.innerHTML = "";
 
       if (!items.length) {
-        wrap.innerHTML = '<div class="empty">لا توجد عناصر في قراءاتي بعد.</div>';
+        empty.style.display = "block";
       } else {
-        const grid = document.createElement('div');
-        grid.className = 'cards-grid';
-        items.forEach(item => grid.appendChild(createCard(item, 'private')));
-        wrap.innerHTML = '';
-        wrap.appendChild(grid);
+        empty.style.display = "none";
+        items.forEach(item => grid.appendChild(createCard(item, "private")));
       }
 
       bindPrivateCardActions();
@@ -871,201 +1161,186 @@
     }
 
     function renderDashboard() {
-      const stats = document.getElementById('dash-stats');
+      const statsWrap = document.getElementById("dashboard-stats");
+      const tbody = document.getElementById("dashboard-tbody");
+
       const counts = {};
       state.publicItems.forEach(item => {
         counts[item.filter] = (counts[item.filter] || 0) + 1;
       });
 
-      stats.innerHTML = [
-        `<div class="mini-box"><b>${state.publicItems.length}</b> إجمالي</div>`,
+      statsWrap.innerHTML = [
+        `<div class="mini-stat"><strong>${state.publicItems.length}</strong> إجمالي</div>`,
         ...Object.entries(FILTERS)
-          .filter(([k]) => k !== 'all')
-          .map(([k, v]) => `<div class="mini-box"><b>${counts[k] || 0}</b> ${v}</div>`)
-      ].join('');
-
-      const tbody = document.getElementById('dashboard-table-body');
+          .filter(([key]) => key !== "all")
+          .map(([key, label]) => `<div class="mini-stat"><strong>${counts[key] || 0}</strong> ${label}</div>`)
+      ].join("");
 
       if (!state.publicItems.length) {
-        tbody.innerHTML = '<tr><td colspan="7" class="muted">لا توجد عناصر بعد.</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="7" class="muted">لا توجد عناصر بعد.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = state.publicItems.map((item, index) => `
         <tr>
           <td>${index + 1}</td>
-          <td><strong>${item.title}</strong><div class="muted">${item.desc ? item.desc.slice(0, 70) : '—'}</div></td>
-          <td>${item.author || '—'}</td>
-          <td>${item.year || '—'}</td>
+          <td>
+            <strong>${item.title}</strong>
+            <div class="muted">${item.desc ? item.desc.slice(0, 70) : "—"}</div>
+          </td>
+          <td>${item.author || "—"}</td>
+          <td>${item.year || "—"}</td>
           <td>${FILTERS[item.filter] || item.filter}</td>
           <td>${item.bar || 0}%</td>
           <td>
             <div class="card-actions">
-              <button class="small-btn" data-action="edit-public" data-id="${item.id}">✏️ تعديل</button>
-              <button class="small-btn danger" data-action="delete-public" data-id="${item.id}">🗑️ حذف</button>
+              <button class="small-btn" data-action="edit-public" data-id="${item.id}">تعديل</button>
+              <button class="small-btn danger" data-action="delete-public" data-id="${item.id}">حذف</button>
             </div>
           </td>
         </tr>
-      `).join('');
+      `).join("");
 
       tbody.querySelectorAll('[data-action="edit-public"]').forEach(btn => {
-        btn.addEventListener('click', () => openFormModal('edit', 'public', btn.dataset.id));
+        btn.addEventListener("click", () => openItemModal("edit", "public", btn.dataset.id));
       });
 
       tbody.querySelectorAll('[data-action="delete-public"]').forEach(btn => {
-        btn.addEventListener('click', () => deleteItem('public', btn.dataset.id));
+        btn.addEventListener("click", () => deleteItem("public", btn.dataset.id));
       });
     }
 
-    function refreshStats(filteredCount) {
-      document.getElementById('stat-total').textContent = state.publicItems.length + state.privateItems.length;
-      document.getElementById('stat-public').textContent = state.publicItems.length;
-      document.getElementById('stat-private').textContent = state.privateItems.length;
-      document.getElementById('stat-filtered').textContent = filteredCount;
+    function refreshStats(visibleCount) {
+      document.getElementById("stat-total").textContent = state.publicItems.length + state.privateItems.length;
+      document.getElementById("stat-public").textContent = state.publicItems.length;
+      document.getElementById("stat-private").textContent = state.privateItems.length;
+      document.getElementById("stat-visible").textContent = visibleCount;
     }
 
     function switchView(view) {
       state.currentView = view;
 
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.view === view);
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === view);
       });
 
-      document.querySelectorAll('.section-block').forEach(section => {
-        section.classList.remove('active');
+      document.querySelectorAll(".section-block").forEach(section => {
+        section.classList.remove("active");
       });
 
-      document.getElementById(`view-${view}`).classList.add('active');
+      document.getElementById(`view-${view}`).classList.add("active");
 
-      if (view === 'public') renderPublic();
-      if (view === 'private') renderPrivate();
-      if (view === 'dashboard' && state.dashboardUnlocked) renderDashboard();
-      if (view === 'dashboard' && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
+      if (view === "public") renderPublic();
+      if (view === "private") renderPrivate();
+      if (view === "dashboard" && state.dashboardUnlocked) renderDashboard();
+      if (view === "dashboard" && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
     }
 
     function bindPublicCardActions() {
       document.querySelectorAll('[data-action="clone-private"]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener("click", () => {
           const item = state.publicItems.find(x => String(x.id) === String(btn.dataset.id));
           if (!item) return;
-          addToPrivate({ ...item, id: String(Date.now()) + Math.random().toString(36).slice(2) });
+
+          addToPrivate({
+            ...item,
+            id: String(Date.now()) + Math.random().toString(36).slice(2)
+          });
         });
       });
     }
 
     function bindPrivateCardActions() {
       document.querySelectorAll('[data-action="edit-private"]').forEach(btn => {
-        btn.addEventListener('click', () => openFormModal('edit', 'private', btn.dataset.id));
+        btn.addEventListener("click", () => openItemModal("edit", "private", btn.dataset.id));
       });
 
       document.querySelectorAll('[data-action="delete-private"]').forEach(btn => {
-        btn.addEventListener('click', () => deleteItem('private', btn.dataset.id));
+        btn.addEventListener("click", () => deleteItem("private", btn.dataset.id));
       });
     }
 
     function openModal(id) {
-      document.getElementById(id).classList.add('open');
+      document.getElementById(id).classList.add("open");
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
+      document.getElementById(id).classList.remove("open");
     }
 
     function fillFilterSelect() {
-      const select = document.getElementById('f-filter');
+      const select = document.getElementById("f-filter");
       select.innerHTML = Object.entries(FILTERS)
-        .filter(([k]) => k !== 'all')
-        .map(([k, label]) => `<option value="${k}">${label}</option>`)
-        .join('');
+        .filter(([key]) => key !== "all")
+        .map(([key, label]) => `<option value="${key}">${label}</option>`)
+        .join("");
+    }
+
+    function setFormValues(item) {
+      document.getElementById("form-id").value = item?.id || "";
+      document.getElementById("f-title").value = item?.title || "";
+      document.getElementById("f-author").value = item?.author || "";
+      document.getElementById("f-year").value = item?.year || "";
+      document.getElementById("f-pages").value = item?.pages || "";
+      document.getElementById("f-status").value = item?.status || "complete";
+      document.getElementById("f-filter").value = item?.filter || "fiction";
+      document.getElementById("f-desc").value = item?.desc || "";
+      document.getElementById("f-tags").value = (item?.tags || []).join("، ");
+      document.getElementById("f-vibes").value = item?.vibes || "";
+      document.getElementById("f-bar").value = item?.bar || 80;
+      document.getElementById("f-poster").value = item?.poster || "";
     }
 
     function getFormValues(target) {
       return normalizeItem({
-        id: document.getElementById('form-id').value || String(Date.now()),
-        title: document.getElementById('f-title').value.trim(),
-        author: document.getElementById('f-author').value.trim(),
-        year: document.getElementById('f-year').value.trim(),
-        pages: document.getElementById('f-pages').value.trim(),
-        status: document.getElementById('f-status').value,
-        filter: document.getElementById('f-filter').value,
-        type: document.getElementById('f-filter').value,
-        desc: document.getElementById('f-desc').value.trim(),
-        tags: document.getElementById('f-tags').value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
-        vibes: document.getElementById('f-vibes').value.trim(),
-        bar: parseInt(document.getElementById('f-bar').value || '80', 10),
-        poster: document.getElementById('f-poster').value.trim(),
-        badge_extra: ''
+        id: document.getElementById("form-id").value || String(Date.now()),
+        title: document.getElementById("f-title").value.trim(),
+        author: document.getElementById("f-author").value.trim(),
+        year: document.getElementById("f-year").value.trim(),
+        pages: document.getElementById("f-pages").value.trim(),
+        status: document.getElementById("f-status").value,
+        filter: document.getElementById("f-filter").value,
+        type: document.getElementById("f-filter").value,
+        desc: document.getElementById("f-desc").value.trim(),
+        tags: document.getElementById("f-tags").value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
+        vibes: document.getElementById("f-vibes").value.trim(),
+        bar: parseInt(document.getElementById("f-bar").value || "80", 10),
+        poster: document.getElementById("f-poster").value.trim(),
+        badge_extra: ""
       }, target);
     }
 
-    function setFormValues(item) {
-      document.getElementById('form-id').value = item?.id || '';
-      document.getElementById('f-title').value = item?.title || '';
-      document.getElementById('f-author').value = item?.author || '';
-      document.getElementById('f-year').value = item?.year || '';
-      document.getElementById('f-pages').value = item?.pages || '';
-      document.getElementById('f-status').value = item?.status || 'complete';
-      document.getElementById('f-filter').value = item?.filter || 'fiction';
-      document.getElementById('f-desc').value = item?.desc || '';
-      document.getElementById('f-tags').value = (item?.tags || []).join('، ');
-      document.getElementById('f-vibes').value = item?.vibes || '';
-      document.getElementById('f-bar').value = item?.bar || 80;
-      document.getElementById('f-poster').value = item?.poster || '';
-    }
+    function openItemModal(mode, target, id = "") {
+      document.getElementById("form-mode").value = mode;
+      document.getElementById("form-target").value = target;
 
-    function openFormModal(mode, target, id = '') {
-      document.getElementById('form-mode').value = mode;
-      document.getElementById('form-target').value = target;
-      document.getElementById('form-modal-title').textContent = mode === 'edit' ? 'تعديل كتاب' : 'إضافة كتاب';
-      document.getElementById('form-modal-subtitle').textContent = target === 'public' ? 'المكتبة العامة' : 'قراءاتي';
+      document.getElementById("item-modal-title").textContent =
+        mode === "edit" ? "تعديل كتاب" : "إضافة كتاب";
+      document.getElementById("item-modal-subtitle").textContent =
+        target === "public" ? "المكتبة العامة" : "قراءاتي";
 
       fillFilterSelect();
 
       let item = null;
-      if (mode === 'edit') {
-        item = (target === 'public' ? state.publicItems : state.privateItems).find(x => String(x.id) === String(id));
+      if (mode === "edit") {
+        item = (target === "public" ? state.publicItems : state.privateItems)
+          .find(x => String(x.id) === String(id));
       }
 
       setFormValues(item);
-      openModal('form-modal-backdrop');
+      openModal("item-modal-backdrop");
     }
 
     async function fetchCover(title, author) {
       try {
-        const q = encodeURIComponent(`${title} ${author || ''}`.trim());
-        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1&fields=cover_i`);
-        const data = await res.json();
-        const id = data?.docs?.[0]?.cover_i;
-        return id ? `https://covers.openlibrary.org/b/id/${id}-L.jpg` : '';
-      } catch {
-        return '';
-      }
-    }
-
-    async function saveForm() {
-      const target = document.getElementById('form-target').value;
-      const mode = document.getElementById('form-mode').value;
-      const item = getFormValues(target);
-
-      if (!item.title) {
-        toast('⚠️ العنوان مطلوب');
-        return;
-      }
-
-      if (!item.poster) item.poster = await fetchCover(item.title, item.author);
-
-      if (target === 'public') {
-        await upsertPublic(item, mode === 'edit');
-      } else {
-        await upsertPrivate(item, mode === 'edit');
-      }
-
-      closeModal('form-modal-backdrop');
+        const q = encodeURIComponent(`${title} ${author || ""}`.trim());
+        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=p");
     }
 
     async function upsertPublic(item, isEdit) {
-      const idx = state.publicItems.findIndex(x => String(x.id) === String(item.id));
-      if (idx >= 0) state.publicItems[idx] = item;
+      const index = state.publicItems.findIndex(x => String(x.id) === String(item.id));
+
+      if (index >= 0) state.publicItems[index] = item;
       else state.publicItems.unshift(item);
 
       saveLocalPublic();
@@ -1073,20 +1348,23 @@
       const supa = getSupabaseConfig();
       if (supa.connected) {
         try {
-          if (isEdit) await dbUpdate(PAGE.dbTable, `id=eq.${encodeURIComponent(item.id)}`, item);
-          else await dbInsert(PAGE.dbTable, item);
+          if (isEdit) {
+            await dbUpdate(PAGE.dbTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          } else {
+            await dbInsert(PAGE.dbTable, item);
+          }
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPublic();
       if (state.dashboardUnlocked) renderDashboard();
-      toast('✅ تم حفظ الكتاب في المكتبة العامة');
+      toast("✅ تم حفظ الكتاب في المكتبة العامة");
     }
 
     async function addToPrivate(item) {
-      item = normalizeItem(item, 'private');
+      item = normalizeItem(item, "private");
       state.privateItems.unshift(item);
       saveLocalPrivate();
 
@@ -1095,19 +1373,20 @@
         try {
           await dbInsert(PAGE.userTable, item);
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPrivate();
-      toast('✅ تمت الإضافة إلى قراءاتي');
+      toast("✅ تمت الإضافة إلى قراءاتك الخاصة");
     }
 
     async function upsertPrivate(item, isEdit) {
       item.user_id = ensureUserId();
 
-      const idx = state.privateItems.findIndex(x => String(x.id) === String(item.id));
-      if (idx >= 0) state.privateItems[idx] = item;
+      const index = state.privateItems.findIndex(x => String(x.id) === String(item.id));
+
+      if (index >= 0) state.privateItems[index] = item;
       else state.privateItems.unshift(item);
 
       saveLocalPrivate();
@@ -1115,22 +1394,25 @@
       const supa = getSupabaseConfig();
       if (supa.connected) {
         try {
-          if (isEdit) await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
-          else await dbInsert(PAGE.userTable, item);
+          if (isEdit) {
+            await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          } else {
+            await dbInsert(PAGE.userTable, item);
+          }
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPrivate();
-      toast('✅ تم حفظ الكتاب في قراءاتي');
+      toast("✅ تم حفظ الكتاب في قراءاتك");
     }
 
     async function deleteItem(target, id) {
-      const ok = confirm('هل أنت متأكد من الحذف؟');
+      const ok = confirm("هل أنت متأكد من الحذف؟");
       if (!ok) return;
 
-      if (target === 'public') {
+      if (target === "public") {
         state.publicItems = state.publicItems.filter(x => String(x.id) !== String(id));
         saveLocalPublic();
 
@@ -1139,7 +1421,7 @@
           try {
             await dbDelete(PAGE.dbTable, `id=eq.${encodeURIComponent(id)}`);
           } catch (e) {
-            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+            toast("⚠️ حُذف محليًا لكن Supabase أعاد خطأ: " + e.message);
           }
         }
 
@@ -1154,28 +1436,27 @@
           try {
             await dbDelete(PAGE.userTable, `id=eq.${encodeURIComponent(id)}`);
           } catch (e) {
-            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+            toast("⚠️ حُذف محليًا لكن Supabase أعاد خطأ: " + e.message);
           }
         }
 
         renderPrivate();
       }
 
-      toast('🗑️ تم الحذف');
+      toast("🗑️ تم الحذف");
     }
 
-    async function classifyCurrentForm() {
-      const title = document.getElementById('f-title').value.trim();
-      const author = document.getElementById('f-author').value.trim();
-      const desc = document.getElementById('f-desc').value.trim();
+    async function classifyFormWithAI() {
+      const title = document.getElementById("f-title").value.trim();
+      const author = document.getElementById("f-author").value.trim();
+      const desc = document.getElementById("f-desc").value.trim();
 
       if (!title && !desc) {
-        toast('⚠️ اكتب عنوانًا أو وصفًا أولًا');
+        toast("⚠️ اكتب عنوانًا أو وصفًا أولًا");
         return;
       }
 
-      const prompt =
-`You are a book expert. Return ONLY valid JSON.
+      const prompt = `You are a book expert. Return ONLY valid JSON.
 Title: ${title}
 Author: ${author}
 Description: ${desc}
@@ -1183,74 +1464,78 @@ Return exactly: {"filter":"fiction","tags":["t1","t2","t3"],"vibes":"mood","bar"
 Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
 
       try {
-        toast('🤖 جارٍ التصنيف...');
-        const raw = await callAI(prompt, 'classify');
-        const parsed = parseAIJson(raw, 'object');
-        if (!parsed) throw new Error('تعذر قراءة نتيجة التصنيف');
+        toast("🤖 جارٍ التصنيف...");
+        const raw = await callAI(prompt, "classify");
+        const parsed = parseAIJson(raw, "object");
+
+        if (!parsed) {
+          throw new Error("تعذر قراءة نتيجة التصنيف");
+        }
 
         if (parsed.filter && FILTER_KEYS.includes(parsed.filter)) {
-          document.getElementById('f-filter').value = parsed.filter;
-        }
-        if (parsed.tags) {
-          document.getElementById('f-tags').value = parsed.tags.join('، ');
-        }
-        if (parsed.vibes) {
-          document.getElementById('f-vibes').value = parsed.vibes;
-        }
-        if (parsed.bar) {
-          document.getElementById('f-bar').value = parsed.bar;
-        }
-        if (parsed.desc_ar && !document.getElementById('f-desc').value.trim()) {
-          document.getElementById('f-desc').value = parsed.desc_ar;
+          document.getElementById("f-filter").value = parsed.filter;
         }
 
-        toast('✅ تم التصنيف تلقائيًا');
+        if (parsed.tags) {
+          document.getElementById("f-tags").value = parsed.tags.join("، ");
+        }
+
+        if (parsed.vibes) {
+          document.getElementById("f-vibes").value = parsed.vibes;
+        }
+
+        if (parsed.bar) {
+          document.getElementById("f-bar").value = parsed.bar;
+        }
+
+        if (parsed.desc_ar && !document.getElementById("f-desc").value.trim()) {
+          document.getElementById("f-desc").value = parsed.desc_ar;
+        }
+
+        toast("✅ تم التصنيف تلقائيًا");
       } catch (e) {
-        toast('❌ ' + e.message);
+        toast("❌ " + e.message);
       }
     }
 
     function openDiscoverModal(target) {
-      document.getElementById('discover-target').value = target;
-      document.getElementById('discover-subtitle').textContent =
-        target === 'public'
-          ? 'سيتم الإضافة إلى المكتبة العامة'
-          : 'سيتم الإضافة إلى قراءاتك الخاصة';
+      document.getElementById("discover-target").value = target;
+      document.getElementById("discover-target-label").textContent =
+        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى قراءاتك الخاصة";
 
-      document.getElementById('discover-results').innerHTML = '';
-      openModal('discover-modal-backdrop');
+      document.getElementById("discover-results").innerHTML = "";
+      openModal("discover-modal-backdrop");
     }
 
     async function runDiscover() {
-      const target = document.getElementById('discover-target').value;
-      const kind = document.getElementById('d-kind').value;
-      const era = document.getElementById('d-era').value;
-      const topic = document.getElementById('d-topic').value;
-      const length = document.getElementById('d-length').value;
-      const notes = document.getElementById('d-notes').value.trim();
+      const target = document.getElementById("discover-target").value;
+      const kind = document.getElementById("d-kind").value;
+      const era = document.getElementById("d-era").value;
+      const topic = document.getElementById("d-topic").value;
+      const length = document.getElementById("d-length").value;
+      const notes = document.getElementById("d-notes").value.trim();
 
-      const prompt =
-`Recommend 6 ${kind} for Arabic audience style.
+      const prompt = `Recommend 6 ${kind} for Arabic audience style.
 Topic: ${topic}.
 Era: ${era}.
 Length: ${length}.
-Extra notes: ${notes || 'none'}.
+Extra notes: ${notes || "none"}.
 Return ONLY valid JSON array.
 Each item must be:
 {"title":"","author":"","year":"","pages":"","status":"complete","filter":"fiction","desc":"","tags":[""],"vibes":"","bar":80}`;
 
-      const resultsEl = document.getElementById('discover-results');
-      resultsEl.innerHTML = '<div class="empty">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
+      const resultsWrap = document.getElementById("discover-results");
+      resultsWrap.innerHTML = '<div class="empty-state">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
 
       try {
-        const raw = await callAI(prompt, 'discover');
-        const parsed = parseAIJson(raw, 'array');
+        const raw = await callAI(prompt, "discover");
+        const parsed = parseAIJson(raw, "array");
 
         if (!Array.isArray(parsed) || !parsed.length) {
-          throw new Error('تعذر قراءة النتائج');
+          throw new Error("تعذر قراءة النتائج");
         }
 
-        resultsEl.innerHTML = '';
+        resultsWrap.innerHTML = "";
 
         for (const item of parsed.slice(0, 6)) {
           const normalized = normalizeItem(
@@ -1262,141 +1547,150 @@ Each item must be:
             normalized.poster = await fetchCover(normalized.title, normalized.author);
           }
 
-          const div = document.createElement('div');
-          div.className = 'result-card';
-          div.innerHTML = `
+          const card = document.createElement("div");
+          card.className = "discover-card";
+          card.innerHTML = `
             <strong>${normalized.title}</strong>
-            ${normalized.author ? `<div class="muted">✍️ ${normalized.author}</div>` : ''}
-            <div class="muted">
-              ${normalized.year || '—'}
-              ${normalized.pages ? '• ' + normalized.pages : ''}
+            ${normalized.author ? `<div class="helper-note" style="margin-top:6px;">✍️ ${normalized.author}</div>` : ""}
+            <div class="helper-note" style="margin-top:6px;">
+              ${normalized.year || "—"}
+              ${normalized.pages ? " • " + normalized.pages : ""}
               • ${FILTERS[normalized.filter] || normalized.filter}
             </div>
-            <p style="color:var(--text2); line-height:1.8;">${normalized.desc || 'لا يوجد وصف.'}</p>
-            <div class="tag-row">
-              ${(normalized.tags || []).slice(0,4).map(tag => `<span class="tag">${tag}</span>`).join('')}
+
+            <p style="color:var(--text-2); line-height:1.8; margin-top:8px;">
+              ${normalized.desc || "لا يوجد وصف."}
+            </p>
+
+            <div class="tag-row" style="margin-top:10px;">
+              ${(normalized.tags || []).slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join("")}
             </div>
+
             <div class="card-actions">
-              <button class="small-btn primary">➕ أضف</button>
+              <button class="small-btn primary">أضف</button>
               <button class="small-btn">تجاهل</button>
             </div>
           `;
 
-          const [addBtn, skipBtn] = div.querySelectorAll('button');
+          const [addBtn, skipBtn] = card.querySelectorAll("button");
 
-          addBtn.addEventListener('click', async () => {
-            if (target === 'public') {
+          addBtn.addEventListener("click", async () => {
+            if (target === "public") {
               await upsertPublic(normalized, false);
             } else {
               await addToPrivate(normalized);
             }
+
             addBtn.disabled = true;
-            addBtn.textContent = '✅ تمت الإضافة';
+            addBtn.textContent = "تمت الإضافة";
           });
 
-          skipBtn.addEventListener('click', () => div.remove());
-          resultsEl.appendChild(div);
+          skipBtn.addEventListener("click", () => card.remove());
+
+          resultsWrap.appendChild(card);
         }
       } catch (e) {
-        resultsEl.innerHTML = `<div class="empty">❌ ${e.message}</div>`;
+        resultsWrap.innerHTML = `<div class="empty-state">❌ ${e.message}</div>`;
       }
     }
 
     function unlockDashboard() {
-      const value = document.getElementById('dashboard-password').value;
+      const value = document.getElementById("dashboard-password").value.trim();
+
       if (value !== window.APP_CONFIG.DASHBOARD_PASSWORD) {
-        toast('❌ كلمة المرور غير صحيحة');
+        toast("❌ كلمة المرور غير صحيحة");
         return;
       }
 
       state.dashboardUnlocked = true;
-      document.getElementById('dashboard-locked').style.display = 'none';
-      document.getElementById('dashboard-content').style.display = 'block';
+      document.getElementById("dashboard-locked").style.display = "none";
+      document.getElementById("dashboard-content").style.display = "block";
+
       renderDashboard();
-      toast('✅ تم فتح لوحة التحكم');
+      toast("✅ تم فتح لوحة التحكم");
     }
 
-    function initBindings() {
-      wirePage(PAGE_KEY);
-
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchView(btn.dataset.view));
+    function bindGeneralEvents() {
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => switchView(btn.dataset.view));
       });
 
-      document.getElementById('public-search').addEventListener('input', e => {
+      document.getElementById("hero-go-public").addEventListener("click", () => {
+        switchView("public");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.getElementById("hero-open-discover").addEventListener("click", () => {
+        openDiscoverModal("public");
+      });
+
+      document.getElementById("public-search").addEventListener("input", e => {
         state.publicQuery = e.target.value;
         renderPublic();
       });
 
-      document.getElementById('private-search').addEventListener('input', e => {
+      document.getElementById("private-search").addEventListener("input", e => {
         state.privateQuery = e.target.value;
         renderPrivate();
       });
 
-      document.getElementById('unlock-dashboard-btn').addEventListener('click', unlockDashboard);
+      document.getElementById("public-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
+      document.getElementById("private-discover-btn").addEventListener("click", () => openDiscoverModal("private"));
+      document.getElementById("dashboard-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
 
-      document.getElementById('add-public-btn').addEventListener('click', () => {
-        openFormModal('add', 'public');
+      document.getElementById("private-add-btn").addEventListener("click", () => openItemModal("add", "private"));
+      document.getElementById("dashboard-add-btn").addEventListener("click", () => openItemModal("add", "public"));
+
+      document.getElementById("classify-btn").addEventListener("click", classifyFormWithAI);
+      document.getElementById("save-item-btn").addEventListener("click", saveItem);
+      document.getElementById("run-discover-btn").addEventListener("click", runDiscover);
+
+      document.getElementById("unlock-dashboard-btn").addEventListener("click", unlockDashboard);
+
+      document.querySelectorAll("[data-close]").forEach(btn => {
+        btn.addEventListener("click", () => closeModal(btn.dataset.close));
       });
 
-      document.getElementById('add-private-btn').addEventListener('click', () => {
-        openFormModal('add', 'private');
-      });
-
-      document.getElementById('save-form-btn').addEventListener('click', saveForm);
-      document.getElementById('classify-btn').addEventListener('click', classifyCurrentForm);
-
-      document.getElementById('discover-public-btn').addEventListener('click', () => {
-        openDiscoverModal('public');
-      });
-
-      document.getElementById('discover-private-btn').addEventListener('click', () => {
-        openDiscoverModal('private');
-      });
-
-      document.getElementById('discover-dashboard-btn').addEventListener('click', () => {
-        openDiscoverModal('public');
-      });
-
-      document.getElementById('run-discover-btn').addEventListener('click', runDiscover);
-
-      document.querySelectorAll('[data-close]').forEach(btn => {
-        btn.addEventListener('click', () => closeModal(btn.dataset.close));
-      });
-
-      document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-        backdrop.addEventListener('click', e => {
+      document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", e => {
           if (e.target === backdrop) {
-            backdrop.classList.remove('open');
+            backdrop.classList.remove("open");
           }
         });
       });
 
-      document.getElementById('supabase-form').addEventListener('submit', async e => {
+      document.getElementById("supabase-form").addEventListener("submit", async e => {
         e.preventDefault();
 
         saveSupabaseConfig(
-          document.getElementById('supa-url').value,
-          document.getElementById('supa-key').value
+          document.getElementById("supa-url").value,
+          document.getElementById("supa-key").value
         );
 
-        wirePage(PAGE_KEY);
+        setPageMeta();
         await loadData();
         renderPublic();
         renderPrivate();
         if (state.dashboardUnlocked) renderDashboard();
 
-        toast('✅ تم حفظ إعدادات Supabase وإعادة التحميل');
+        toast("✅ تم حفظ إعدادات Supabase وإعادة التحميل");
       });
     }
 
     async function init() {
-      initBindings();
+      setPageMeta();
+
+      const supa = getSupabaseConfig();
+      if (supa.url) document.getElementById("supa-url").value = supa.url;
+      if (supa.anonKey) document.getElementById("supa-key").value = supa.anonKey;
+
+      bindGeneralEvents();
       await loadData();
       renderPublic();
       renderPrivate();
       refreshStats(state.publicItems.length);
-      toast('✅ تم تحميل Books V2 بنجاح');
+
+      toast("✅ تم تحميل صفحة الكتب والروايات");
     }
 
     init();
