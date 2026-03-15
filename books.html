@@ -15,7 +15,6 @@
   <title>الكتب والروايات | المنصة</title>
 
   <style>
-    /* ===== PAGE LAYOUT ===== */
     .page-topbar {
       padding: 24px 0 10px;
     }
@@ -99,7 +98,6 @@
       width: 100%;
     }
 
-    /* ===== TABS / FILTERS ===== */
     .tab-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.03);
@@ -137,7 +135,6 @@
       border-color: rgba(255,255,255,0.14);
     }
 
-    /* ===== GRID / CARDS ===== */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -271,7 +268,6 @@
       background: rgba(255,255,255,0.03);
     }
 
-    /* ===== DASHBOARD ===== */
     .dashboard-grid {
       display: grid;
       gap: 18px;
@@ -352,7 +348,6 @@
       background: rgba(255,255,255,0.02);
     }
 
-    /* ===== MODAL ===== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -433,7 +428,6 @@
       background: rgba(255,255,255,0.025);
     }
 
-    /* ===== INPUT / SELECT FIX ===== */
     .input,
     .textarea,
     .select,
@@ -453,7 +447,6 @@
       color: #ffffff;
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 980px) {
       .page-topbar {
         padding-top: 18px;
@@ -925,6 +918,7 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+
   <script>
     const {
       toast,
@@ -1011,6 +1005,7 @@
 
     function setPageMeta() {
       const supa = getSupabaseConfig();
+
       const dbTable = document.getElementById("page-db-table");
       const userTable = document.getElementById("page-user-table");
       const contentType = document.getElementById("page-content-type");
@@ -1103,6 +1098,7 @@
             PAGE.userTable,
             `select=*&user_id=eq.${encodeURIComponent(userId)}`
           );
+
           if (Array.isArray(privateRows)) {
             state.privateItems = privateRows.map(item => normalizeItem(item, "private"));
             saveLocalPrivate();
@@ -1446,17 +1442,15 @@
         const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1`);
         const data = await res.json();
 
-        const coverId =
-          data?.docs?.[0]?.cover_i ||
-          data?.docs?.[0]?.cover_edition_key ||
-          "";
+        const doc = data?.docs?.[0];
+        if (!doc) return "";
 
-        if (typeof coverId === "number") {
-          return `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+        if (doc.cover_i) {
+          return `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
         }
 
-        if (typeof coverId === "string" && coverId) {
-          return `https://covers.openlibrary.org/b/olid/${coverId}-L.jpg`;
+        if (doc.cover_edition_key) {
+          return `https://covers.openlibrary.org/b/olid/${doc.cover_edition_key}-L.jpg`;
         }
 
         return "";
@@ -1519,7 +1513,34 @@
       saveLocalPrivate();
 
       const supa = getSupabaseConfig();
-     ble, item);
+      if (supa.connected) {
+        try {
+          await dbInsert(PAGE.userTable, item);
+        } catch (e) {
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
+        }
+      }
+
+      renderPrivate();
+      toast("✅ تمت الإضافة إلى قراءاتي");
+    }
+
+    async function upsertPrivate(item, isEdit) {
+      item.user_id = ensureUserId();
+
+      const index = state.privateItems.findIndex(x => String(x.id) === String(item.id));
+      if (index >= 0) state.privateItems[index] = item;
+      else state.privateItems.unshift(item);
+
+      saveLocalPrivate();
+
+      const supa = getSupabaseConfig();
+      if (supa.connected) {
+        try {
+          if (isEdit) {
+            await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          } else {
+            await dbInsert(PAGE.userTable, item);
           }
         } catch (e) {
           toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
@@ -1802,18 +1823,4 @@ Each item must be:
       setPageMeta();
 
       const supa = getSupabaseConfig();
-      if (supa.url) document.getElementById("supa-url").value = supa.url;
-      if (supa.anonKey) document.getElementById("supa-key").value = supa.anonKey;
-
-      bindGeneralEvents();
-      await loadData();
-      renderPublic();
-      renderPrivate();
-
-      toast("✅ تم تحميل صفحة الكتب والروايات بعد التحسين");
-    }
-
-    init();
-  </script>
-</body>
-</html>
+      if (supa.url) document
