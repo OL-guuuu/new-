@@ -1168,7 +1168,6 @@
 
     function setPageMeta() {
       const supa = getSupabaseConfig();
-
       const dbTable = document.getElementById("page-db-table");
       const userTable = document.getElementById("page-user-table");
       const contentType = document.getElementById("page-content-type");
@@ -2099,14 +2098,43 @@
 
       document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
         backdrop.addEventListener("click", (e) => {
-          if (ementById("supa-key").value = supa.anonKey;
+          if (e.target === backdrop) {
+            backdrop.classList.remove("open");
+          }
+        });
+      });
+
+      document.getElementById("supabase-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        saveSupabaseConfig(
+          document.getElementById("supa-url").value,
+          document.getElementById("supa-key").value
+        );
+
+        setPageMeta();
+        await loadData();
+        renderPublic();
+        renderPrivate();
+        if (state.dashboardUnlocked) renderDashboard();
+
+        toast("✅ تم حفظ إعدادات Supabase وإعادة التحميل");
+      });
+    }
+
+    async function init() {
+      setPageMeta();
+      initDiscoverFields();
+
+      const supa = getSupabaseConfig();
+      if (supa.url) document.getElementById("supa-url").value = supa.url;
+      if (supa.anonKey) document.getElementById("supa-key").value = supa.anonKey;
 
       bindGeneralEvents();
       await loadData();
 
       renderPublic();
       renderPrivate();
-      toast("✅ تم تحميل صفحة الأفلام والمسلسلات");
     }
 
     init();
