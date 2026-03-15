@@ -15,49 +15,35 @@
   <title>الكتب والروايات | المنصة</title>
 
   <style>
-    .page-hero {
-      padding-bottom: 34px;
+    /* ===== PAGE LAYOUT ===== */
+    .page-topbar {
+      padding: 24px 0 10px;
     }
 
-    .page-hero .preview-panel {
-      min-height: 500px;
+    .page-topbar .panel {
+      padding: 14px 16px;
     }
 
-    .preview-section-title {
-      font-size: 0.82rem;
-      color: var(--text-3);
-      margin-bottom: 10px;
-    }
-
-    .preview-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .preview-item {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.025);
-      padding: 12px;
-    }
-
-    .preview-item strong {
-      display: block;
-      font-size: 0.94rem;
-      margin-bottom: 4px;
-    }
-
-    .preview-item p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.7;
-      font-size: 0.88rem;
-    }
-
-    .tabs-wrap {
+    .page-topbar-inner {
       display: flex;
-      justify-content: center;
-      margin-top: 30px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .page-topbar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .page-topbar-tabs {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     .section-block {
@@ -68,26 +54,94 @@
       display: block;
     }
 
-    .toolbar-shell {
-      position: sticky;
-      top: 86px;
-      z-index: 40;
+    .section-body {
+      padding-top: 18px;
+      padding-bottom: 56px;
+    }
+
+    .view-toolbar-shell {
       margin-bottom: 18px;
     }
 
-    .toolbar-card {
+    .view-toolbar {
       padding: 14px;
+      border-radius: 20px;
+    }
+
+    .toolbar-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex: 1 1 520px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1 1 300px;
     }
 
     .search-box {
-      min-width: 260px;
-      max-width: 360px;
+      min-width: 280px;
+      max-width: 380px;
+      width: 100%;
     }
 
+    /* ===== TABS / FILTERS ===== */
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-3);
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: 0.16s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-2);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: 0.16s ease;
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: var(--text);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    /* ===== GRID / CARDS ===== */
     .media-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
 
     .book-card {
@@ -105,8 +159,10 @@
     }
 
     .book-cover {
-      height: 260px;
-      background: linear-gradient(180deg, #101010 0%, #181818 100%);
+      height: 240px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05), transparent 24%),
+        linear-gradient(180deg, #101010 0%, #181818 100%);
       position: relative;
       overflow: hidden;
     }
@@ -132,13 +188,13 @@
     }
 
     .book-body {
-      padding: 16px;
+      padding: 18px;
     }
 
     .book-title {
       font-size: 1.08rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       line-height: 1.45;
     }
 
@@ -146,24 +202,25 @@
       color: var(--text-2);
       font-size: 0.92rem;
       margin-bottom: 8px;
+      font-weight: 700;
     }
 
     .book-sub {
       color: var(--text-3);
       font-size: 0.9rem;
-      margin-bottom: 10px;
-      line-height: 1.8;
+      margin-bottom: 12px;
+      line-height: 1.9;
     }
 
     .book-desc {
       color: var(--text-2);
-      line-height: 1.85;
-      font-size: 0.94rem;
-      min-height: 80px;
+      line-height: 1.95;
+      font-size: 0.95rem;
+      min-height: 86px;
     }
 
     .score-row {
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     .score-bar {
@@ -214,32 +271,7 @@
       background: rgba(255,255,255,0.03);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .stats-box {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.025);
-      padding: 18px;
-      text-align: center;
-    }
-
-    .stats-box strong {
-      display: block;
-      font-size: 1.5rem;
-      margin-bottom: 4px;
-    }
-
-    .stats-box span {
-      color: var(--text-3);
-      font-size: 0.9rem;
-    }
-
+    /* ===== DASHBOARD ===== */
     .dashboard-grid {
       display: grid;
       gap: 18px;
@@ -308,6 +340,7 @@
     .helper-note {
       color: var(--text-3);
       font-size: 0.92rem;
+      line-height: 1.7;
     }
 
     .empty-state {
@@ -319,6 +352,7 @@
       background: rgba(255,255,255,0.02);
     }
 
+    /* ===== MODAL ===== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -335,7 +369,7 @@
     }
 
     .modal {
-      width: min(860px, 100%);
+      width: min(920px, 100%);
       max-height: calc(100vh - 36px);
       overflow: auto;
       border: 1px solid var(--border);
@@ -372,10 +406,18 @@
       cursor: pointer;
     }
 
-    .form-grid-2 {
+    .form-grid-2,
+    .form-grid-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 12px;
+    }
+
+    .form-grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .form-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .discover-results {
@@ -391,28 +433,80 @@
       background: rgba(255,255,255,0.025);
     }
 
+    /* ===== INPUT / SELECT FIX ===== */
+    .input,
+    .textarea,
+    .select,
+    select.input {
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: var(--text-3);
+    }
+
+    select.input option,
+    .select option {
+      background: #101010;
+      color: #ffffff;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 980px) {
-      .page-hero .preview-panel {
-        min-height: auto;
+      .page-topbar {
+        padding-top: 18px;
+      }
+
+      .toolbar-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .toolbar-filters,
+      .toolbar-actions {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+      }
+
+      .search-box {
+        max-width: none;
       }
     }
 
     @media (max-width: 760px) {
-      .toolbar-shell {
-        position: static;
-      }
-
-      .search-box {
-        min-width: 100%;
-        max-width: none;
-      }
-
-      .form-grid-2 {
+      .form-grid-2,
+      .form-grid-3 {
         grid-template-columns: 1fr;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-topbar .panel,
+      .view-toolbar {
+        padding: 12px;
+      }
+
+      .tab-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .page-topbar-tabs,
+      .page-topbar-actions {
+        width: 100%;
+      }
+
+      .page-topbar-actions .btn {
+        width: 100%;
       }
     }
   </style>
 </head>
+
 <body class="page-shell">
   <header class="nav">
     <div class="container nav-inner">
@@ -428,83 +522,16 @@
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero page-hero container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <span class="hero-badge">قسم القراءة • مكتبة عامة • قراءاتك • AI</span>
-          <h1>كتب وروايات<br />بواجهة أنظف،<br />وتجربة أوضح</h1>
-          <p>
-            استكشف المكتبة العامة، أضف ما يعجبك إلى قراءاتك الخاصة، واطلب من الذكاء الاصطناعي
-            اقتراح أعمال جديدة — ضمن صفحة هادئة، مرتبة، وسهلة الاستخدام.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn btn-primary" id="hero-go-public" type="button">ابدأ بالمكتبة العامة</button>
-            <button class="btn btn-secondary" id="hero-open-discover" type="button">اكتشف بالذكاء الاصطناعي</button>
-          </div>
-
-          <div class="stats-grid">
-            <div class="stats-box">
-              <strong id="stat-total">0</strong>
-              <span>إجمالي العناصر</span>
-            </div>
-            <div class="stats-box">
-              <strong id="stat-public">0</strong>
-              <span>المكتبة العامة</span>
-            </div>
-            <div class="stats-box">
-              <strong id="stat-private">0</strong>
-              <span>قراءاتي</span>
-            </div>
-            <div class="stats-box">
-              <strong id="stat-visible">0</strong>
-              <span>النتائج الظاهرة</span>
-            </div>
-          </div>
+    <!-- TOP BAR -->
+    <section class="page-topbar container">
+      <div class="panel page-topbar-inner">
+        <div class="page-topbar-actions">
+          <button class="btn btn-primary" id="top-open-discover" type="button">
+            اكتشف بالذكاء الاصطناعي
+          </button>
         </div>
 
-        <div class="hero-side">
-          <div class="preview-panel">
-            <div class="preview-top">
-              <div>
-                <div class="preview-title">كيف تستخدم هذا القسم؟</div>
-                <div class="preview-sub">رحلة واضحة من التصفح إلى الحفظ</div>
-              </div>
-              <span class="preview-tag">قسم القراءة</span>
-            </div>
-
-            <div class="preview-section-title">تدفق العمل</div>
-            <div class="preview-list">
-              <div class="preview-item">
-                <strong>1) استكشف المكتبة العامة</strong>
-                <p>ابحث داخل الكتب والروايات واستخدم التصنيفات للوصول سريعًا إلى ما يهمك.</p>
-              </div>
-
-              <div class="preview-item">
-                <strong>2) أضف إلى قراءاتك</strong>
-                <p>احفظ الكتب التي تهمك في قائمتك الخاصة وعد إليها لاحقًا بسهولة.</p>
-              </div>
-
-              <div class="preview-item">
-                <strong>3) دع الذكاء الاصطناعي يقترح عليك</strong>
-                <p>استخدم الاكتشاف الذكي أو التصنيف التلقائي لتسريع التنظيم والعثور على اقتراحات مناسبة.</p>
-              </div>
-            </div>
-
-            <div class="preview-section-title" style="margin-top:18px;">نمط الصفحة</div>
-            <div class="preview-list">
-              <div class="preview-item">
-                <strong>واجهة أبسط</strong>
-                <p>تباين أوضح ومسافات أفضل بدل ازدحام العناصر أو كثرة الألوان.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tabs-wrap">
-        <div class="tabs">
+        <div class="page-topbar-tabs">
           <button class="tab-btn active" data-view="public">المكتبة العامة</button>
           <button class="tab-btn" data-view="private">قراءاتي</button>
           <button class="tab-btn" data-view="dashboard">لوحة التحكم</button>
@@ -513,15 +540,18 @@
     </section>
 
     <!-- PUBLIC -->
-    <section id="view-public" class="section-block active section-sm container">
-      <div class="toolbar-shell">
-        <div class="panel toolbar-card">
-          <div class="toolbar">
-            <div class="toolbar-group filters" id="public-filters"></div>
+    <section id="view-public" class="section-block active section-body container">
+      <div class="view-toolbar-shell">
+        <div class="panel view-toolbar">
+          <div class="toolbar-row">
+            <div class="toolbar-filters" id="public-filters"></div>
 
-            <div class="toolbar-group">
-              <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة..." />
-              <button id="public-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
+            <div class="toolbar-actions">
+              <input
+                id="public-search"
+                class="input search-box"
+                placeholder="ابحث في المكتبة العامة..."
+              />
             </div>
           </div>
         </div>
@@ -534,16 +564,19 @@
     </section>
 
     <!-- PRIVATE -->
-    <section id="view-private" class="section-block section-sm container">
-      <div class="toolbar-shell">
-        <div class="panel toolbar-card">
-          <div class="toolbar">
-            <div class="toolbar-group filters" id="private-filters"></div>
+    <section id="view-private" class="section-block section-body container">
+      <div class="view-toolbar-shell">
+        <div class="panel view-toolbar">
+          <div class="toolbar-row">
+            <div class="toolbar-filters" id="private-filters"></div>
 
-            <div class="toolbar-group">
-              <input id="private-search" class="input search-box" placeholder="ابحث في قراءاتي..." />
+            <div class="toolbar-actions">
+              <input
+                id="private-search"
+                class="input search-box"
+                placeholder="ابحث في قراءاتي..."
+              />
               <button id="private-add-btn" class="btn btn-ghost" type="button">إضافة يدويًا</button>
-              <button id="private-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
             </div>
           </div>
         </div>
@@ -556,7 +589,7 @@
     </section>
 
     <!-- DASHBOARD -->
-    <section id="view-dashboard" class="section-block section-sm container">
+    <section id="view-dashboard" class="section-block section-body container">
       <div id="dashboard-locked" class="panel pw-panel" style="padding:20px;">
         <div class="section-head" style="margin-bottom:12px;">
           <h2>لوحة التحكم</h2>
@@ -574,9 +607,8 @@
           <div class="dashboard-top">
             <div class="mini-stats" id="dashboard-stats"></div>
 
-            <div class="toolbar-group">
+            <div class="toolbar-actions" style="justify-content:flex-start;">
               <button id="dashboard-add-btn" class="btn btn-primary" type="button">إضافة كتاب</button>
-              <button id="dashboard-discover-btn" class="btn btn-secondary" type="button">اكتشف بالذكاء الاصطناعي</button>
             </div>
           </div>
 
@@ -649,7 +681,9 @@
           <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
             <div>
               <strong>تصنيف تلقائي</strong>
-              <div class="helper-note">بعد كتابة العنوان والوصف، يمكن للذكاء الاصطناعي مساعدتك في اختيار التصنيف المناسب.</div>
+              <div class="helper-note">
+                بعد كتابة العنوان والوصف، يمكن للذكاء الاصطناعي مساعدتك في اختيار التصنيف المناسب.
+              </div>
             </div>
             <button id="classify-btn" class="btn btn-secondary" type="button">تصنيف الآن</button>
           </div>
@@ -745,26 +779,30 @@
       <div class="modal-body">
         <input type="hidden" id="discover-target" value="public" />
 
-        <div class="form-grid-2">
+        <div class="form-grid-3">
           <div>
             <div class="field-label">النوع</div>
             <select id="d-kind" class="select input">
               <option value="روايات وكتب">روايات وكتب</option>
               <option value="روايات فقط">روايات فقط</option>
               <option value="كتب فكرية فقط">كتب فكرية فقط</option>
+              <option value="كتب غير خيالية">كتب غير خيالية</option>
+              <option value="قصص قصيرة">قصص قصيرة</option>
             </select>
           </div>
+
           <div>
             <div class="field-label">الفترة</div>
             <select id="d-era" class="select input">
               <option value="حديثة نسبيًا">حديثة نسبيًا</option>
               <option value="كلاسيكية">كلاسيكية</option>
               <option value="مختلطة">مختلطة</option>
+              <option value="بعد 2000">بعد 2000</option>
+              <option value="1950-1999">1950-1999</option>
+              <option value="قبل 1950">قبل 1950</option>
             </select>
           </div>
-        </div>
 
-        <div class="form-grid-2" style="margin-top:12px;">
           <div>
             <div class="field-label">الموضوع</div>
             <select id="d-topic" class="select input">
@@ -774,8 +812,14 @@
               <option value="ديستوبيا">ديستوبيا</option>
               <option value="تاريخي">تاريخي</option>
               <option value="فلسفي">فلسفي</option>
+              <option value="سياسي">سياسي</option>
+              <option value="وجودي">وجودي</option>
+              <option value="ملحمي">ملحمي</option>
             </select>
           </div>
+        </div>
+
+        <div class="form-grid-3" style="margin-top:12px;">
           <div>
             <div class="field-label">الطول</div>
             <select id="d-length" class="select input">
@@ -784,11 +828,88 @@
               <option value="طويل">طويل</option>
             </select>
           </div>
+
+          <div>
+            <div class="field-label">النبرة</div>
+            <select id="d-tone" class="select input">
+              <option value="مظلم">مظلم</option>
+              <option value="متوازن">متوازن</option>
+              <option value="عميق">عميق</option>
+              <option value="سريع">سريع</option>
+              <option value="شاعري">شاعري</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="field-label">درجة التعقيد</div>
+            <select id="d-complexity" class="select input">
+              <option value="بسيط">بسيط</option>
+              <option value="متوسط">متوسط</option>
+              <option value="معقد">معقد</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-3" style="margin-top:12px;">
+          <div>
+            <div class="field-label">اللغة</div>
+            <select id="d-language" class="select input">
+              <option value="أي لغة">أي لغة</option>
+              <option value="إنجليزية">إنجليزية</option>
+              <option value="عربية">عربية</option>
+              <option value="مترجم للعربية">مترجم للعربية</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="field-label">نوع الواقعية</div>
+            <select id="d-realism" class="select input">
+              <option value="واقعي">واقعي</option>
+              <option value="شبه واقعي">شبه واقعي</option>
+              <option value="خيالي جدًا">خيالي جدًا</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="field-label">الشعبية</div>
+            <select id="d-popularity" class="select input">
+              <option value="مشهور أو نادر">مشهور أو نادر</option>
+              <option value="مشهور">مشهور</option>
+              <option value="متوسط الشهرة">متوسط الشهرة</option>
+              <option value="نادر">نادر</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:12px;">
+          <div>
+            <div class="field-label">نوع النهاية</div>
+            <select id="d-ending" class="select input">
+              <option value="أي نهاية">أي نهاية</option>
+              <option value="مكتملة">مكتملة</option>
+              <option value="مفتوحة">مفتوحة</option>
+              <option value="صادمة">صادمة</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="field-label">نوع القراءة</div>
+            <select id="d-reading-style" class="select input">
+              <option value="قراءة ممتعة">قراءة ممتعة</option>
+              <option value="قراءة فكرية">قراءة فكرية</option>
+              <option value="قراءة تحليلية">قراءة تحليلية</option>
+              <option value="قراءة خفيفة">قراءة خفيفة</option>
+            </select>
+          </div>
         </div>
 
         <div style="margin-top:12px;">
           <div class="field-label">تفضيلات إضافية</div>
-          <textarea id="d-notes" class="textarea" placeholder="مثال: أريد شيئًا مثل 1984 لكن أقصر، أو رواية فلسفية مظلمة..."></textarea>
+          <textarea
+            id="d-notes"
+            class="textarea"
+            placeholder="مثال: أريد شيئًا مثل 1984 لكن أقصر، أو رواية فلسفية مظلمة بلا رومانسية..."
+          ></textarea>
         </div>
 
         <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
@@ -804,7 +925,6 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
-
   <script>
     const {
       toast,
@@ -891,7 +1011,6 @@
 
     function setPageMeta() {
       const supa = getSupabaseConfig();
-
       const dbTable = document.getElementById("page-db-table");
       const userTable = document.getElementById("page-user-table");
       const contentType = document.getElementById("page-content-type");
@@ -907,7 +1026,6 @@
 
     function normalizeItem(item, target = "public") {
       const out = { ...item };
-
       out.id = String(out.id || Date.now());
       out.title = out.title || "بدون عنوان";
       out.author = out.author || "";
@@ -920,8 +1038,8 @@
       out.tags = Array.isArray(out.tags)
         ? out.tags
         : (typeof out.tags === "string"
-            ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
-            : []);
+          ? out.tags.split(/[،,]/).map(s => s.trim()).filter(Boolean)
+          : []);
       out.vibes = out.vibes || "";
       out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
       out.badge_extra = out.badge_extra || "";
@@ -1071,7 +1189,6 @@
       card.className = "book-card";
 
       const actions = [];
-
       if (target === "public") {
         actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">أضف إلى قراءاتي</button>`);
       }
@@ -1086,6 +1203,7 @@
         <div class="book-body">
           <div class="book-title">${item.title}</div>
           ${item.author ? `<div class="book-author">✍️ ${item.author}</div>` : ""}
+
           <div class="book-sub">
             ${item.year || "—"}
             ${item.pages ? " • " + item.pages : ""}
@@ -1134,7 +1252,6 @@
       }
 
       bindPublicCardActions();
-      refreshStats(items.length);
     }
 
     function renderPrivate() {
@@ -1157,7 +1274,6 @@
       }
 
       bindPrivateCardActions();
-      refreshStats(items.length);
     }
 
     function renderDashboard() {
@@ -1210,13 +1326,6 @@
       });
     }
 
-    function refreshStats(visibleCount) {
-      document.getElementById("stat-total").textContent = state.publicItems.length + state.privateItems.length;
-      document.getElementById("stat-public").textContent = state.publicItems.length;
-      document.getElementById("stat-private").textContent = state.privateItems.length;
-      document.getElementById("stat-visible").textContent = visibleCount;
-    }
-
     function switchView(view) {
       state.currentView = view;
 
@@ -1233,7 +1342,6 @@
       if (view === "public") renderPublic();
       if (view === "private") renderPrivate();
       if (view === "dashboard" && state.dashboardUnlocked) renderDashboard();
-      if (view === "dashboard" && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
     }
 
     function bindPublicCardActions() {
@@ -1302,7 +1410,7 @@
         filter: document.getElementById("f-filter").value,
         type: document.getElementById("f-filter").value,
         desc: document.getElementById("f-desc").value.trim(),
-        tags: document.getElementById("f-tags").value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
+        tags: document.getElementById("f-tags").value.split(/[،,]/).map(s => s.trim()).filter(Boolean),
         vibes: document.getElementById("f-vibes").value.trim(),
         bar: parseInt(document.getElementById("f-bar").value || "80", 10),
         poster: document.getElementById("f-poster").value.trim(),
@@ -1316,6 +1424,7 @@
 
       document.getElementById("item-modal-title").textContent =
         mode === "edit" ? "تعديل كتاب" : "إضافة كتاب";
+
       document.getElementById("item-modal-subtitle").textContent =
         target === "public" ? "المكتبة العامة" : "قراءاتي";
 
@@ -1334,12 +1443,53 @@
     async function fetchCover(title, author) {
       try {
         const q = encodeURIComponent(`${title} ${author || ""}`.trim());
-        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=p");
+        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1`);
+        const data = await res.json();
+
+        const coverId =
+          data?.docs?.[0]?.cover_i ||
+          data?.docs?.[0]?.cover_edition_key ||
+          "";
+
+        if (typeof coverId === "number") {
+          return `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+        }
+
+        if (typeof coverId === "string" && coverId) {
+          return `https://covers.openlibrary.org/b/olid/${coverId}-L.jpg`;
+        }
+
+        return "";
+      } catch {
+        return "";
+      }
+    }
+
+    async function saveItem() {
+      const target = document.getElementById("form-target").value;
+      const mode = document.getElementById("form-mode").value;
+      const item = getFormValues(target);
+
+      if (!item.title) {
+        toast("⚠️ العنوان مطلوب");
+        return;
+      }
+
+      if (!item.poster) {
+        item.poster = await fetchCover(item.title, item.author);
+      }
+
+      if (target === "public") {
+        await upsertPublic(item, mode === "edit");
+      } else {
+        await upsertPrivate(item, mode === "edit");
+      }
+
+      closeModal("item-modal-backdrop");
     }
 
     async function upsertPublic(item, isEdit) {
       const index = state.publicItems.findIndex(x => String(x.id) === String(item.id));
-
       if (index >= 0) state.publicItems[index] = item;
       else state.publicItems.unshift(item);
 
@@ -1369,35 +1519,7 @@
       saveLocalPrivate();
 
       const supa = getSupabaseConfig();
-      if (supa.connected) {
-        try {
-          await dbInsert(PAGE.userTable, item);
-        } catch (e) {
-          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
-        }
-      }
-
-      renderPrivate();
-      toast("✅ تمت الإضافة إلى قراءاتك الخاصة");
-    }
-
-    async function upsertPrivate(item, isEdit) {
-      item.user_id = ensureUserId();
-
-      const index = state.privateItems.findIndex(x => String(x.id) === String(item.id));
-
-      if (index >= 0) state.privateItems[index] = item;
-      else state.privateItems.unshift(item);
-
-      saveLocalPrivate();
-
-      const supa = getSupabaseConfig();
-      if (supa.connected) {
-        try {
-          if (isEdit) {
-            await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
-          } else {
-            await dbInsert(PAGE.userTable, item);
+     ble, item);
           }
         } catch (e) {
           toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
@@ -1405,7 +1527,7 @@
       }
 
       renderPrivate();
-      toast("✅ تم حفظ الكتاب في قراءاتك");
+      toast("✅ تم حفظ الكتاب في قراءاتي");
     }
 
     async function deleteItem(target, id) {
@@ -1501,8 +1623,7 @@ Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
     function openDiscoverModal(target) {
       document.getElementById("discover-target").value = target;
       document.getElementById("discover-target-label").textContent =
-        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى قراءاتك الخاصة";
-
+        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى قراءاتي";
       document.getElementById("discover-results").innerHTML = "";
       openModal("discover-modal-backdrop");
     }
@@ -1513,12 +1634,26 @@ Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
       const era = document.getElementById("d-era").value;
       const topic = document.getElementById("d-topic").value;
       const length = document.getElementById("d-length").value;
+      const tone = document.getElementById("d-tone").value;
+      const complexity = document.getElementById("d-complexity").value;
+      const language = document.getElementById("d-language").value;
+      const realism = document.getElementById("d-realism").value;
+      const popularity = document.getElementById("d-popularity").value;
+      const ending = document.getElementById("d-ending").value;
+      const readingStyle = document.getElementById("d-reading-style").value;
       const notes = document.getElementById("d-notes").value.trim();
 
       const prompt = `Recommend 6 ${kind} for Arabic audience style.
 Topic: ${topic}.
 Era: ${era}.
 Length: ${length}.
+Tone: ${tone}.
+Complexity: ${complexity}.
+Language: ${language}.
+Realism: ${realism}.
+Popularity: ${popularity}.
+Ending: ${ending}.
+Reading style: ${readingStyle}.
 Extra notes: ${notes || "none"}.
 Return ONLY valid JSON array.
 Each item must be:
@@ -1557,15 +1692,12 @@ Each item must be:
               ${normalized.pages ? " • " + normalized.pages : ""}
               • ${FILTERS[normalized.filter] || normalized.filter}
             </div>
-
             <p style="color:var(--text-2); line-height:1.8; margin-top:8px;">
               ${normalized.desc || "لا يوجد وصف."}
             </p>
-
             <div class="tag-row" style="margin-top:10px;">
               ${(normalized.tags || []).slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join("")}
             </div>
-
             <div class="card-actions">
               <button class="small-btn primary">أضف</button>
               <button class="small-btn">تجاهل</button>
@@ -1586,7 +1718,6 @@ Each item must be:
           });
 
           skipBtn.addEventListener("click", () => card.remove());
-
           resultsWrap.appendChild(card);
         }
       } catch (e) {
@@ -1605,7 +1736,6 @@ Each item must be:
       state.dashboardUnlocked = true;
       document.getElementById("dashboard-locked").style.display = "none";
       document.getElementById("dashboard-content").style.display = "block";
-
       renderDashboard();
       toast("✅ تم فتح لوحة التحكم");
     }
@@ -1615,13 +1745,9 @@ Each item must be:
         btn.addEventListener("click", () => switchView(btn.dataset.view));
       });
 
-      document.getElementById("hero-go-public").addEventListener("click", () => {
-        switchView("public");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      document.getElementById("hero-open-discover").addEventListener("click", () => {
-        openDiscoverModal("public");
+      document.getElementById("top-open-discover").addEventListener("click", () => {
+        const target = state.currentView === "private" ? "private" : "public";
+        openDiscoverModal(target);
       });
 
       document.getElementById("public-search").addEventListener("input", e => {
@@ -1634,17 +1760,12 @@ Each item must be:
         renderPrivate();
       });
 
-      document.getElementById("public-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
-      document.getElementById("private-discover-btn").addEventListener("click", () => openDiscoverModal("private"));
-      document.getElementById("dashboard-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
-
       document.getElementById("private-add-btn").addEventListener("click", () => openItemModal("add", "private"));
       document.getElementById("dashboard-add-btn").addEventListener("click", () => openItemModal("add", "public"));
 
       document.getElementById("classify-btn").addEventListener("click", classifyFormWithAI);
       document.getElementById("save-item-btn").addEventListener("click", saveItem);
       document.getElementById("run-discover-btn").addEventListener("click", runDiscover);
-
       document.getElementById("unlock-dashboard-btn").addEventListener("click", unlockDashboard);
 
       document.querySelectorAll("[data-close]").forEach(btn => {
@@ -1688,9 +1809,8 @@ Each item must be:
       await loadData();
       renderPublic();
       renderPrivate();
-      refreshStats(state.publicItems.length);
 
-      toast("✅ تم تحميل صفحة الكتب والروايات");
+      toast("✅ تم تحميل صفحة الكتب والروايات بعد التحسين");
     }
 
     init();
