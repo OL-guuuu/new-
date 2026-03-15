@@ -10,12 +10,11 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
     rel="stylesheet"
   />
-
   <link rel="stylesheet" href="assets/css/style.css" />
-  <title>الكتب والروايات | المنصة</title>
+
+  <title>البودكاست | المنصة</title>
 
   <style>
-    /* ===== TOP BAR ===== */
     .page-topbar {
       padding: 24px 0 10px;
     }
@@ -46,7 +45,6 @@
       flex-wrap: wrap;
     }
 
-    /* ===== VIEWS ===== */
     .section-block {
       display: none;
     }
@@ -60,7 +58,6 @@
       padding-bottom: 56px;
     }
 
-    /* ===== TOOLBAR ===== */
     .view-toolbar-shell {
       margin-bottom: 18px;
     }
@@ -101,7 +98,6 @@
       width: 100%;
     }
 
-    /* ===== FILTER / TABS ===== */
     .tab-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.03);
@@ -139,7 +135,6 @@
       border-color: rgba(255,255,255,0.14);
     }
 
-    /* ===== BOOK CARDS ===== */
     .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -147,7 +142,7 @@
       align-items: stretch;
     }
 
-    .book-card {
+    .pod-card {
       border: 1px solid var(--border);
       border-radius: 24px;
       overflow: hidden;
@@ -159,12 +154,12 @@
       min-height: 100%;
     }
 
-    .book-card:hover {
+    .pod-card:hover {
       transform: translateY(-3px);
       border-color: rgba(255,255,255,0.12);
     }
 
-    .book-cover {
+    .pod-cover {
       height: 260px;
       background:
         radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05), transparent 24%),
@@ -173,14 +168,14 @@
       overflow: hidden;
     }
 
-    .book-cover img {
+    .pod-cover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .book-cover-fallback {
+    .pod-cover-fallback {
       position: absolute;
       inset: 0;
       display: none;
@@ -193,7 +188,7 @@
         linear-gradient(180deg, #101010 0%, #151515 100%);
     }
 
-    .book-body {
+    .pod-body {
       padding: 18px 18px 20px;
       display: flex;
       flex-direction: column;
@@ -201,14 +196,14 @@
       flex: 1;
     }
 
-    .book-title {
+    .pod-title {
       font-size: 1.18rem;
       font-weight: 800;
       line-height: 1.5;
       margin: 0;
     }
 
-    .book-author {
+    .pod-host {
       color: var(--text-2);
       font-size: 0.95rem;
       font-weight: 700;
@@ -216,14 +211,14 @@
       line-height: 1.6;
     }
 
-    .book-sub {
+    .pod-sub {
       color: var(--text-3);
       font-size: 0.92rem;
       line-height: 1.85;
       margin: 0;
     }
 
-    .book-desc {
+    .pod-desc {
       color: var(--text-2);
       line-height: 1.9;
       font-size: 0.95rem;
@@ -307,7 +302,6 @@
       background: rgba(255,255,255,0.03);
     }
 
-    /* ===== DASHBOARD ===== */
     .dashboard-grid {
       display: grid;
       gap: 18px;
@@ -388,7 +382,6 @@
       background: rgba(255,255,255,0.02);
     }
 
-    /* ===== MODAL ===== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -549,8 +542,8 @@
       <nav class="nav-links">
         <a class="nav-link" href="index.html">الرئيسية</a>
         <a class="nav-link" href="movies.html">الأفلام والمسلسلات</a>
-        <a class="nav-link active" href="books.html">الكتب والروايات</a>
-        <a class="nav-link" href="podcasts.html">البودكاست</a>
+        <a class="nav-link" href="books.html">الكتب والروايات</a>
+        <a class="nav-link active" href="podcasts.html">البودكاست</a>
       </nav>
     </div>
   </header>
@@ -567,7 +560,7 @@
 
         <div class="page-topbar-tabs">
           <button class="tab-btn active" data-view="public">المكتبة العامة</button>
-          <button class="tab-btn" data-view="private">قراءاتي</button>
+          <button class="tab-btn" data-view="private">قائمتي</button>
           <button class="tab-btn" data-view="dashboard">لوحة التحكم</button>
         </div>
       </div>
@@ -608,7 +601,7 @@
               <input
                 id="private-search"
                 class="input search-box"
-                placeholder="ابحث في قراءاتي..."
+                placeholder="ابحث في قائمتي..."
               />
               <button id="private-add-btn" class="btn btn-ghost" type="button">إضافة يدويًا</button>
             </div>
@@ -618,7 +611,7 @@
 
       <div id="private-grid" class="media-grid"></div>
       <div id="private-empty" class="empty-state" style="display:none;">
-        لا توجد عناصر في قراءاتي بعد.
+        لا توجد عناصر في قائمتك الخاصة بعد.
       </div>
     </section>
 
@@ -642,14 +635,14 @@
             <div class="mini-stats" id="dashboard-stats"></div>
 
             <div class="toolbar-actions" style="justify-content:flex-start;">
-              <button id="dashboard-add-btn" class="btn btn-primary" type="button">إضافة كتاب</button>
+              <button id="dashboard-add-btn" class="btn btn-primary" type="button">إضافة بودكاست</button>
             </div>
           </div>
 
           <div class="panel" style="padding:20px;">
             <div class="section-head" style="margin-bottom:14px;">
               <h2 style="font-size:1.25rem;">إعدادات Supabase</h2>
-              <p>يمكنك تفعيل الحفظ السحابي للمكتبة العامة ولقراءاتك الخاصة من هنا.</p>
+              <p>يمكنك تفعيل الحفظ السحابي للمكتبة العامة ولقائمتك الخاصة من هنا.</p>
             </div>
 
             <form id="supabase-form">
@@ -684,7 +677,7 @@
                 <tr>
                   <th>#</th>
                   <th>العنوان</th>
-                  <th>المؤلف</th>
+                  <th>المضيف</th>
                   <th>السنة</th>
                   <th>التصنيف</th>
                   <th>التقييم</th>
@@ -704,7 +697,7 @@
     <div class="modal">
       <div class="modal-head">
         <div>
-          <strong id="item-modal-title">إضافة كتاب</strong>
+          <strong id="item-modal-title">إضافة بودكاست</strong>
           <div class="helper-note" id="item-modal-subtitle">المكتبة العامة</div>
         </div>
         <button class="close-btn" data-close="item-modal-backdrop" type="button">✕</button>
@@ -730,22 +723,22 @@
         <div class="form-grid-2">
           <div>
             <div class="field-label">العنوان *</div>
-            <input id="f-title" class="input" placeholder="مثال: 1984" />
+            <input id="f-title" class="input" placeholder="مثال: Huberman Lab" />
           </div>
           <div>
-            <div class="field-label">المؤلف</div>
-            <input id="f-author" class="input" placeholder="مثال: George Orwell" />
+            <div class="field-label">المضيف</div>
+            <input id="f-host" class="input" placeholder="مثال: Andrew Huberman" />
           </div>
         </div>
 
         <div class="form-grid-2" style="margin-top:12px;">
           <div>
             <div class="field-label">السنة</div>
-            <input id="f-year" class="input" placeholder="1949" />
+            <input id="f-year" class="input" placeholder="2021" />
           </div>
           <div>
-            <div class="field-label">عدد الصفحات</div>
-            <input id="f-pages" class="input" placeholder="328 صفحة" />
+            <div class="field-label">عدد الحلقات</div>
+            <input id="f-episodes" class="input" placeholder="100+ حلقة" />
           </div>
         </div>
 
@@ -753,8 +746,8 @@
           <div>
             <div class="field-label">الحالة</div>
             <select id="f-status" class="select input">
-              <option value="complete">قرأته</option>
-              <option value="ongoing">أقرأه الآن</option>
+              <option value="complete">استمعت إليه</option>
+              <option value="ongoing">أتابعه</option>
               <option value="cancelled">توقفت</option>
             </select>
           </div>
@@ -772,11 +765,11 @@
         <div class="form-grid-2" style="margin-top:12px;">
           <div>
             <div class="field-label">التاغات (مفصولة بفواصل)</div>
-            <input id="f-tags" class="input" placeholder="ديستوبيا، سياسة، مستقبل" />
+            <input id="f-tags" class="input" placeholder="علوم، تقنية، مقابلات" />
           </div>
           <div>
             <div class="field-label">الأجواء</div>
-            <input id="f-vibes" class="input" placeholder="مظلم، فلسفي، عميق" />
+            <input id="f-vibes" class="input" placeholder="هادئ، عميق، تحليلي" />
           </div>
         </div>
 
@@ -788,6 +781,17 @@
           <div>
             <div class="field-label">صورة الغلاف (اختياري)</div>
             <input id="f-poster" class="input" placeholder="سيتم جلبها تلقائيًا إن أمكن" />
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:12px;">
+          <div>
+            <div class="field-label">المنصة</div>
+            <input id="f-platform" class="input" placeholder="Spotify / Apple Podcasts" />
+          </div>
+          <div>
+            <div class="field-label">اللغة</div>
+            <input id="f-language" class="input" placeholder="Arabic / English" />
           </div>
         </div>
       </div>
@@ -817,11 +821,10 @@
           <div>
             <div class="field-label">النوع</div>
             <select id="d-kind" class="select input">
-              <option value="روايات وكتب">روايات وكتب</option>
-              <option value="روايات فقط">روايات فقط</option>
-              <option value="كتب فكرية فقط">كتب فكرية فقط</option>
-              <option value="كتب غير خيالية">كتب غير خيالية</option>
-              <option value="قصص قصيرة">قصص قصيرة</option>
+              <option value="بودكاستات متنوعة">بودكاستات متنوعة</option>
+              <option value="بودكاستات حوارية">بودكاستات حوارية</option>
+              <option value="بودكاستات تعليمية">بودكاستات تعليمية</option>
+              <option value="بودكاستات تحليلية">بودكاستات تحليلية</option>
             </select>
           </div>
 
@@ -831,24 +834,19 @@
               <option value="حديثة نسبيًا">حديثة نسبيًا</option>
               <option value="كلاسيكية">كلاسيكية</option>
               <option value="مختلطة">مختلطة</option>
-              <option value="بعد 2000">بعد 2000</option>
-              <option value="1950-1999">1950-1999</option>
-              <option value="قبل 1950">قبل 1950</option>
+              <option value="بعد 2020">بعد 2020</option>
             </select>
           </div>
 
           <div>
             <div class="field-label">الموضوع</div>
             <select id="d-topic" class="select input">
-              <option value="خيال علمي">خيال علمي</option>
-              <option value="غموض وجريمة">غموض وجريمة</option>
-              <option value="رعب نفسي">رعب نفسي</option>
-              <option value="ديستوبيا">ديستوبيا</option>
-              <option value="تاريخي">تاريخي</option>
-              <option value="فلسفي">فلسفي</option>
-              <option value="سياسي">سياسي</option>
-              <option value="وجودي">وجودي</option>
-              <option value="ملحمي">ملحمي</option>
+              <option value="علوم">علوم</option>
+              <option value="تكنولوجيا">تكنولوجيا</option>
+              <option value="تاريخ">تاريخ</option>
+              <option value="ثقافة وفلسفة">ثقافة وفلسفة</option>
+              <option value="أعمال وريادة">أعمال وريادة</option>
+              <option value="جريمة حقيقية">جريمة حقيقية</option>
             </select>
           </div>
         </div>
@@ -864,75 +862,21 @@
           </div>
 
           <div>
+            <div class="field-label">الإيقاع</div>
+            <select id="d-pace" class="select input">
+              <option value="هادئ">هادئ</option>
+              <option value="متوازن">متوازن</option>
+              <option value="سريع">سريع</option>
+            </select>
+          </div>
+
+          <div>
             <div class="field-label">النبرة</div>
             <select id="d-tone" class="select input">
-              <option value="مظلم">مظلم</option>
-              <option value="متوازن">متوازن</option>
               <option value="عميق">عميق</option>
-              <option value="سريع">سريع</option>
-              <option value="شاعري">شاعري</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="field-label">درجة التعقيد</div>
-            <select id="d-complexity" class="select input">
-              <option value="بسيط">بسيط</option>
-              <option value="متوسط">متوسط</option>
-              <option value="معقد">معقد</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-grid-3" style="margin-top:12px;">
-          <div>
-            <div class="field-label">اللغة</div>
-            <select id="d-language" class="select input">
-              <option value="أي لغة">أي لغة</option>
-              <option value="إنجليزية">إنجليزية</option>
-              <option value="عربية">عربية</option>
-              <option value="مترجم للعربية">مترجم للعربية</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="field-label">نوع الواقعية</div>
-            <select id="d-realism" class="select input">
-              <option value="واقعي">واقعي</option>
-              <option value="شبه واقعي">شبه واقعي</option>
-              <option value="خيالي جدًا">خيالي جدًا</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="field-label">الشعبية</div>
-            <select id="d-popularity" class="select input">
-              <option value="مشهور أو نادر">مشهور أو نادر</option>
-              <option value="مشهور">مشهور</option>
-              <option value="متوسط الشهرة">متوسط الشهرة</option>
-              <option value="نادر">نادر</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-grid-2" style="margin-top:12px;">
-          <div>
-            <div class="field-label">نوع النهاية</div>
-            <select id="d-ending" class="select input">
-              <option value="أي نهاية">أي نهاية</option>
-              <option value="مكتملة">مكتملة</option>
-              <option value="مفتوحة">مفتوحة</option>
-              <option value="صادمة">صادمة</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="field-label">نوع القراءة</div>
-            <select id="d-reading-style" class="select input">
-              <option value="قراءة ممتعة">قراءة ممتعة</option>
-              <option value="قراءة فكرية">قراءة فكرية</option>
-              <option value="قراءة تحليلية">قراءة تحليلية</option>
-              <option value="قراءة خفيفة">قراءة خفيفة</option>
+              <option value="مشوق">مشوق</option>
+              <option value="هادئ">هادئ</option>
+              <option value="تحليلي">تحليلي</option>
             </select>
           </div>
         </div>
@@ -942,7 +886,7 @@
           <textarea
             id="d-notes"
             class="textarea"
-            placeholder="مثال: أريد شيئًا مثل 1984 لكن أقصر، أو رواية فلسفية مظلمة بلا رومانسية..."
+            placeholder="مثال: أريد بودكاستات شبيهة بـ Huberman Lab أو بودكاست تاريخي عربي هادئ..."
           ></textarea>
         </div>
 
@@ -977,7 +921,7 @@
       parseAIJson
     } = window.AppCommon;
 
-    const PAGE_KEY = "books";
+    const PAGE_KEY = "podcasts";
     const PAGE = getPageConfig(PAGE_KEY);
     const FILTERS = PAGE.filters;
     const FILTER_KEYS = Object.keys(FILTERS);
@@ -996,51 +940,57 @@
     const DEFAULT_PUBLIC = [
       {
         id: "1",
-        title: "1984",
-        author: "George Orwell",
-        year: "1949",
-        pages: "328 صفحة",
-        status: "complete",
-        filter: "fiction",
-        type: "fiction",
-        desc: "رواية ديستوبية كلاسيكية عن المراقبة والسيطرة الفكرية والمجتمع الشمولي.",
-        tags: ["ديستوبيا", "سياسة", "رقابة"],
-        vibes: "مظلم وفلسفي",
-        bar: 98,
+        title: "Huberman Lab",
+        host: "Andrew Huberman",
+        year: "2021",
+        episodes: "100+ حلقة",
+        status: "ongoing",
+        filter: "sci",
+        type: "sci",
+        desc: "بودكاست علمي يشرح الأعصاب والصحة والأداء الذهني بأسلوب مبسط وعميق.",
+        tags: ["علوم", "صحة", "أعصاب"],
+        vibes: "تحليلي وهادئ",
+        bar: 97,
         badge_extra: "",
-        poster: ""
+        poster: "",
+        platform: "Spotify",
+        language: "English"
       },
       {
         id: "2",
-        title: "Dune",
-        author: "Frank Herbert",
-        year: "1965",
-        pages: "412 صفحة",
+        title: "Hardcore History",
+        host: "Dan Carlin",
+        year: "2006",
+        episodes: "عشرات الحلقات",
         status: "complete",
-        filter: "sci",
-        type: "sci",
-        desc: "ملحمة خيال علمي عن السياسة والدين والسلطة والصراع على مورد نادر في عالم صحراوي.",
-        tags: ["خيال علمي", "سياسة", "ملحمي"],
-        vibes: "واسع وعميق",
+        filter: "history",
+        type: "history",
+        desc: "بودكاست تاريخي شهير يقدم سردًا ملحميًا لأحداث وشخصيات تاريخية كبرى.",
+        tags: ["تاريخ", "سرد", "ملحمي"],
+        vibes: "غني وعميق",
         bar: 96,
         badge_extra: "",
-        poster: ""
+        poster: "",
+        platform: "Apple Podcasts",
+        language: "English"
       },
       {
         id: "3",
-        title: "The Name of the Rose",
-        author: "Umberto Eco",
-        year: "1980",
-        pages: "512 صفحة",
-        status: "complete",
-        filter: "mystery",
-        type: "mystery",
-        desc: "رواية غموض تاريخية تدور في دير مع سلسلة جرائم وأسرار فكرية معقدة.",
-        tags: ["غموض", "تاريخي", "جريمة"],
-        vibes: "غامض وثقيل",
-        bar: 93,
+        title: "Darknet Diaries",
+        host: "Jack Rhysider",
+        year: "2017",
+        episodes: "100+ حلقة",
+        status: "ongoing",
+        filter: "horror",
+        type: "horror",
+        desc: "قصص حقيقية من عالم الاختراق والأمن السيبراني والجريمة الرقمية.",
+        tags: ["أمن سيبراني", "تقنية", "قصص حقيقية"],
+        vibes: "مشوق ومظلم",
+        bar: 95,
         badge_extra: "",
-        poster: ""
+        poster: "",
+        platform: "Spotify",
+        language: "English"
       }
     ];
 
@@ -1062,13 +1012,14 @@
 
     function normalizeItem(item, target = "public") {
       const out = { ...item };
+
       out.id = String(out.id || Date.now());
       out.title = out.title || "بدون عنوان";
-      out.author = out.author || "";
+      out.host = out.host || "";
       out.year = out.year || "";
-      out.pages = out.pages || "";
+      out.episodes = out.episodes || "";
       out.status = out.status || "complete";
-      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : "fiction";
+      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : "sci";
       out.type = out.type || out.filter;
       out.desc = out.desc || out.desc_ar || "";
       out.tags = Array.isArray(out.tags)
@@ -1080,6 +1031,8 @@
       out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
       out.badge_extra = out.badge_extra || "";
       out.poster = out.poster || "";
+      out.platform = out.platform || "";
+      out.language = out.language || "";
 
       if (target === "private") {
         out.user_id = out.user_id || ensureUserId();
@@ -1091,6 +1044,7 @@
     function loadLocalPublic() {
       const raw = storageGet(PAGE.localKey, "");
       if (!raw) return DEFAULT_PUBLIC.slice();
+
       try {
         return JSON.parse(raw);
       } catch {
@@ -1105,6 +1059,7 @@
     function loadLocalPrivate() {
       const raw = storageGet(PAGE.myLocalKey, "");
       if (!raw) return [];
+
       try {
         return JSON.parse(raw);
       } catch {
@@ -1145,15 +1100,15 @@
             saveLocalPrivate();
           }
         } catch (e) {
-          toast("ℹ️ تعذر تحميل قراءاتك الخاصة من Supabase — تم استخدام النسخة المحلية");
+          toast("ℹ️ تعذر تحميل قائمتك الخاصة من Supabase — تم استخدام النسخة المحلية");
         }
       }
     }
 
     function statusLabel(status) {
       return ({
-        complete: "قرأته",
-        ongoing: "أقرأه الآن",
+        complete: "استمعت إليه",
+        ongoing: "أتابعه",
         cancelled: "توقفت"
       }[status] || status || "—");
     }
@@ -1178,10 +1133,12 @@
 
       const text = [
         item.title,
-        item.author,
+        item.host,
         item.year,
-        item.pages,
+        item.episodes,
         item.desc,
+        item.platform,
+        item.language,
         item.vibes,
         ...(item.tags || [])
       ].join(" ").toLowerCase();
@@ -1203,88 +1160,67 @@
     function createCoverHtml(item) {
       if (item.poster) {
         return `
-          <div class="book-cover">
+          <div class="pod-cover">
             <img
               src="${item.poster}"
               alt="${item.title}"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
-            <div class="book-cover-fallback">📚</div>
+            <div class="pod-cover-fallback">🎙️</div>
           </div>
         `;
       }
 
       return `
-        <div class="book-cover">
-          <div class="book-cover-fallback" style="display:flex;">📚</div>
+        <div class="pod-cover">
+          <div class="pod-cover-fallback" style="display:flex;">🎙️</div>
         </div>
       `;
     }
 
     function createCard(item, target) {
       const card = document.createElement("article");
-      card.className = "book-card";
+      card.className = "pod-card";
 
       const actions = [];
-
       if (target === "public") {
-        actions.push(`
-          <button class="small-btn primary" data-action="clone-private" data-id="${item.id}">
-            أضف إلى قراءاتي
-          </button>
-        `);
+        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">أضف إلى قائمتي</button>`);
       }
 
       if (target === "private") {
-        actions.push(`
-          <button class="small-btn" data-action="edit-private" data-id="${item.id}">
-            تعديل
-          </button>
-        `);
-
-        actions.push(`
-          <button class="small-btn danger" data-action="delete-private" data-id="${item.id}">
-            حذف
-          </button>
-        `);
+        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">تعديل</button>`);
+        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">حذف</button>`);
       }
 
       card.innerHTML = `
         ${createCoverHtml(item)}
-        <div class="book-body">
-          <div class="book-title">${item.title}</div>
+        <div class="pod-body">
+          <div class="pod-title">${item.title}</div>
+          ${item.host ? `<div class="pod-host">🎙️ ${item.host}</div>` : ""}
 
-          ${item.author ? `<div class="book-author">✍️ ${item.author}</div>` : ""}
-
-          <div class="book-sub">
+          <div class="pod-sub">
             ${item.year || "—"}
-            ${item.pages ? " • " + item.pages : ""}
+            ${item.episodes ? " • " + item.episodes : ""}
+            ${item.platform ? " • " + item.platform : ""}
             ${item.status ? " • " + statusLabel(item.status) : ""}
           </div>
 
-          <div class="book-desc">${item.desc || "لا يوجد وصف بعد."}</div>
+          <div class="pod-desc">${item.desc || "لا يوجد وصف بعد."}</div>
 
-          <div class="tag-row" style="margin-top:4px;">
+          <div class="tag-row" style="margin-top:12px;">
             <span class="tag">${FILTERS[item.filter] || item.filter}</span>
-            ${(item.tags || [])
-              .slice(0, 3)
-              .map(tag => `<span class="tag">${tag}</span>`)
-              .join("")}
+            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join("")}
           </div>
 
           <div class="score-row">
-            <div class="score-bar">
-              <span style="width:${item.bar || 0}%"></span>
-            </div>
+            <div class="score-bar"><span style="width:${item.bar || 0}%"></span></div>
           </div>
 
-          <div class="helper-note" style="margin-top:2px;">
-            التقييم: ${item.bar || 0}% ${item.vibes ? "• " + item.vibes : ""}
+          <div class="helper-note" style="margin-top:8px;">
+            التقييم: ${item.bar || 0}% ${item.vibes ? "• " + item.vibes : ""} ${item.language ? "• " + item.language : ""}
           </div>
 
-          <div class="card-actions">
-            ${actions.join("")}
-          </div>
+          <div class="card-actions">${actions.join("")}</div>
         </div>
       `;
 
@@ -1363,7 +1299,7 @@
             <strong>${item.title}</strong>
             <div class="muted">${item.desc ? item.desc.slice(0, 70) : "—"}</div>
           </td>
-          <td>${item.author || "—"}</td>
+          <td>${item.host || "—"}</td>
           <td>${item.year || "—"}</td>
           <td>${FILTERS[item.filter] || item.filter}</td>
           <td>${item.bar || 0}%</td>
@@ -1446,25 +1382,27 @@
     function setFormValues(item) {
       document.getElementById("form-id").value = item?.id || "";
       document.getElementById("f-title").value = item?.title || "";
-      document.getElementById("f-author").value = item?.author || "";
+      document.getElementById("f-host").value = item?.host || "";
       document.getElementById("f-year").value = item?.year || "";
-      document.getElementById("f-pages").value = item?.pages || "";
+      document.getElementById("f-episodes").value = item?.episodes || "";
       document.getElementById("f-status").value = item?.status || "complete";
-      document.getElementById("f-filter").value = item?.filter || "fiction";
+      document.getElementById("f-filter").value = item?.filter || "sci";
       document.getElementById("f-desc").value = item?.desc || "";
       document.getElementById("f-tags").value = (item?.tags || []).join("، ");
       document.getElementById("f-vibes").value = item?.vibes || "";
       document.getElementById("f-bar").value = item?.bar || 80;
       document.getElementById("f-poster").value = item?.poster || "";
+      document.getElementById("f-platform").value = item?.platform || "";
+      document.getElementById("f-language").value = item?.language || "";
     }
 
     function getFormValues(target) {
       return normalizeItem({
         id: document.getElementById("form-id").value || String(Date.now()),
         title: document.getElementById("f-title").value.trim(),
-        author: document.getElementById("f-author").value.trim(),
+        host: document.getElementById("f-host").value.trim(),
         year: document.getElementById("f-year").value.trim(),
-        pages: document.getElementById("f-pages").value.trim(),
+        episodes: document.getElementById("f-episodes").value.trim(),
         status: document.getElementById("f-status").value,
         filter: document.getElementById("f-filter").value,
         type: document.getElementById("f-filter").value,
@@ -1473,6 +1411,8 @@
         vibes: document.getElementById("f-vibes").value.trim(),
         bar: parseInt(document.getElementById("f-bar").value || "80", 10),
         poster: document.getElementById("f-poster").value.trim(),
+        platform: document.getElementById("f-platform").value.trim(),
+        language: document.getElementById("f-language").value.trim(),
         badge_extra: ""
       }, target);
     }
@@ -1482,10 +1422,10 @@
       document.getElementById("form-target").value = target;
 
       document.getElementById("item-modal-title").textContent =
-        mode === "edit" ? "تعديل كتاب" : "إضافة كتاب";
+        mode === "edit" ? "تعديل بودكاست" : "إضافة بودكاست";
 
       document.getElementById("item-modal-subtitle").textContent =
-        target === "public" ? "المكتبة العامة" : "قراءاتي";
+        target === "public" ? "المكتبة العامة" : "قائمتي";
 
       fillFilterSelect();
 
@@ -1499,24 +1439,12 @@
       openModal("item-modal-backdrop");
     }
 
-    async function fetchCover(title, author) {
+    async function fetchPodcastCover(title) {
       try {
-        const q = encodeURIComponent(`${title} ${author || ""}`.trim());
-        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1`);
+        const url = `https://itunes.apple.com/search?media=podcast&term=${encodeURIComponent(title)}`;
+        const res = await fetch(url);
         const data = await res.json();
-
-        const doc = data?.docs?.[0];
-        if (!doc) return "";
-
-        if (doc.cover_i) {
-          return `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
-        }
-
-        if (doc.cover_edition_key) {
-          return `https://covers.openlibrary.org/b/olid/${doc.cover_edition_key}-L.jpg`;
-        }
-
-        return "";
+        return data?.results?.[0]?.artworkUrl600 || data?.results?.[0]?.artworkUrl100 || "";
       } catch {
         return "";
       }
@@ -1533,7 +1461,7 @@
       }
 
       if (!item.poster) {
-        item.poster = await fetchCover(item.title, item.author);
+        item.poster = await fetchPodcastCover(item.title);
       }
 
       if (target === "public") {
@@ -1567,7 +1495,7 @@
 
       renderPublic();
       if (state.dashboardUnlocked) renderDashboard();
-      toast("✅ تم حفظ الكتاب في المكتبة العامة");
+      toast("✅ تم حفظ البودكاست في المكتبة العامة");
     }
 
     async function addToPrivate(item) {
@@ -1585,7 +1513,7 @@
       }
 
       renderPrivate();
-      toast("✅ تمت الإضافة إلى قراءاتي");
+      toast("✅ تمت الإضافة إلى قائمتك");
     }
 
     async function upsertPrivate(item, isEdit) {
@@ -1611,7 +1539,7 @@
       }
 
       renderPrivate();
-      toast("✅ تم حفظ الكتاب في قراءاتي");
+      toast("✅ تم حفظ البودكاست في قائمتك");
     }
 
     async function deleteItem(target, id) {
@@ -1654,7 +1582,7 @@
 
     async function classifyFormWithAI() {
       const title = document.getElementById("f-title").value.trim();
-      const author = document.getElementById("f-author").value.trim();
+      const host = document.getElementById("f-host").value.trim();
       const desc = document.getElementById("f-desc").value.trim();
 
       if (!title && !desc) {
@@ -1662,11 +1590,11 @@
         return;
       }
 
-      const prompt = `You are a book expert. Return ONLY valid JSON.
+      const prompt = `You are a podcast expert. Return ONLY valid JSON.
 Title: ${title}
-Author: ${author}
+Host: ${host}
 Description: ${desc}
-Return exactly: {"filter":"fiction","tags":["t1","t2","t3"],"vibes":"mood","bar":80,"desc_ar":"short arabic description"}
+Return exactly: {"filter":"sci","tags":["t1","t2","t3"],"vibes":"mood","bar":80,"desc_ar":"short arabic description"}
 Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
 
       try {
@@ -1707,7 +1635,7 @@ Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
     function openDiscoverModal(target) {
       document.getElementById("discover-target").value = target;
       document.getElementById("discover-target-label").textContent =
-        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى قراءاتي";
+        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى قائمتك";
       document.getElementById("discover-results").innerHTML = "";
       openModal("discover-modal-backdrop");
     }
@@ -1718,30 +1646,20 @@ Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
       const era = document.getElementById("d-era").value;
       const topic = document.getElementById("d-topic").value;
       const length = document.getElementById("d-length").value;
+      const pace = document.getElementById("d-pace").value;
       const tone = document.getElementById("d-tone").value;
-      const complexity = document.getElementById("d-complexity").value;
-      const language = document.getElementById("d-language").value;
-      const realism = document.getElementById("d-realism").value;
-      const popularity = document.getElementById("d-popularity").value;
-      const ending = document.getElementById("d-ending").value;
-      const readingStyle = document.getElementById("d-reading-style").value;
       const notes = document.getElementById("d-notes").value.trim();
 
       const prompt = `Recommend 6 ${kind} for Arabic audience style.
 Topic: ${topic}.
 Era: ${era}.
 Length: ${length}.
+Pace: ${pace}.
 Tone: ${tone}.
-Complexity: ${complexity}.
-Language: ${language}.
-Realism: ${realism}.
-Popularity: ${popularity}.
-Ending: ${ending}.
-Reading style: ${readingStyle}.
 Extra notes: ${notes || "none"}.
 Return ONLY valid JSON array.
 Each item must be:
-{"title":"","author":"","year":"","pages":"","status":"complete","filter":"fiction","desc":"","tags":[""],"vibes":"","bar":80}`;
+{"title":"","host":"","year":"","episodes":"","status":"ongoing","filter":"sci","desc":"","tags":[""],"vibes":"","bar":80,"platform":"","language":""}`;
 
       const resultsWrap = document.getElementById("discover-results");
       resultsWrap.innerHTML = '<div class="empty-state">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
@@ -1763,17 +1681,18 @@ Each item must be:
           );
 
           if (!normalized.poster) {
-            normalized.poster = await fetchCover(normalized.title, normalized.author);
+            normalized.poster = await fetchPodcastCover(normalized.title);
           }
 
           const card = document.createElement("div");
           card.className = "discover-card";
           card.innerHTML = `
             <strong>${normalized.title}</strong>
-            ${normalized.author ? `<div class="helper-note" style="margin-top:6px;">✍️ ${normalized.author}</div>` : ""}
+            ${normalized.host ? `<div class="helper-note" style="margin-top:6px;">🎙️ ${normalized.host}</div>` : ""}
             <div class="helper-note" style="margin-top:6px;">
               ${normalized.year || "—"}
-              ${normalized.pages ? " • " + normalized.pages : ""}
+              ${normalized.episodes ? " • " + normalized.episodes : ""}
+              ${normalized.platform ? " • " + normalized.platform : ""}
               • ${FILTERS[normalized.filter] || normalized.filter}
             </div>
             <p style="color:var(--text-2); line-height:1.8; margin-top:8px;">
@@ -1894,7 +1813,7 @@ Each item must be:
       renderPublic();
       renderPrivate();
 
-      toast("✅ تم تحميل صفحة الكتب والروايات بعد الإصلاح الكامل");
+      toast("✅ تم تحميل صفحة البودكاست");
     }
 
     init();
