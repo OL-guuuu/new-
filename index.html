@@ -7,323 +7,311 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
     rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
   />
-
   <link rel="stylesheet" href="assets/css/style.css" />
+
   <title>المنصة | أفلام • كتب • بودكاست</title>
 
   <style>
-    /* ===== INDEX FIXES - UPDATED ===== */
-.landing-hero {
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-  padding-top: 28px;
-  padding-bottom: 28px;
-}
+    /* ===== LANDING HERO ===== */
+    .landing-hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
 
-.landing-hero .hero-grid {
-  grid-template-columns: minmax(0, 680px) 320px;
-  justify-content: center;
-  align-items: center;
-  gap: 28px;
-  width: 100%;
-}
+    .landing-hero .hero-grid {
+      grid-template-columns: minmax(0, 700px) 320px;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      width: 100%;
+    }
 
-.landing-hero .hero-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+    .landing-hero .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-.landing-hero .hero-badge {
-  margin-inline: auto;
-}
+    .landing-hero .hero-badge {
+      margin-inline: auto;
+    }
 
-.landing-hero .hero-copy h1 {
-  margin: 18px 0 16px;
-  line-height: 1.08;
-  letter-spacing: -0.045em;
-  max-width: 700px;
-}
+    .landing-hero .hero-copy h1 {
+      margin: 18px 0 16px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      max-width: 720px;
+    }
 
-.landing-hero .hero-copy p {
-  margin-top: 0;
-  font-size: 1rem;
-  line-height: 1.95;
-  max-width: 620px;
-}
+    .landing-hero .hero-copy p {
+      margin-top: 0;
+      font-size: 1rem;
+      line-height: 1.95;
+      max-width: 640px;
+    }
 
-.landing-hero .hero-actions {
-  margin-top: 24px;
-  justify-content: center;
-}
+    .landing-hero .hero-actions {
+      margin-top: 24px;
+      justify-content: center;
+    }
 
-.landing-hero .hero-side {
-  justify-content: center;
-}
+    .landing-hero .hero-side {
+      justify-content: center;
+    }
 
-.landing-hero .preview-panel {
-  width: 320px;
-  max-width: 320px;
-  aspect-ratio: 1 / 1;
-  min-height: 0;
-  padding: 16px;
-  overflow: hidden;
-}
+    .landing-hero .preview-panel {
+      width: 320px;
+      max-width: 320px;
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+      padding: 16px;
+      overflow: hidden;
+    }
 
-.preview-top {
-  margin-bottom: 10px;
-}
+    .preview-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      font-size: 0.76rem;
+      background: rgba(255,255,255,0.02);
+      white-space: nowrap;
+    }
 
-.preview-title {
-  font-size: 0.92rem;
-}
+    .preview-stack {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
 
-.preview-sub {
-  font-size: 0.8rem;
-}
+    .preview-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      padding: 10px 12px;
+    }
 
-.preview-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 999px;
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  color: var(--text-3);
-  font-size: 0.76rem;
-  background: rgba(255,255,255,0.02);
-  white-space: nowrap;
-}
+    .preview-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.88rem;
+    }
 
-.preview-stack {
-  display: grid;
-  gap: 8px;
-  margin-top: 10px;
-}
+    .preview-card p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.6;
+      font-size: 0.82rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
-.preview-card {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgba(255,255,255,0.03);
-  padding: 10px 12px;
-}
+    .preview-mini-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 8px;
+    }
 
-.preview-card strong {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.88rem;
-}
+    .preview-mini-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-size: 0.8rem;
+    }
 
-.preview-card p {
-  margin: 0;
-  color: var(--text-2);
-  line-height: 1.6;
-  font-size: 0.82rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+    .preview-mini-item b {
+      color: var(--text);
+      font-size: 0.84rem;
+    }
 
-.preview-mini-list {
-  display: grid;
-  gap: 6px;
-  margin-top: 8px;
-}
+    /* ===== CONTENT BLOCKS ===== */
+    .category-card {
+      padding: 24px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-.preview-mini-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.025);
-  border: 1px solid var(--border);
-  color: var(--text-2);
-  font-size: 0.8rem;
-}
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+    }
 
-.preview-mini-item b {
-  color: var(--text);
-  font-size: 0.84rem;
-}
+    .category-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.14rem;
+      line-height: 1.4;
+    }
 
-.category-card {
-  padding: 24px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
+    .category-card p {
+      flex: 1;
+    }
 
-.category-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  margin-bottom: 14px;
-  font-size: 1.35rem;
-}
+    .category-actions {
+      margin-top: 18px;
+    }
 
-.category-card h3 {
-  margin: 0 0 10px;
-  font-size: 1.14rem;
-  line-height: 1.4;
-}
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
 
-.category-card p {
-  flex: 1;
-}
+    .step-card {
+      padding: 22px;
+      height: 100%;
+    }
 
-.category-actions {
-  margin-top: 18px;
-}
+    .step-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
 
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
+    .step-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      line-height: 1.45;
+    }
 
-.step-card {
-  padding: 22px;
-  height: 100%;
-}
+    .step-card p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.85;
+    }
 
-.step-number {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text);
-  background: rgba(255,255,255,0.03);
-  font-weight: 900;
-  margin-bottom: 12px;
-}
+    .feature-card {
+      padding: 22px;
+      height: 100%;
+    }
 
-.step-card h4 {
-  margin: 0 0 8px;
-  font-size: 1rem;
-  line-height: 1.45;
-}
+    .feature-card h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
 
-.step-card p {
-  margin: 0;
-  color: var(--text-2);
-  line-height: 1.85;
-}
+    .feature-card p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.85;
+    }
 
-.feature-card {
-  padding: 22px;
-  height: 100%;
-}
+    .cta-band {
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-.feature-card h4 {
-  margin: 0 0 8px;
-  font-size: 1rem;
-}
+    .cta-band h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      line-height: 1.35;
+    }
 
-.feature-card p {
-  margin: 0;
-  color: var(--text-2);
-  line-height: 1.85;
-}
+    .cta-band p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.9;
+      max-width: 720px;
+    }
 
-.cta-band {
-  padding: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
+    .section {
+      padding-top: 84px;
+      padding-bottom: 84px;
+    }
 
-.cta-band h3 {
-  margin: 0 0 8px;
-  font-size: 1.35rem;
-  line-height: 1.35;
-}
+    .section-head {
+      margin-bottom: 28px;
+    }
 
-.cta-band p {
-  margin: 0;
-  color: var(--text-2);
-  line-height: 1.9;
-  max-width: 720px;
-}
+    .section-head h2 {
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
 
-/* تحسين المسافات بين السكاشن */
-.section {
-  padding-top: 84px;
-  padding-bottom: 84px;
-}
+    @media (max-width: 980px) {
+      .landing-hero {
+        min-height: auto;
+        padding-top: 52px;
+        padding-bottom: 24px;
+      }
 
-.section-head {
-  margin-bottom: 28px;
-}
+      .landing-hero .hero-grid {
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap: 22px;
+      }
 
-.section-head h2 {
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
+      .landing-hero .preview-panel {
+        width: min(100%, 340px);
+        max-width: 340px;
+        margin-inline: auto;
+      }
 
-@media (max-width: 980px) {
-  .landing-hero {
-    min-height: auto;
-    padding-top: 52px;
-    padding-bottom: 24px;
-  }
+      .landing-hero .hero-copy h1,
+      .landing-hero .hero-copy p {
+        max-width: 100%;
+      }
+    }
 
-  .landing-hero .hero-grid {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    gap: 22px;
-  }
+    @media (max-width: 760px) {
+      .landing-hero .hero-copy h1 {
+        margin: 16px 0 14px;
+        line-height: 1.14;
+      }
 
-  .landing-hero .preview-panel {
-    width: min(100%, 340px);
-    max-width: 340px;
-    margin-inline: auto;
-  }
+      .section {
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
 
-  .landing-hero .hero-copy h1,
-  .landing-hero .hero-copy p {
-    max-width: 100%;
-  }
-}
+      .cta-band {
+        padding: 22px;
+      }
 
-@media (max-width: 760px) {
-  .landing-hero .hero-copy h1 {
-    margin: 16px 0 14px;
-    line-height: 1.14;
-  }
-
-  .section {
-    padding-top: 64px;
-    padding-bottom: 64px;
-  }
-
-  .cta-band {
-    padding: 22px;
-  }
-
-  .landing-hero .preview-panel {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: auto;
-  }
-}
+      .landing-hero .preview-panel {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: auto;
+      }
+    }
   </style>
 </head>
 
@@ -372,8 +360,8 @@
           <div class="preview-panel">
             <div class="preview-top">
               <div>
-                <div class="preview-title">ماذا ستفعل داخل المنصة؟</div>
-                <div class="preview-sub">رحلة واضحة من الاكتشاف إلى التنظيم</div>
+                <div class="preview-title">كيف تعمل المنصة؟</div>
+                <div class="preview-sub">رحلة بسيطة من الاكتشاف إلى التنظيم</div>
               </div>
               <span class="preview-tag">واجهة موحّدة</span>
             </div>
@@ -381,17 +369,17 @@
             <div class="preview-stack">
               <div class="preview-card">
                 <strong>1) تصفح المكتبة العامة</strong>
-                <p>ابدأ من القسم الذي يهمك، وابحث بسرعة داخل محتوى مرتب وواضح.</p>
+                <p>ابدأ بالقسم الذي يهمك، ثم استخدم الفلاتر والبحث للوصول بسرعة إلى ما تريد.</p>
               </div>
 
               <div class="preview-card">
                 <strong>2) احفظ ما يعجبك</strong>
-                <p>أضف العناصر المهمة إلى مكتبتك الخاصة وعد إليها لاحقًا بسهولة.</p>
+                <p>أضف العناصر المناسبة إلى مساحتك الخاصة وعد إليها لاحقًا بسهولة.</p>
               </div>
 
               <div class="preview-card">
                 <strong>3) استخدم الذكاء الاصطناعي</strong>
-                <p>دع النظام يقترح محتوى جديدًا أو يساعدك في التصنيف والتنظيم.</p>
+                <p>اطلب اقتراحات جديدة أو دع النظام يساعدك في التصنيف والتنظيم.</p>
               </div>
 
               <div class="preview-mini-list">
@@ -430,7 +418,7 @@
           <h3>الأفلام والمسلسلات</h3>
           <p>
             مكتبة موجهة للمحتوى المرئي: خيال علمي، مؤامرات، استخبارات، نهاية العالم،
-            ومسلسلات نادرة المشاهدة.
+            وأعمال مميزة ونادرة.
           </p>
 
           <div class="badge-row" style="margin-top: 14px;">
@@ -449,12 +437,12 @@
           <h3>الكتب والروايات</h3>
           <p>
             مساحة للقراءة والاكتشاف: روايات، كتب فكرية، غموض، فلسفة، تاريخ، وخيال
-            علمي — مع تنظيم شخصي دقيق.
+            علمي — مع تنظيم شخصي واضح.
           </p>
 
           <div class="badge-row" style="margin-top: 14px;">
             <span class="badge">تصنيفات متعددة</span>
-            <span class="badge">قراءاتك</span>
+            <span class="badge">قراءاتي</span>
             <span class="badge">اقتراحات ذكية</span>
           </div>
 
@@ -468,7 +456,7 @@
           <h3>البودكاست</h3>
           <p>
             بودكاستات في العلوم والتقنية والتاريخ والثقافة، مع تجربة تصفح أخف وتنظيم
-            شخصي مناسب للاستماع.
+            شخصي مناسب للاستماع اليومي.
           </p>
 
           <div class="badge-row" style="margin-top: 14px;">
@@ -558,7 +546,7 @@
 
         <article class="card feature-card">
           <h4>جاهزة للتوسعة</h4>
-          <p>يمكن تطويرها لاحقًا دون الحاجة لإعادة كسر التصميم أو إعادة البناء كل مرة.</p>
+          <p>يمكن تطويرها لاحقًا دون الحاجة إلى إعادة كسر التصميم في كل مرة.</p>
         </article>
       </div>
     </section>
@@ -570,27 +558,6 @@
           <h3>ابدأ الآن بالقسم الأنسب لاهتمامك</h3>
           <p>
             إذا كان تركيزك على المشاهدة ابدأ بالأفلام والمسلسلات، وإذا كنت تميل
-            للقراءة فابدأ بالكتب، وإذا كنت تفضل الاستماع أثناء العمل والتنقل فابدأ
-            بالبودكاست.
-          </p>
-        </div>
-
-        <div class="hero-actions" style="margin-top: 0;">
-          <a class="btn btn-secondary" href="movies.html">الأفلام والمسلسلات</a>
-          <a class="btn btn-secondary" href="books.html">الكتب والروايات</a>
-          <a class="btn btn-secondary" href="podcasts.html">البودكاست</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer container">
-    المنصة — تجربة عربية حديثة لاكتشاف المحتوى وتنظيمه بوضوح وهدوء
-  </footer>
-
-  <div id="toast"></div>
-
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/common.js"></script>
+            للقراءة فابدأ بالكتب، وإذا كنت تفضل الاستماع أثناء العمل والتن/common.js</script>
 </body>
 </html>
