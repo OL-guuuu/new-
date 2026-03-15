@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+  <title>المنصة | الرئيسية</title>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">✦ المنصة</a>
+      <nav class="nav-links">
+        <a class="nav-link active" href="index.html">الرئيسية</a>
+        <a class="nav-link" href="movies.html">🎬 الأفلام والمسلسلات</a>
+        <a class="nav-link" href="books.html">📚 الكتب والروايات</a>
+        <a class="nav-link" href="podcasts.html">🎙️ البودكاست</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <span class="pill">🔗 كل الملفات مربوطة مع assets</span>
+      <h1>النسخة الجديدة المرتبة للمشروع</h1>
+      <p>
+        هذه الصفحة والصفحات الثلاث الأخرى تستعمل الآن نفس ملف التصميم <strong>style.css</strong>
+        ونفس ملفي الإعدادات والوظائف المشتركة <strong>config.js</strong> و<strong>common.js</strong>.
+      </p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn btn-primary" href="movies.html">ابدأ بصفحة الأفلام</a>
+        <a class="btn btn-ghost" href="books.html">الكتب</a>
+        <a class="btn btn-ghost" href="podcasts.html">البودكاست</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">إعدادات Supabase المشتركة</h2>
+      <div class="card">
+        <form id="supabase-form">
+          <div class="form-row">
+            <div>
+              <div class="info-label">Project URL</div>
+              <input class="input code" id="supa-url" placeholder="https://xxxx.supabase.co">
+            </div>
+            <div>
+              <div class="info-label">Anon Key</div>
+              <input class="input code" id="supa-key" placeholder="eyJhbGci...">
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="submit">حفظ إعدادات Supabase</button>
+          </div>
+        </form>
+        <div class="badge-row">
+          <span class="badge">الحالة: <span id="page-supa-status">—</span></span>
+          <span class="badge">Worker: <span id="page-worker-url" class="code">—</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">الهيكل المرتبط فعليًا</h2>
+      <div class="grid cols-3">
+        <article class="card">
+          <h3>assets/css/style.css</h3>
+          <p>كل الصفحات تستعمل الآن نفس ملف التصميم المشترك.</p>
+        </article>
+        <article class="card">
+          <h3>assets/js/config.js</h3>
+          <p>كل الصفحات تقرأ منه اسم الجدول، نوع المحتوى، Worker URL، وكلمة المرور.</p>
+        </article>
+        <article class="card">
+          <h3>assets/js/common.js</h3>
+          <p>كل الصفحات تستعمل منه الأدوات المشتركة مثل Toast وSupabase Helpers.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">جاهز الآن للانتقال إلى بناء movies.html V2</footer>
+
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/common.js"></script>
+
+  <script>
+    const { wirePage, toast } = window.AppCommon;
+    wirePage('movies');
+    setTimeout(() => toast('✅ الملفات أصبحت مترابطة مع assets'), 500);
+  </script>
+</body>
+</html>

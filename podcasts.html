@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+  <title>🎙️ البودكاست | المنصة</title>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">✦ المنصة</a>
+      <nav class="nav-links">
+        <a class="nav-link" href="index.html">الرئيسية</a>
+        <a class="nav-link " href="movies.html">🎬 الأفلام</a>
+        <a class="nav-link " href="books.html">📚 الكتب</a>
+        <a class="nav-link active" href="podcasts.html">🎙️ البودكاست</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="pill">🎙️ صفحة مرتبطة بالنظام الجديد</span>
+      <h1>صفحة البودكاست</h1>
+      <p>هذه الصفحة مربوطة كذلك بالنظام الجديد، وستأخذ نفس المعمارية بعد إنهاء صفحات الأفلام والكتب.</p>
+      <div class="badge-row" style="justify-content:center;">
+        <span class="badge">dbTable: <span id="page-db-table" class="code">—</span></span>
+        <span class="badge">userTable: <span id="page-user-table" class="code">—</span></span>
+        <span class="badge">type: <span id="page-content-type">—</span></span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">كيف تعرف أن الصفحة مربوطة فعلاً؟</h2>
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="info-label">اسم المنصة من config.js</div>
+          <div class="info-value" id="page-site-name">—</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">رابط Cloudflare Worker</div>
+          <div class="info-value code" id="page-worker-url">—</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">حالة Supabase</div>
+          <div class="info-value" id="page-supa-status">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="notice">
+        هذه الصفحة لا تزال نسخة بداية، لكنها الآن تستعمل <strong>style.css</strong> و<strong>config.js</strong>
+        و<strong>common.js</strong> فعليًا، وهذا هو المطلوب قبل بناء النسخة الكاملة.
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="test-ai-btn" type="button">اختبار ربط Cloudflare</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">بعد الكتب سنبني نسخة البودكاست الكاملة.</footer>
+
+  
+<script src="assets/js/config.js"></script>
+<script src="assets/js/common.js"></script>
+
+  <script>
+    const { wirePage, toast } = window.AppCommon;
+    wirePage('podcasts');
+    setTimeout(() => toast('✅ تم تحميل صفحة البودكاست وربطها مع assets'), 500);
+  </script>
+</body>
+</html>
