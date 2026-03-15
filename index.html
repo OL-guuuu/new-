@@ -6,154 +6,108 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <title>المنصة | أفلام • كتب • بودكاست</title>
 
   <style>
-    .landing-hero {
-      padding: 92px 0 56px;
+    .landing-hero .preview-panel {
+      min-height: 460px;
     }
 
-    .landing-title {
-      max-width: 980px;
-      margin-inline: auto;
-      text-align: center;
-    }
-
-    .landing-title h1 {
-      margin: 18px 0 14px;
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-    }
-
-    .landing-title p {
-      max-width: 820px;
-      margin: 0 auto;
-      color: var(--text-2);
-      line-height: 1.9;
-      font-size: 1.04rem;
-    }
-
-    .hero-kpis {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .hero-kpi {
-      min-width: 145px;
-      padding: 16px 18px;
-      text-align: center;
-      border-radius: 18px;
+    .preview-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      box-shadow: var(--shadow-md);
-    }
-
-    .hero-kpi b {
-      display: block;
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-
-    .hero-kpi span {
-      color: var(--text-2);
-      font-size: .92rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .hero-note {
-      margin-top: 18px;
-      text-align: center;
       color: var(--text-3);
-      font-size: .94rem;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.02);
     }
 
-    .category-grid {
+    .preview-stack {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .preview-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 14px;
+    }
+
+    .preview-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.96rem;
+    }
+
+    .preview-card p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.75;
+      font-size: 0.9rem;
+    }
+
+    .preview-mini-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .preview-mini-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-size: 0.88rem;
+    }
+
+    .preview-mini-item b {
+      color: var(--text);
+      font-size: 0.9rem;
     }
 
     .category-card {
-      position: relative;
-      overflow: hidden;
       padding: 24px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-        radial-gradient(circle at top left, rgba(25,211,255,.10), transparent 28%);
-      box-shadow: var(--shadow-lg);
-      transition: .22s ease;
-    }
-
-    .category-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(25,211,255,.26);
     }
 
     .category-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,0.03);
       margin-bottom: 14px;
+      font-size: 1.35rem;
     }
 
     .category-card h3 {
       margin: 0 0 8px;
-      font-size: 1.25rem;
-    }
+      font-size: 1.14rem;
 
-    .category-card p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.85;
-    }
-
-    .category-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .category-tags span {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text-2);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: .82rem;
-    }
-
-    .category-actions {
-      margin-top: 18px;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .how-grid {
+    .steps-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
@@ -161,28 +115,25 @@
 
     .step-card {
       padding: 22px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow: var(--shadow-md);
     }
 
     .step-number {
       width: 34px;
       height: 34px;
       border-radius: 999px;
+      border: 1px solid var(--border);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #031018;
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
       font-weight: 900;
       margin-bottom: 12px;
     }
 
     .step-card h4 {
       margin: 0 0 8px;
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .step-card p {
@@ -191,23 +142,13 @@
       line-height: 1.8;
     }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-
     .feature-card {
       padding: 22px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow: var(--shadow-md);
     }
 
     .feature-card h4 {
       margin: 0 0 8px;
-      font-size: 1.04rem;
+      font-size: 1rem;
     }
 
     .feature-card p {
@@ -217,39 +158,29 @@
     }
 
     .cta-band {
-      padding: 26px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-        radial-gradient(circle at top right, rgba(139,92,246,.14), transparent 28%);
-      box-shadow: var(--shadow-lg);
+      padding: 28px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 18px;
+      justify-content: space-between;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
     .cta-band h3 {
       margin: 0 0 8px;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
     }
 
     .cta-band p {
       margin: 0;
       color: var(--text-2);
-      line-height: 1.8;
-      max-width: 700px;
+      line-height: 1.85;
+      max-width: 720px;
     }
 
-    @media (max-width: 720px) {
-      .landing-hero {
-        padding-top: 68px;
-      }
-
-      .landing-title h1 {
-        font-size: clamp(2.2rem, 10vw, 3.4rem);
+    @media (max-width: 980px) {
+      .landing-hero .preview-panel {
+        min-height: auto;
       }
     }
   </style>
@@ -257,115 +188,136 @@
 <body class="page-shell">
   <header class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">✦ المنصة</a>
+      index.htmlCal.com style</a>
 
       <nav class="nav-links">
-        <a class="nav-link active" href="index.html">الرئيسية</a>
-        <a class="nav-link" href="movies.html">🎬 الأفلام والمسلسلات</a>
-        <a class="nav-link" href="books.html">📚 الكتب والروايات</a>
-        <a class="nav-link" href="podcasts.html">🎙️ البودكاست</a>
+        index.htmlالرئيسية</a>
+        movies.htmlالأفلام والمسلسلات</a>
+        books.htmlالكتب والروايات</a>
+        podcasts.htmlالبودكاست</a>
       </nav>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <section class="landing-hero container">
-      <div class="landing-title">
-        <span class="hero-badge">⚡ منصة محتوى ذكية — عربية — منظمة — جاهزة للتوسعة</span>
-        <h1>اكتشف • نظّم • ابنِ مكتبتك<br />في مكان واحد</h1>
-        <p>
-          منصة عربية حديثة تجمع بين <strong>الأفلام والمسلسلات</strong> و<strong>الكتب والروايات</strong> و<strong>البودكاست</strong>،
-          مع مكتبة عامة، مكتبتك الخاصة، واكتشاف بالذكاء الاصطناعي — ضمن تجربة استخدام واضحة وسريعة ومريحة.
-        </p>
+    <section class="hero landing-hero container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hero-badge">منصة محتوى عربية • منظمة • قابلة للتوسعة</span>
+          <h1>اكتشف المحتوى<br />ونظّم مكتبتك<br />في مكان واحد</h1>
+          <p>
+            منصة تجمع بين الأفلام والمسلسلات والكتب والروايات والبودكاست، مع مكتبة عامة،
+            مكتبتك الخاصة، واكتشاف مدعوم بالذكاء الاصطناعي — ضمن تجربة واضحة، هادئة، وسهلة الاستخدام.
+          </p>
 
-        <div class="hero-kpis">
-          <div class="hero-kpi">
-            <b>3</b>
-            <span>أقسام رئيسية</span>
-          </div>
-          <div class="hero-kpi">
-            <b>AI</b>
-            <span>اكتشاف وتصنيف</span>
-          </div>
-          <div class="hero-kpi">
-            <b>Cloud</b>
-            <span>دعم Supabase</span>
-          </div>
-          <div class="hero-kpi">
-            <b>RTL</b>
-            <span>تجربة عربية أصلية</span>
+          <div class="hero-actions">
+            movies.htmlابدأ بالمكتبة المرئية</a>
+            #platformsاستكشف الأقسام</a>
           </div>
         </div>
 
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="movies.html">ابدأ بصفحة الأفلام</a>
-          <a class="btn btn-ghost" href="#sections">استكشف الأقسام</a>
-        </div>
+        <div class="hero-side">
+          <div class="preview-panel">
+            <div class="preview-top">
+              <div>
+                <div class="preview-title">ماذا ستفعل داخل المنصة؟</div>
+                <div class="preview-sub">رحلة واضحة من الاكتشاف إلى التنظيم</div>
+              </div>
+              <span class="preview-tag">واجهة موحّدة</span>
+            </div>
 
-        <div class="hero-note">
-          ابدأ بالمكتبة العامة، احفظ ما يعجبك في قائمتك، ثم دع الذكاء الاصطناعي يقترح عليك محتوى جديدًا.
+            <div class="preview-stack">
+              <div class="preview-card">
+                <strong>1) تصفح المكتبة العامة</strong>
+                <p>ابدأ من القسم الذي يهمك، وابحث بسرعة داخل محتوى مرتب وواضح.</p>
+              </div>
+
+              <div class="preview-card">
+                <strong>2) احفظ ما يعجبك</strong>
+                <p>أضف العناصر المهمة إلى مكتبتك الخاصة وعد إليها لاحقًا بسهولة.</p>
+              </div>
+
+              <div class="preview-card">
+                <strong>3) استخدم الذكاء الاصطناعي</strong>
+                <p>دع النظام يقترح محتوى جديدًا أو يساعدك في التصنيف والتنظيم.</p>
+              </div>
+
+              <div class="preview-mini-list">
+                <div class="preview-mini-item">
+                  <span>مكتبة عامة</span>
+                  <b>3 أقسام</b>
+                </div>
+                <div class="preview-mini-item">
+                  <span>اكتشاف ذكي</span>
+                  <b>AI</b>
+                </div>
+                <div class="preview-mini-item">
+                  <span>تخزين سحابي</span>
+                  <b>Supabase</b>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTIONS -->
-    <section id="sections" class="section container">
+    <!-- PLATFORMS -->
+    <section id="platforms" class="section container">
       <div class="section-head">
-        <div>
-          <h2 class="section-title">أقسام المنصة</h2>
-          <p class="section-subtitle">
-            كل قسم له هوية واضحة، مكتبة عامة، مكتبة خاصة، ولوحة تحكم مستقلة — لكن ضمن تجربة متسقة ومترابطة.
-          </p>
-        </div>
+        <h2>اختر المساحة المناسبة لك</h2>
+        <p>
+          كل قسم صُمم ليكون واضحًا وسهل الاستخدام، مع نفس اللغة البصرية ونفس منطق التصفح والتنظيم.
+        </p>
       </div>
 
-      <div class="category-grid">
-        <article class="category-card">
+      <div class="grid cols-3">
+        <article class="card category-card">
           <div class="category-icon">🎬</div>
-          <h3>أفلام ومسلسلات</h3>
+          <h3>الأفلام والمسلسلات</h3>
           <p>
-            مسلسلات وأفلام في الخيال العلمي، المؤامرة، الاستخبارات، ونهاية العالم — مع بطاقات عرض واضحة، فلترة ذكية، ومكتبة خاصة.
+            مكتبة موجهة للمحتوى المرئي: خيال علمي، مؤامرات، استخبارات، نهاية العالم، ومسلسلات نادرة المشاهدة.
           </p>
-          <div class="category-tags">
-            <span>خيال علمي</span>
-            <span>تجسس</span>
-            <span>نهاية العالم</span>
+          <div class="badge-row" style="margin-top: 14px;">
+            <span class="badge">المكتبة العامة</span>
+            <span class="badge">مكتبتي</span>
+            <span class="badge">AI</span>
           </div>
           <div class="category-actions">
-            <a class="btn btn-primary" href="movies.html">ادخل القسم</a>
+            movies.htmlادخل القسم</a>
           </div>
         </article>
 
-        <article class="category-card">
+        <article class="card category-card">
           <div class="category-icon">📚</div>
-          <h3>كتب وروايات</h3>
+          <h3>الكتب والروايات</h3>
           <p>
-            كتب وروايات في الخيال العلمي، الغموض، التاريخ، الفلسفة والرعب — مع توصيات واكتشافات مدعومة بالذكاء الاصطناعي.
+            مساحة للقراءة والاكتشاف: روايات، كتب فكرية، غموض، فلسفة، تاريخ، وخيال علمي — مع تنظيم شخصي دقيق.
           </p>
-          <div class="category-tags">
-            <span>غموض</span>
-            <span>فلسفة</span>
-            <span>روايات</span>
+          <div class="badge-row" style="margin-top: 14px;">
+            <span class="badge">تصنيفات متعددة</span>
+            <span class="badge">قراءاتك</span>
+            <span class="badge">اقتراحات ذكية</span>
           </div>
           <div class="category-actions">
-            <a class="btn btn-primary" href="books.html">ادخل القسم</a>
+            books.htmlادخل القسم</a>
           </div>
         </article>
 
-        <article class="category-card">
+        <article class="card category-card">
           <div class="category-icon">🎙️</div>
-          <h3>بودكاست</h3>
+          <h3>البودكاست</h3>
           <p>
-            مكتبة بودكاستات منتقاة في العلوم والتكنولوجيا والتاريخ والثقافة — مع قائمة خاصة بك واقتراحات مبنية على ذوقك.
+            بودكاستات في العلوم والتقنية والتاريخ والثقافة، مع تجربة تصفح أخف وتنظيم شخصي مناسب للاستماع.
           </p>
-          <div class="category-tags">
-            <span>علوم</span>
-            <span>تقنية</span>
-            <span>تاريخ</span>
+          <div class="badge-row" style="margin-top: 14px;">
+            <span class="badge">قائمة خاصة</span>
+            <span class="badge">فلاتر</span>
+            <span class="badge">اكتشاف ذكي</span>
           </div>
           <div class="category-actions">
-            <a class="btn btn-primary" href="podcasts.html">ادخل القسم</a>
+            podcasts.htmlادخل القسم</a>
           </div>
         </article>
       </div>
@@ -374,126 +326,114 @@
     <!-- HOW IT WORKS -->
     <section class="section container">
       <div class="section-head">
-        <div>
-          <h2 class="section-title">كيف تعمل المنصة؟</h2>
-          <p class="section-subtitle">
-            مسار واضح وسهل للمستخدم: تصفح → احفظ → اكتشف → نظّم.
-          </p>
-        </div>
+        <h2>كيف تعمل المنصة؟</h2>
+        <p>
+          تجربة قصيرة وواضحة: استكشف → اختر → احفظ → اكتشف المزيد.
+        </p>
       </div>
 
-      <div class="how-grid">
-        <article class="step-card">
+      <div class="steps-grid">
+        <article class="card step-card">
           <div class="step-number">1</div>
-          <h4>استكشف المكتبة العامة</h4>
+          <h4>ابدأ من المكتبة العامة</h4>
           <p>
-            ابدأ بالمحتوى العام في كل قسم، واستخدم البحث والفلاتر للوصول بسرعة إلى ما يطابق ذوقك.
+            تصفح المحتوى المتاح في القسم الذي يهمك، واستخدم البحث والفلاتر للوصول بسرعة إلى ما تريد.
           </p>
         </article>
 
-        <article class="step-card">
+        <article class="card step-card">
           <div class="step-number">2</div>
           <h4>ابنِ مكتبتك الخاصة</h4>
           <p>
-            أضف الكتب أو الأفلام أو البودكاستات التي تهمك إلى قائمتك الخاصة، وعد إليها لاحقًا من أي مكان.
+            أضف العناصر التي تهمك إلى قائمتك الخاصة، ثم تابعها لاحقًا ضمن مساحة أكثر قربًا لذوقك.
           </p>
         </article>
 
-        <article class="step-card">
+        <article class="card step-card">
           <div class="step-number">3</div>
-          <h4>استخدم الذكاء الاصطناعي</h4>
+          <h4>دع الذكاء الاصطناعي يساعدك</h4>
           <p>
-            دع النظام يقترح لك عناصر جديدة، أو يصنّف ما تضيفه تلقائيًا لتوفير الوقت وتحسين التنظيم.
+            استخدم الاكتشاف الذكي أو التصنيف التلقائي عندما تريد تسريع العمل أو العثور على اقتراحات مناسبة.
           </p>
         </article>
 
-        <article class="step-card">
+        <article class="card step-card">
           <div class="step-number">4</div>
-          <h4>نظّم وأدر المحتوى</h4>
+          <h4>أدر المحتوى بسهولة</h4>
           <p>
-            من لوحة التحكم يمكنك إدارة المكتبة العامة بسهولة، بينما تبقى المكتبة الخاصة أقرب لتفضيلاتك الشخصية.
+            من لوحة التحكم يمكنك تنظيم المكتبة العامة، بينما تبقى مكتبتك الخاصة مساحة شخصية واضحة وبسيطة.
           </p>
         </article>
       </div>
     </section>
 
-    <!-- FEATURE BLOCKS -->
+    <!-- FEATURES -->
     <section class="section container">
       <div class="section-head">
-        <div>
-          <h2 class="section-title">ما الذي يميز المنصة؟</h2>
-          <p class="section-subtitle">
-            تصميم واضح، تجربة عربية أصلية، ومرونة تقنية تسمح لك بالتوسعة لاحقًا دون فوضى.
-          </p>
-        </div>
+        <h2>لماذا هذا الأسلوب؟</h2>
+        <p>
+          الهدف ليس مجرد واجهة جميلة، بل منتج واضح يوجّه المستخدم نحو ما يجب فعله بأقل تشتت ممكن.
+        </p>
       </div>
 
-      <div class="feature-grid">
-        <article class="feature-card">
-          <h4>🤖 ذكاء اصطناعي عملي</h4>
-          <p>
-            ليس مجرد زر شكلي؛ الهدف هو أن يساعدك الذكاء الاصطناعي فعليًا في الاكتشاف والتصنيف والتنظيم.
-          </p>
+      <div class="grid cols-4">
+        <article class="card feature-card">
+          <h4>واجهة هادئة</h4>
+          <p>ألوان محدودة، تباين واضح، ومساحات أكثر راحة بصريًا.</p>
         </article>
 
-        <article class="feature-card">
-          <h4>🗂️ مكتبة عامة + مكتبة خاصة</h4>
-          <p>
-            توازن بين المحتوى العام المرتب، ومكتبتك الشخصية التي تعكس ذوقك وتفضيلاتك.
-          </p>
+        <article class="card feature-card">
+          <h4>تسلسل هرمي واضح</h4>
+          <p>عناوين أكبر، نصوص ثانوية أخف، وأزرار رئيسية واضحة.</p>
         </article>
 
-        <article class="feature-card">
-          <h4>☁️ جاهزة للربط السحابي</h4>
-          <p>
-            يمكن تشغيل المنصة محليًا أو ربطها لاحقًا بـ Supabase لحفظ البيانات والوصول من أكثر من جهاز.
-          </p>
+        <article class="card feature-card">
+          <h4>بنية موحّدة</h4>
+          <p>كل الصفحات مبنية على نفس النظام البصري ونفس منطق التفاعل.</p>
         </article>
 
-        <article class="feature-card">
-          <h4>🎨 هوية بصرية متسقة</h4>
-          <p>
-            نفس اللغة البصرية عبر كل الصفحات، مع وضوح في التنقل والبطاقات والأزرار والمكونات.
-          </p>
+        <article class="card feature-card">
+          <h4>جاهزة للتوسعة</h4>
+          <p>يمكن تطويرها لاحقًا دون الحاجة لإعادة كسر التصميم أو إعادة البناء كل مرة.</p>
         </article>
       </div>
     </section>
 
-    <!-- CTA BAND -->
+    <!-- FINAL CTA -->
     <section class="section container">
-      <div class="cta-band">
+      <div class="panel cta-band">
         <div>
-          <h3>ابدأ الآن من القسم الأنسب لك</h3>
+          <h3>ابدأ الآن بالقسم الأنسب لاهتمامك</h3>
           <p>
-            إذا كان اهتمامك الأول هو المحتوى المرئي فابدأ بالأفلام والمسلسلات، وإذا كنت تميل للقراءة فاذهب للكتب،
-            وإذا كنت تفضل الاستماع أثناء العمل أو التنقل فابدأ بالبودكاست.
+            إذا كان تركيزك على المشاهدة ابدأ بالأفلام والمسلسلات، وإذا كنت تميل للقراءة فابدأ بالكتب،
+            وإذا كنت تفضل الاستماع أثناء العمل والتنقل فابدأ بالبودكاست.
           </p>
         </div>
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="movies.html">الأفلام والمسلسلات</a>
-          <a class="btn btn-ghost" href="books.html">الكتب والروايات</a>
-          <a class="btn btn-ghost" href="podcasts.html">البودكاست</a>
+        <div class="hero-actions" style="margin-top: 0;">
+          movies.htmlالأفلام والمسلسلات</a>
+          books.htmlالكتب والروايات</a>
+          podcasts.htmlالبودكاست</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer container">
-    ✦ المنصة — تجربة عربية حديثة لاكتشاف المحتوى وتنظيمه بوضوح وسرعة
+    المنصة — تجربة عربية حديثة لاكتشاف المحتوى وتنظيمه بوضوح وهدوء
   </footer>
 
   <div id="toast"></div>
 
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/common.js"></script>
+  assets/js/config.js</script>
+  assets/js/common.js</script>
   <script>
     const { toast } = window.AppCommon || {};
 
     if (toast) {
       setTimeout(() => {
         toast('✅ تم تحميل الصفحة الرئيسية بالتصميم الجديد');
-      }, 500);
+      }, 450);
     }
   </script>
 </body>
