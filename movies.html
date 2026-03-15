@@ -6,20 +6,58 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="assets/css/style.css" />
 
-  <title>🎬 الأفلام والمسلسلات | المنصة</title>
+  <title>الأفلام والمسلسلات | المنصة</title>
 
   <style>
-    .movies-hero {
-      padding-bottom: 30px;
+    .page-hero {
+      padding-bottom: 34px;
     }
 
-    .movies-layout {
+    .page-hero .preview-panel {
+      min-height: 500px;
+    }
+
+    .preview-section-title {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      margin-bottom: 10px;
+    }
+
+    .preview-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .preview-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.025);
+      padding: 12px;
+    }
+
+    .preview-item strong {
+      display: block;
+      font-size: 0.94rem;
+      margin-bottom: 4px;
+    }
+
+    .preview-item p {
+      margin: 0;
+      color: var(--text-2);
+      line-height: 1.7;
+      font-size: 0.88rem;
+    }
+
+    .tabs-wrap {
       display: flex;
-      flex-direction: column;
-      gap: 22px;
+      justify-content: center;
+      margin-top: 30px;
     }
 
     .section-block {
@@ -30,15 +68,23 @@
       display: block;
     }
 
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
+    .toolbar-shell {
+      position: sticky;
+      top: 86px;
+      z-index: 40;
+      margin-bottom: 18px;
     }
 
-    .content-grid {
+    .toolbar-card {
+      padding: 14px;
+    }
+
+    .search-box {
+      min-width: 260px;
+      max-width: 360px;
+    }
+
+    .media-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
@@ -48,26 +94,21 @@
       border: 1px solid var(--border);
       border-radius: 22px;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
-      box-shadow: var(--shadow-lg);
-      transition: .2s ease;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow: var(--shadow-md);
+      transition: 0.18s ease;
     }
 
     .media-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(25, 211, 255, 0.22);
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.12);
     }
 
     .media-cover {
-      height: 230px;
-      background:
-        radial-gradient(circle at top right, rgba(25, 211, 255, 0.12), transparent 30%),
-        linear-gradient(135deg, rgba(25, 211, 255, 0.08), rgba(139, 92, 246, 0.12));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      height: 240px;
+      background: linear-gradient(180deg, #101010 0%, #181818 100%);
       position: relative;
+      overflow: hidden;
     }
 
     .media-cover img {
@@ -78,8 +119,16 @@
     }
 
     .media-cover-fallback {
-      font-size: 3rem;
-      opacity: .9;
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: var(--text-3);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 24%),
+        linear-gradient(180deg, #101010 0%, #151515 100%);
     }
 
     .media-body {
@@ -89,38 +138,39 @@
     .media-title {
       font-size: 1.08rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.45;
     }
 
     .media-sub {
       color: var(--text-3);
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-bottom: 10px;
       line-height: 1.8;
     }
 
     .media-desc {
       color: var(--text-2);
-      font-size: .94rem;
       line-height: 1.85;
-      min-height: 78px;
+      font-size: 0.94rem;
+      min-height: 80px;
     }
 
-    .progress-wrap {
+    .score-row {
       margin-top: 12px;
     }
 
-    .progress {
+    .score-bar {
       height: 6px;
       border-radius: 999px;
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,0.06);
       overflow: hidden;
     }
 
-    .progress > span {
+    .score-bar > span {
       display: block;
       height: 100%;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      background: linear-gradient(90deg, #bcbcbc, #ffffff);
     }
 
     .card-actions {
@@ -132,84 +182,56 @@
 
     .small-btn {
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,0.03);
       color: var(--text);
       border-radius: 10px;
       padding: 8px 10px;
       font: inherit;
-      font-size: .9rem;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: .18s ease;
+      transition: 0.16s ease;
     }
 
     .small-btn:hover {
       transform: translateY(-1px);
+      background: rgba(255,255,255,0.05);
     }
 
     .small-btn.primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #041019;
+      background: #ffffff;
+      color: #111111;
       border: none;
     }
 
     .small-btn.danger {
-      border-color: rgba(239,68,68,.26);
-      color: #ffcbcb;
-      background: rgba(239,68,68,.08);
-    }
-
-    .toolbar-sticky {
-      position: sticky;
-      top: 88px;
-      z-index: 100;
-    }
-
-    .toolbar-card {
-      padding: 16px;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .toolbar-left,
-    .toolbar-right {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .search-box {
-      min-width: 260px;
-      max-width: 360px;
+      color: #ffd1d1;
+      background: rgba(255,255,255,0.03);
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      margin-top: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-top: 26px;
     }
 
-    .stat-card {
+    .stats-box {
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 16px;
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,0.025);
+      padding: 18px;
       text-align: center;
-      box-shadow: var(--shadow-md);
     }
 
-    .stat-card b {
+    .stats-box strong {
       display: block;
-      color: var(--primary);
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       margin-bottom: 4px;
+    }
+
+    .stats-box span {
+      color: var(--text-3);
+      font-size: 0.9rem;
     }
 
     .dashboard-grid {
@@ -219,9 +241,9 @@
 
     .dashboard-top {
       display: flex;
-      gap: 14px;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
@@ -235,11 +257,18 @@
       padding: 10px 12px;
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(255,255,255,.02);
+      background: rgba(255,255,255,0.025);
+      color: var(--text-2);
+      font-size: 0.9rem;
     }
 
-    .mini-stat b {
-      color: var(--primary);
+    .mini-stat strong {
+      color: var(--text);
+    }
+
+    .pw-panel {
+      max-width: 460px;
+      margin-inline: auto;
     }
 
     .table-wrap {
@@ -260,21 +289,28 @@
     }
 
     .data-table th {
-      color: var(--text-2);
-      font-size: .92rem;
+      color: var(--text-3);
+      font-size: 0.92rem;
+      font-weight: 700;
     }
 
     .data-table td {
-      font-size: .94rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .helper-note {
+      color: var(--text-3);
+      font-size: 0.92rem;
     }
 
     .empty-state {
-      padding: 30px;
-      text-align: center;
+      padding: 32px;
       border: 1px dashed var(--border);
       border-radius: 20px;
+      text-align: center;
       color: var(--text-3);
-      background: rgba(255,255,255,.02);
+      background: rgba(255,255,255,0.02);
     }
 
     .modal-backdrop {
@@ -284,7 +320,7 @@
       align-items: center;
       justify-content: center;
       padding: 18px;
-      background: rgba(0,0,0,.62);
+      background: rgba(0,0,0,0.72);
       z-index: 2000;
     }
 
@@ -297,8 +333,8 @@
       max-height: calc(100vh - 36px);
       overflow: auto;
       border: 1px solid var(--border);
-      border-radius: 22px;
-      background: var(--surface-solid);
+      border-radius: 24px;
+      background: #0b0b0b;
       box-shadow: var(--shadow-lg);
     }
 
@@ -346,25 +382,17 @@
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 14px;
-      background: rgba(255,255,255,.03);
+      background: rgba(255,255,255,0.025);
     }
 
-    .pw-panel {
-      max-width: 480px;
-      margin-inline: auto;
-    }
-
-    .helper-note {
-      color: var(--text-3);
-      font-size: .92rem;
+    @media (max-width: 980px) {
+      .page-hero .preview-panel {
+        min-height: auto;
+      }
     }
 
     @media (max-width: 760px) {
-      .form-grid-2 {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar-sticky {
+      .toolbar-shell {
         position: static;
       }
 
@@ -372,115 +400,161 @@
         min-width: 100%;
         max-width: none;
       }
+
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body class="page-shell">
   <header class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">✦ المنصة</a>
+      <a class="brand" href="index.html">المنصة</a>
 
       <nav class="nav-links">
         <a class="nav-link" href="index.html">الرئيسية</a>
-        <a class="nav-link active" href="movies.html">🎬 الأفلام والمسلسلات</a>
-        <a class="nav-link" href="books.html">📚 الكتب والروايات</a>
-        <a class="nav-link" href="podcasts.html">🎙️ البودكاست</a>
+        <a class="nav-link active" href="movies.html">الأفلام والمسلسلات</a>
+        <a class="nav-link" href="books.html">الكتب والروايات</a>
+        <a class="nav-link" href="podcasts.html">البودكاست</a>
       </nav>
     </div>
   </header>
 
-  <main class="container movies-layout">
+  <main>
     <!-- HERO -->
-    <section class="hero movies-hero">
-      <span class="hero-badge">🎬 مساحة مرئية ذكية — عامة + خاصة + AI + Dashboard</span>
-      <h1>مكتبة أفلام ومسلسلات<br />تعمل فعلًا هذه المرة</h1>
-      <p>
-        تصفح المكتبة العامة، أضف ما يعجبك إلى قائمتك الخاصة، دع الذكاء الاصطناعي يقترح محتوى جديدًا،
-        ثم أدر كل شيء من لوحة تحكم واضحة ومنظمة.
-      </p>
+    <section class="hero page-hero container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="hero-badge">قسم المحتوى المرئي • مكتبة عامة • مكتبة خاصة • AI</span>
+          <h1>أفلام ومسلسلات<br />بواجهة أنظف،<br />وتجربة أوضح</h1>
+          <p>
+            استكشف المكتبة العامة، احفظ ما يعجبك في مكتبتك الخاصة، واطلب من الذكاء الاصطناعي
+            أن يقترح لك شيئًا جديدًا — ضمن صفحة منظمة وسهلة الاستخدام.
+          </p>
 
-      <div class="hero-actions">
-        <button class="btn btn-primary" id="hero-go-public" type="button">ابدأ بالمكتبة العامة</button>
-        <button class="btn btn-ghost" id="hero-open-discover" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
-      </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="hero-go-public" type="button">ابدأ بالمكتبة العامة</button>
+            <button class="btn btn-secondary" id="hero-open-discover" type="button">اكتشف بالذكاء الاصطناعي</button>
+          </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <b id="stat-total">0</b>
-          <span>إجمالي العناصر</span>
+          <div class="stats-grid">
+            <div class="stats-box">
+              <strong id="stat-total">0</strong>
+              <span>إجمالي العناصر</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-public">0</strong>
+              <span>المكتبة العامة</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-private">0</strong>
+              <span>مكتبتي</span>
+            </div>
+            <div class="stats-box">
+              <strong id="stat-visible">0</strong>
+              <span>النتائج الظاهرة</span>
+            </div>
+          </div>
         </div>
-        <div class="stat-card">
-          <b id="stat-public">0</b>
-          <span>المكتبة العامة</span>
-        </div>
-        <div class="stat-card">
-          <b id="stat-private">0</b>
-          <span>مكتبتي</span>
-        </div>
-        <div class="stat-card">
-          <b id="stat-visible">0</b>
-          <span>النتائج الظاهرة</span>
-        </div>
-      </div>
 
-      <div class="tabs">
-        <button class="tab-btn active" data-view="public">📺 المكتبة العامة</button>
-        <button class="tab-btn" data-view="private">📚 مكتبتي</button>
-        <button class="tab-btn" data-view="dashboard">⚙️ لوحة التحكم</button>
-      </div>
-    </section>
+        <div class="hero-side">
+          <div class="preview-panel">
+            <div class="preview-top">
+              <div>
+                <div class="preview-title">كيف تستخدم هذا القسم؟</div>
+                <div class="preview-sub">رحلة واضحة من التصفح إلى الحفظ</div>
+              </div>
+              <span class="preview-tag">قسم مرئي</span>
+            </div>
 
-    <!-- PUBLIC -->
-    <section id="view-public" class="section-block active">
-      <div class="toolbar-sticky">
-        <div class="panel toolbar-card">
-          <div class="toolbar">
-            <div class="toolbar-left filters" id="public-filters"></div>
+            <div class="preview-section-title">تدفق العمل</div>
+            <div class="preview-list">
+              <div class="preview-item">
+                <strong>1) تصفح المكتبة العامة</strong>
+                <p>ابحث داخل المحتوى المرئي واستخدم الفلاتر لاكتشاف ما يناسب ذوقك.</p>
+              </div>
 
-            <div class="toolbar-right">
-              <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة..." />
-              <button id="public-discover-btn" class="btn btn-primary" type="button">🔍 اكتشف</button>
+              <div class="preview-item">
+                <strong>2) أضف إلى مكتبتك</strong>
+                <p>احتفظ بما يعجبك في قائمتك الخاصة بدل البحث عنه كل مرة من جديد.</p>
+              </div>
+
+              <div class="preview-item">
+                <strong>3) دع الذكاء الاصطناعي يقترح عليك</strong>
+                <p>استخدم الاكتشاف الذكي أو التصنيف التلقائي لتسريع التصفح والتنظيم.</p>
+              </div>
+            </div>
+
+            <div class="preview-section-title" style="margin-top:18px;">نمط الصفحة</div>
+            <div class="preview-list">
+              <div class="preview-item">
+                <strong>واجهة أبسط</strong>
+                <p>تباين أوضح ومسافات أفضل بدل الازدحام أو كثرة الألوان.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="public-grid" class="content-grid"></div>
+      <div class="tabs-wrap">
+        <div class="tabs">
+          <button class="tab-btn active" data-view="public">المكتبة العامة</button>
+          <button class="tab-btn" data-view="private">مكتبتي</button>
+          <button class="tab-btn" data-view="dashboard">لوحة التحكم</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLIC -->
+    <section id="view-public" class="section-block active section-sm container">
+      <div class="toolbar-shell">
+        <div class="panel toolbar-card">
+          <div class="toolbar">
+            <div class="toolbar-group filters" id="public-filters"></div>
+
+            <div class="toolbar-group">
+              <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة..." />
+              <button id="public-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="public-grid" class="media-grid"></div>
       <div id="public-empty" class="empty-state" style="display:none;">
         لا توجد نتائج مطابقة في المكتبة العامة.
       </div>
     </section>
 
     <!-- PRIVATE -->
-    <section id="view-private" class="section-block">
-      <div class="toolbar-sticky">
+    <section id="view-private" class="section-block section-sm container">
+      <div class="toolbar-shell">
         <div class="panel toolbar-card">
           <div class="toolbar">
-            <div class="toolbar-left filters" id="private-filters"></div>
+            <div class="toolbar-group filters" id="private-filters"></div>
 
-            <div class="toolbar-right">
+            <div class="toolbar-group">
               <input id="private-search" class="input search-box" placeholder="ابحث في مكتبتي..." />
-              <button id="private-add-btn" class="btn btn-ghost" type="button">＋ إضافة يدويًا</button>
-              <button id="private-discover-btn" class="btn btn-primary" type="button">🔍 اكتشف</button>
+              <button id="private-add-btn" class="btn btn-ghost" type="button">إضافة يدويًا</button>
+              <button id="private-discover-btn" class="btn btn-primary" type="button">اكتشف</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="private-grid" class="content-grid"></div>
+      <div id="private-grid" class="media-grid"></div>
       <div id="private-empty" class="empty-state" style="display:none;">
         لا توجد عناصر في مكتبتك الخاصة بعد.
       </div>
     </section>
 
     <!-- DASHBOARD -->
-    <section id="view-dashboard" class="section-block">
+    <section id="view-dashboard" class="section-block section-sm container">
       <div id="dashboard-locked" class="panel pw-panel">
         <div class="section-head" style="margin-bottom:12px;">
-          <div>
-            <h2 class="section-title">🔐 لوحة التحكم</h2>
-            <p class="section-subtitle">أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة وإعدادات Supabase.</p>
-          </div>
+          <h2>لوحة التحكم</h2>
+          <p>أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة وإعدادات التخزين السحابي.</p>
         </div>
 
         <div class="form-grid-2">
@@ -494,20 +568,16 @@
           <div class="dashboard-top">
             <div class="mini-stats" id="dashboard-stats"></div>
 
-            <div class="toolbar-right">
-              <button id="dashboard-add-btn" class="btn btn-primary" type="button">＋ إضافة عنصر</button>
-              <button id="dashboard-discover-btn" class="btn btn-ghost" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+            <div class="toolbar-group">
+              <button id="dashboard-add-btn" class="btn btn-primary" type="button">إضافة عنصر</button>
+              <button id="dashboard-discover-btn" class="btn btn-secondary" type="button">اكتشف بالذكاء الاصطناعي</button>
             </div>
           </div>
 
-          <div class="panel">
+          <div class="panel" style="padding:20px;">
             <div class="section-head" style="margin-bottom:14px;">
-              <div>
-                <h3 style="margin:0;">🗄️ إعدادات Supabase</h3>
-                <p class="section-subtitle" style="margin-top:6px;">
-                  هذه الإعدادات تخص التخزين السحابي للمكتبة العامة ومكتبتك الخاصة.
-                </p>
-              </div>
+              <h2 style="font-size:1.25rem;">إعدادات Supabase</h2>
+              <p>يمكنك تفعيل الحفظ السحابي للمكتبة العامة ولمكتبتك الخاصة من هنا.</p>
             </div>
 
             <form id="supabase-form">
@@ -516,7 +586,6 @@
                   <div class="field-label">Project URL</div>
                   <input id="supa-url" class="input" placeholder="https://xxxx.supabase.co" />
                 </div>
-
                 <div>
                   <div class="field-label">Anon Key</div>
                   <input id="supa-key" class="input" placeholder="eyJhbGci..." />
@@ -524,11 +593,11 @@
               </div>
 
               <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
-                <button class="btn btn-primary" type="submit">حفظ إعدادات Supabase</button>
+                <button class="btn btn-primary" type="submit">حفظ الإعدادات</button>
               </div>
             </form>
 
-            <div class="badge-row" style="margin-top:14px;">
+            <div class="badge-row" style="margin-top:16px;">
               <span class="badge">dbTable: <span id="page-db-table">—</span></span>
               <span class="badge">userTable: <span id="page-user-table">—</span></span>
               <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
@@ -537,7 +606,7 @@
             </div>
           </div>
 
-          <div class="panel table-wrap">
+          <div class="panel table-wrap" style="padding:20px;">
             <table class="data-table">
               <thead>
                 <tr>
@@ -545,7 +614,7 @@
                   <th>العنوان</th>
                   <th>السنة</th>
                   <th>المواسم</th>
-                  <th>الفئة</th>
+                  <th>التصنيف</th>
                   <th>التقييم</th>
                   <th>إجراءات</th>
                 </tr>
@@ -573,10 +642,10 @@
         <div class="panel" style="padding:14px; margin-bottom:14px;">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
             <div>
-              <strong>✨ تصنيف تلقائي</strong>
-              <div class="helper-note">اكتب العنوان والوصف، ثم دع الذكاء الاصطناعي يساعدك في تعبئة التصنيف.</div>
+              <strong>تصنيف تلقائي</strong>
+              <div class="helper-note">بعد كتابة العنوان والوصف، يمكن للذكاء الاصطناعي مساعدتك في اختيار التصنيف المناسب.</div>
             </div>
-            <button id="classify-btn" class="btn btn-ghost" type="button">✨ تصنيف الآن</button>
+            <button id="classify-btn" class="btn btn-secondary" type="button">تصنيف الآن</button>
           </div>
         </div>
 
@@ -629,7 +698,7 @@
         <div class="form-grid-2" style="margin-top:12px;">
           <div>
             <div class="field-label">التاغات (مفصولة بفواصل)</div>
-            <input id="f-tags" class="input" placeholder="مؤامرة، سفر الزمن، نجاة" />
+            <input id="f-tags" class="input" placeholder="مؤامرة، زمن، بقاء" />
           </div>
           <div>
             <div class="field-label">الأجواء</div>
@@ -645,7 +714,7 @@
 
       <div class="modal-foot">
         <button class="btn btn-ghost" data-close="item-modal-backdrop" type="button">إلغاء</button>
-        <button id="save-item-btn" class="btn btn-primary" type="button">💾 حفظ</button>
+        <button id="save-item-btn" class="btn btn-primary" type="button">حفظ</button>
       </div>
     </div>
   </div>
@@ -655,7 +724,7 @@
     <div class="modal">
       <div class="modal-head">
         <div>
-          <strong>🔍 اكتشف بالذكاء الاصطناعي</strong>
+          <strong>اكتشف بالذكاء الاصطناعي</strong>
           <div class="helper-note" id="discover-target-label">سيتم الإضافة إلى المكتبة العامة</div>
         </div>
         <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
@@ -673,7 +742,6 @@
               <option value="أفلام فقط">أفلام فقط</option>
             </select>
           </div>
-
           <div>
             <div class="field-label">الفترة</div>
             <select id="d-era" class="select input">
@@ -695,7 +763,6 @@
               <option value="خيال علمي وسياسة">خيال علمي وسياسة</option>
             </select>
           </div>
-
           <div>
             <div class="field-label">الطول</div>
             <select id="d-length" class="select input">
@@ -712,7 +779,7 @@
         </div>
 
         <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
-          <button id="run-discover-btn" class="btn btn-primary" type="button">🚀 ابحث الآن</button>
+          <button id="run-discover-btn" class="btn btn-primary" type="button">ابحث الآن</button>
         </div>
 
         <div id="discover-results" class="discover-results"></div>
@@ -724,6 +791,7 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+
   <script>
     const {
       toast,
@@ -738,102 +806,111 @@
       dbUpdate,
       dbDelete,
       callAI,
-      parseAIJson,
-      wirePage
+      parseAIJson
     } = window.AppCommon;
 
-    const PAGE_KEY = 'movies';
+    const PAGE_KEY = "movies";
     const PAGE = getPageConfig(PAGE_KEY);
     const FILTERS = PAGE.filters;
     const FILTER_KEYS = Object.keys(FILTERS);
 
     const state = {
-      currentView: 'public',
+      currentView: "public",
       dashboardUnlocked: false,
-
       publicItems: [],
       privateItems: [],
-
-      publicFilter: 'all',
-      privateFilter: 'all',
-
-      publicQuery: '',
-      privateQuery: ''
+      publicFilter: "all",
+      privateFilter: "all",
+      publicQuery: "",
+      privateQuery: ""
     };
 
     const DEFAULT_PUBLIC = [
       {
-        id: '1',
-        title: 'Dark',
-        year: '2017–2020',
-        seasons: '3 مواسم',
-        status: 'complete',
-        filter: 'end',
-        type: 'end',
-        desc: 'مسلسل ألماني معقد يدور حول الزمن ونهاية العالم والأسرار المتشابكة بين العائلات.',
-        tags: ['سفر الزمن', 'مؤامرة', 'مظلم'],
-        vibes: 'فلسفي ومظلم',
+        id: "1",
+        title: "Dark",
+        year: "2017–2020",
+        seasons: "3 مواسم",
+        status: "complete",
+        filter: "end",
+        type: "end",
+        desc: "مسلسل ألماني معقد يدور حول الزمن ونهاية العالم والأسرار المتشابكة بين العائلات.",
+        tags: ["سفر الزمن", "مؤامرة", "مظلم"],
+        vibes: "فلسفي ومظلم",
         bar: 98,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       },
       {
-        id: '2',
-        title: 'Mr. Robot',
-        year: '2015–2019',
-        seasons: '4 مواسم',
-        status: 'complete',
-        filter: 'spy',
-        type: 'spy',
-        desc: 'دراما نفسية عن هاكر عبقري يدخل في لعبة تآمر كبرى ضد النظام والشركات.',
-        tags: ['هاكر', 'مؤامرة', 'نفسي'],
-        vibes: 'توتر وبارانويا',
+        id: "2",
+        title: "Mr. Robot",
+        year: "2015–2019",
+        seasons: "4 مواسم",
+        status: "complete",
+        filter: "spy",
+        type: "spy",
+        desc: "دراما نفسية عن هاكر عبقري يدخل في لعبة تآمر كبرى ضد النظام والشركات.",
+        tags: ["هاكر", "مؤامرة", "نفسي"],
+        vibes: "توتر وبارانويا",
         bar: 96,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       },
       {
-        id: '3',
-        title: 'Severance',
-        year: '2022–...',
-        seasons: 'مستمر',
-        status: 'ongoing',
-        filter: 'sci',
-        type: 'sci',
-        desc: 'خيال علمي ذكي حول فصل الذاكرة بين العمل والحياة في شركة مليئة بالغموض.',
-        tags: ['شركة', 'هوية', 'غموض'],
-        vibes: 'بارد وغامض',
+        id: "3",
+        title: "Severance",
+        year: "2022–...",
+        seasons: "مستمر",
+        status: "ongoing",
+        filter: "sci",
+        type: "sci",
+        desc: "خيال علمي ذكي حول فصل الذاكرة بين العمل والحياة في شركة مليئة بالغموض.",
+        tags: ["شركة", "هوية", "غموض"],
+        vibes: "بارد وغامض",
         bar: 95,
-        badge_extra: '',
-        poster: ''
+        badge_extra: "",
+        poster: ""
       }
     ];
 
-    function normalizeItem(item, target = 'public') {
+    function setPageMeta() {
+      const supa = getSupabaseConfig();
+
+      const dbTable = document.getElementById("page-db-table");
+      const userTable = document.getElementById("page-user-table");
+      const contentType = document.getElementById("page-content-type");
+      const workerUrl = document.getElementById("page-worker-url");
+      const supaStatus = document.getElementById("page-supa-status");
+
+      if (dbTable) dbTable.textContent = PAGE.dbTable;
+      if (userTable) userTable.textContent = PAGE.userTable;
+      if (contentType) contentType.textContent = PAGE.contentType;
+      if (workerUrl) workerUrl.textContent = window.APP_CONFIG.WORKER_URL || "—";
+      if (supaStatus) supaStatus.textContent = supa.connected ? "متصل" : "غير مهيأ";
+    }
+
+    function normalizeItem(item, target = "public") {
       const out = { ...item };
 
       out.id = String(out.id || Date.now());
-      out.title = out.title || 'بدون عنوان';
-      out.year = out.year || '';
-      out.seasons = out.seasons || '';
-      out.status = out.status || 'complete';
-
-      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : 'sci';
+      out.title = out.title || "بدون عنوان";
+      out.year = out.year || "";
+      out.seasons = out.seasons || "";
+      out.status = out.status || "complete";
+      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : "sci";
       out.type = out.type || out.filter;
-
-      out.desc = out.desc || out.desc_ar || '';
+      out.desc = out.desc || out.desc_ar || "";
       out.tags = Array.isArray(out.tags)
         ? out.tags
-        : (typeof out.tags === 'string'
+        : (typeof out.tags === "string"
             ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
             : []);
-
-      out.vibes = out.vibes || '';
+      out.vibes = out.vibes || "";
       out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
-      out.badge_extra = out.badge_extra || '';
-      out.poster = out.poster || '';
+      out.badge_extra = out.badge_extra || "";
+      out.poster = out.poster || "";
 
-      if (target === 'private') {
+      if (target === "private") {
         out.user_id = out.user_id || ensureUserId();
       }
 
@@ -841,7 +918,7 @@
     }
 
     function loadLocalPublic() {
-      const raw = storageGet(PAGE.localKey, '');
+      const raw = storageGet(PAGE.localKey, "");
       if (!raw) return DEFAULT_PUBLIC.slice();
       try {
         return JSON.parse(raw);
@@ -855,7 +932,7 @@
     }
 
     function loadLocalPrivate() {
-      const raw = storageGet(PAGE.myLocalKey, '');
+      const raw = storageGet(PAGE.myLocalKey, "");
       if (!raw) return [];
       try {
         return JSON.parse(raw);
@@ -871,18 +948,18 @@
     async function loadData() {
       const supa = getSupabaseConfig();
 
-      state.publicItems = loadLocalPublic().map(item => normalizeItem(item, 'public'));
-      state.privateItems = loadLocalPrivate().map(item => normalizeItem(item, 'private'));
+      state.publicItems = loadLocalPublic().map(item => normalizeItem(item, "public"));
+      state.privateItems = loadLocalPrivate().map(item => normalizeItem(item, "private"));
 
       if (supa.connected) {
         try {
-          const publicRows = await dbFetch(PAGE.dbTable, 'select=*');
+          const publicRows = await dbFetch(PAGE.dbTable, "select=*");
           if (Array.isArray(publicRows)) {
-            state.publicItems = publicRows.map(item => normalizeItem(item, 'public'));
+            state.publicItems = publicRows.map(item => normalizeItem(item, "public"));
             saveLocalPublic();
           }
         } catch (e) {
-          toast('ℹ️ تعذر تحميل المكتبة العامة من Supabase — تم استخدام النسخة المحلية');
+          toast("ℹ️ تعذر تحميل المكتبة العامة من Supabase — تم استخدام النسخة المحلية");
         }
 
         try {
@@ -891,41 +968,40 @@
             PAGE.userTable,
             `select=*&user_id=eq.${encodeURIComponent(userId)}`
           );
-
           if (Array.isArray(privateRows)) {
-            state.privateItems = privateRows.map(item => normalizeItem(item, 'private'));
+            state.privateItems = privateRows.map(item => normalizeItem(item, "private"));
             saveLocalPrivate();
           }
         } catch (e) {
-          toast('ℹ️ تعذر تحميل مكتبتك الخاصة من Supabase — تم استخدام النسخة المحلية');
+          toast("ℹ️ تعذر تحميل مكتبتك الخاصة من Supabase — تم استخدام النسخة المحلية");
         }
       }
     }
 
     function statusLabel(status) {
       return ({
-        complete: 'مكتمل',
-        ongoing: 'مستمر',
-        cancelled: 'مُلغى'
-      }[status] || status || '—');
+        complete: "مكتمل",
+        ongoing: "مستمر",
+        cancelled: "مُلغى"
+      }[status] || status || "—");
     }
 
     function buildFilterButtons(containerId, activeKey, onChange) {
       const container = document.getElementById(containerId);
-      container.innerHTML = '';
+      container.innerHTML = "";
 
       Object.entries(FILTERS).forEach(([key, label]) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'filter-btn' + (key === activeKey ? ' active' : '');
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "filter-btn" + (key === activeKey ? " active" : "");
         btn.textContent = label;
-        btn.addEventListener('click', () => onChange(key));
+        btn.addEventListener("click", () => onChange(key));
         container.appendChild(btn);
       });
     }
 
     function textMatches(item, query) {
-      const q = (query || '').trim().toLowerCase();
+      const q = (query || "").trim().toLowerCase();
       if (!q) return true;
 
       const text = [
@@ -935,81 +1011,84 @@
         item.desc,
         item.vibes,
         ...(item.tags || [])
-      ].join(' ').toLowerCase();
+      ].join(" ").toLowerCase();
 
       return text.includes(q);
     }
 
     function getFilteredItems(target) {
-      const items = target === 'public' ? state.publicItems : state.privateItems;
-      const filterKey = target === 'public' ? state.publicFilter : state.privateFilter;
-      const query = target === 'public' ? state.publicQuery : state.privateQuery;
+      const items = target === "public" ? state.publicItems : state.privateItems;
+      const filterKey = target === "public" ? state.publicFilter : state.privateFilter;
+      const query = target === "public" ? state.publicQuery : state.privateQuery;
 
       return items.filter(item => {
-        const passFilter = filterKey === 'all' || item.filter === filterKey;
+        const passFilter = filterKey === "all" || item.filter === filterKey;
         return passFilter && textMatches(item, query);
       });
     }
 
-    function createPosterHtml(item) {
+    function createCoverHtml(item) {
       if (item.poster) {
         return `
           <div class="media-cover">
-            <img src="${item.poster}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=&quot;media-cover-fallback&quot;>🎬</div>'" />
+            <img
+              src="${item.poster}"
+              alt="${item.title}"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="media-cover-fallback">🎬</div>
           </div>
         `;
       }
 
       return `
         <div class="media-cover">
-          <div class="media-cover-fallback">🎬</div>
+          <div class="media-cover-fallback" style="display:flex;">🎬</div>
         </div>
       `;
     }
 
     function createCard(item, target) {
-      const card = document.createElement('article');
-      card.className = 'media-card';
+      const card = document.createElement("article");
+      card.className = "media-card";
 
       const actions = [];
 
-      if (target === 'public') {
-        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">➕ أضف إلى مكتبتي</button>`);
+      if (target === "public") {
+        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">أضف إلى مكتبتي</button>`);
       }
 
-      if (target === 'private') {
-        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">✏️ تعديل</button>`);
-        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">🗑️ حذف</button>`);
+      if (target === "private") {
+        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">تعديل</button>`);
+        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">حذف</button>`);
       }
 
       card.innerHTML = `
-        ${createPosterHtml(item)}
+        ${createCoverHtml(item)}
         <div class="media-body">
           <div class="media-title">${item.title}</div>
           <div class="media-sub">
-            ${item.year || '—'}
-            ${item.seasons ? ' • ' + item.seasons : ''}
-            ${item.status ? ' • ' + statusLabel(item.status) : ''}
+            ${item.year || "—"}
+            ${item.seasons ? " • " + item.seasons : ""}
+            ${item.status ? " • " + statusLabel(item.status) : ""}
           </div>
 
-          <div class="media-desc">${item.desc || 'لا يوجد وصف بعد.'}</div>
+          <div class="media-desc">${item.desc || "لا يوجد وصف بعد."}</div>
 
           <div class="tag-row" style="margin-top:12px;">
             <span class="tag">${FILTERS[item.filter] || item.filter}</span>
-            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join("")}
           </div>
 
-          <div class="progress-wrap">
-            <div class="progress"><span style="width:${item.bar || 0}%"></span></div>
+          <div class="score-row">
+            <div class="score-bar"><span style="width:${item.bar || 0}%"></span></div>
           </div>
 
           <div class="helper-note" style="margin-top:8px;">
-            التقييم: ${item.bar || 0}% ${item.vibes ? '• ' + item.vibes : ''}
+            التقييم: ${item.bar || 0}% ${item.vibes ? "• " + item.vibes : ""}
           </div>
 
-          <div class="card-actions">
-            ${actions.join('')}
-          </div>
+          <div class="card-actions">${actions.join("")}</div>
         </div>
       `;
 
@@ -1017,22 +1096,22 @@
     }
 
     function renderPublic() {
-      buildFilterButtons('public-filters', state.publicFilter, key => {
+      buildFilterButtons("public-filters", state.publicFilter, key => {
         state.publicFilter = key;
         renderPublic();
       });
 
-      const items = getFilteredItems('public');
-      const grid = document.getElementById('public-grid');
-      const empty = document.getElementById('public-empty');
+      const items = getFilteredItems("public");
+      const grid = document.getElementById("public-grid");
+      const empty = document.getElementById("public-empty");
 
-      grid.innerHTML = '';
+      grid.innerHTML = "";
 
       if (!items.length) {
-        empty.style.display = 'block';
+        empty.style.display = "block";
       } else {
-        empty.style.display = 'none';
-        items.forEach(item => grid.appendChild(createCard(item, 'public')));
+        empty.style.display = "none";
+        items.forEach(item => grid.appendChild(createCard(item, "public")));
       }
 
       bindPublicCardActions();
@@ -1040,22 +1119,22 @@
     }
 
     function renderPrivate() {
-      buildFilterButtons('private-filters', state.privateFilter, key => {
+      buildFilterButtons("private-filters", state.privateFilter, key => {
         state.privateFilter = key;
         renderPrivate();
       });
 
-      const items = getFilteredItems('private');
-      const grid = document.getElementById('private-grid');
-      const empty = document.getElementById('private-empty');
+      const items = getFilteredItems("private");
+      const grid = document.getElementById("private-grid");
+      const empty = document.getElementById("private-empty");
 
-      grid.innerHTML = '';
+      grid.innerHTML = "";
 
       if (!items.length) {
-        empty.style.display = 'block';
+        empty.style.display = "block";
       } else {
-        empty.style.display = 'none';
-        items.forEach(item => grid.appendChild(createCard(item, 'private')));
+        empty.style.display = "none";
+        items.forEach(item => grid.appendChild(createCard(item, "private")));
       }
 
       bindPrivateCardActions();
@@ -1063,8 +1142,8 @@
     }
 
     function renderDashboard() {
-      const statsWrap = document.getElementById('dashboard-stats');
-      const tbody = document.getElementById('dashboard-tbody');
+      const statsWrap = document.getElementById("dashboard-stats");
+      const tbody = document.getElementById("dashboard-tbody");
 
       const counts = {};
       state.publicItems.forEach(item => {
@@ -1072,11 +1151,11 @@
       });
 
       statsWrap.innerHTML = [
-        `<div class="mini-stat"><b>${state.publicItems.length}</b> إجمالي</div>`,
+        `<div class="mini-stat"><strong>${state.publicItems.length}</strong> إجمالي</div>`,
         ...Object.entries(FILTERS)
-          .filter(([key]) => key !== 'all')
-          .map(([key, label]) => `<div class="mini-stat"><b>${counts[key] || 0}</b> ${label}</div>`)
-      ].join('');
+          .filter(([key]) => key !== "all")
+          .map(([key, label]) => `<div class="mini-stat"><strong>${counts[key] || 0}</strong> ${label}</div>`)
+      ].join("");
 
       if (!state.publicItems.length) {
         tbody.innerHTML = `<tr><td colspan="7" class="muted">لا توجد عناصر بعد.</td></tr>`;
@@ -1088,59 +1167,59 @@
           <td>${index + 1}</td>
           <td>
             <strong>${item.title}</strong>
-            <div class="muted">${item.desc ? item.desc.slice(0, 70) : '—'}</div>
+            <div class="muted">${item.desc ? item.desc.slice(0, 70) : "—"}</div>
           </td>
-          <td>${item.year || '—'}</td>
-          <td>${item.seasons || '—'}</td>
+          <td>${item.year || "—"}</td>
+          <td>${item.seasons || "—"}</td>
           <td>${FILTERS[item.filter] || item.filter}</td>
           <td>${item.bar || 0}%</td>
           <td>
             <div class="card-actions">
-              <button class="small-btn" data-action="edit-public" data-id="${item.id}">✏️ تعديل</button>
-              <button class="small-btn danger" data-action="delete-public" data-id="${item.id}">🗑️ حذف</button>
+              <button class="small-btn" data-action="edit-public" data-id="${item.id}">تعديل</button>
+              <button class="small-btn danger" data-action="delete-public" data-id="${item.id}">حذف</button>
             </div>
           </td>
         </tr>
-      `).join('');
+      `).join("");
 
       tbody.querySelectorAll('[data-action="edit-public"]').forEach(btn => {
-        btn.addEventListener('click', () => openItemModal('edit', 'public', btn.dataset.id));
+        btn.addEventListener("click", () => openItemModal("edit", "public", btn.dataset.id));
       });
 
       tbody.querySelectorAll('[data-action="delete-public"]').forEach(btn => {
-        btn.addEventListener('click', () => deleteItem('public', btn.dataset.id));
+        btn.addEventListener("click", () => deleteItem("public", btn.dataset.id));
       });
     }
 
     function refreshStats(visibleCount) {
-      document.getElementById('stat-total').textContent = state.publicItems.length + state.privateItems.length;
-      document.getElementById('stat-public').textContent = state.publicItems.length;
-      document.getElementById('stat-private').textContent = state.privateItems.length;
-      document.getElementById('stat-visible').textContent = visibleCount;
+      document.getElementById("stat-total").textContent = state.publicItems.length + state.privateItems.length;
+      document.getElementById("stat-public").textContent = state.publicItems.length;
+      document.getElementById("stat-private").textContent = state.privateItems.length;
+      document.getElementById("stat-visible").textContent = visibleCount;
     }
 
     function switchView(view) {
       state.currentView = view;
 
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.view === view);
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === view);
       });
 
-      document.querySelectorAll('.section-block').forEach(section => {
-        section.classList.remove('active');
+      document.querySelectorAll(".section-block").forEach(section => {
+        section.classList.remove("active");
       });
 
-      document.getElementById(`view-${view}`).classList.add('active');
+      document.getElementById(`view-${view}`).classList.add("active");
 
-      if (view === 'public') renderPublic();
-      if (view === 'private') renderPrivate();
-      if (view === 'dashboard' && state.dashboardUnlocked) renderDashboard();
-      if (view === 'dashboard' && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
+      if (view === "public") renderPublic();
+      if (view === "private") renderPrivate();
+      if (view === "dashboard" && state.dashboardUnlocked) renderDashboard();
+      if (view === "dashboard" && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
     }
 
     function bindPublicCardActions() {
       document.querySelectorAll('[data-action="clone-private"]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener("click", () => {
           const item = state.publicItems.find(x => String(x.id) === String(btn.dataset.id));
           if (!item) return;
 
@@ -1154,100 +1233,100 @@
 
     function bindPrivateCardActions() {
       document.querySelectorAll('[data-action="edit-private"]').forEach(btn => {
-        btn.addEventListener('click', () => openItemModal('edit', 'private', btn.dataset.id));
+        btn.addEventListener("click", () => openItemModal("edit", "private", btn.dataset.id));
       });
 
       document.querySelectorAll('[data-action="delete-private"]').forEach(btn => {
-        btn.addEventListener('click', () => deleteItem('private', btn.dataset.id));
+        btn.addEventListener("click", () => deleteItem("private", btn.dataset.id));
       });
     }
 
     function openModal(id) {
-      document.getElementById(id).classList.add('open');
+      document.getElementById(id).classList.add("open");
     }
 
     function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
+      document.getElementById(id).classList.remove("open");
     }
 
     function fillFilterSelect() {
-      const select = document.getElementById('f-filter');
+      const select = document.getElementById("f-filter");
       select.innerHTML = Object.entries(FILTERS)
-        .filter(([key]) => key !== 'all')
+        .filter(([key]) => key !== "all")
         .map(([key, label]) => `<option value="${key}">${label}</option>`)
-        .join('');
+        .join("");
     }
 
     function setFormValues(item) {
-      document.getElementById('form-id').value = item?.id || '';
-      document.getElementById('f-title').value = item?.title || '';
-      document.getElementById('f-year').value = item?.year || '';
-      document.getElementById('f-seasons').value = item?.seasons || '';
-      document.getElementById('f-status').value = item?.status || 'complete';
-      document.getElementById('f-filter').value = item?.filter || 'sci';
-      document.getElementById('f-desc').value = item?.desc || '';
-      document.getElementById('f-tags').value = (item?.tags || []).join('، ');
-      document.getElementById('f-vibes').value = item?.vibes || '';
-      document.getElementById('f-bar').value = item?.bar || 80;
-      document.getElementById('f-poster').value = item?.poster || '';
+      document.getElementById("form-id").value = item?.id || "";
+      document.getElementById("f-title").value = item?.title || "";
+      document.getElementById("f-year").value = item?.year || "";
+      document.getElementById("f-seasons").value = item?.seasons || "";
+      document.getElementById("f-status").value = item?.status || "complete";
+      document.getElementById("f-filter").value = item?.filter || "sci";
+      document.getElementById("f-desc").value = item?.desc || "";
+      document.getElementById("f-tags").value = (item?.tags || []).join("، ");
+      document.getElementById("f-vibes").value = item?.vibes || "";
+      document.getElementById("f-bar").value = item?.bar || 80;
+      document.getElementById("f-poster").value = item?.poster || "";
     }
 
     function getFormValues(target) {
       return normalizeItem({
-        id: document.getElementById('form-id').value || String(Date.now()),
-        title: document.getElementById('f-title').value.trim(),
-        year: document.getElementById('f-year').value.trim(),
-        seasons: document.getElementById('f-seasons').value.trim(),
-        status: document.getElementById('f-status').value,
-        filter: document.getElementById('f-filter').value,
-        type: document.getElementById('f-filter').value,
-        desc: document.getElementById('f-desc').value.trim(),
-        tags: document.getElementById('f-tags').value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
-        vibes: document.getElementById('f-vibes').value.trim(),
-        bar: parseInt(document.getElementById('f-bar').value || '80', 10),
-        poster: document.getElementById('f-poster').value.trim(),
-        badge_extra: ''
+        id: document.getElementById("form-id").value || String(Date.now()),
+        title: document.getElementById("f-title").value.trim(),
+        year: document.getElementById("f-year").value.trim(),
+        seasons: document.getElementById("f-seasons").value.trim(),
+        status: document.getElementById("f-status").value,
+        filter: document.getElementById("f-filter").value,
+        type: document.getElementById("f-filter").value,
+        desc: document.getElementById("f-desc").value.trim(),
+        tags: document.getElementById("f-tags").value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
+        vibes: document.getElementById("f-vibes").value.trim(),
+        bar: parseInt(document.getElementById("f-bar").value || "80", 10),
+        poster: document.getElementById("f-poster").value.trim(),
+        badge_extra: ""
       }, target);
     }
 
-    function openItemModal(mode, target, id = '') {
-      document.getElementById('form-mode').value = mode;
-      document.getElementById('form-target').value = target;
+    function openItemModal(mode, target, id = "") {
+      document.getElementById("form-mode").value = mode;
+      document.getElementById("form-target").value = target;
 
-      document.getElementById('item-modal-title').textContent =
-        mode === 'edit' ? 'تعديل عنصر' : 'إضافة عنصر';
-      document.getElementById('item-modal-subtitle').textContent =
-        target === 'public' ? 'المكتبة العامة' : 'مكتبتي';
+      document.getElementById("item-modal-title").textContent =
+        mode === "edit" ? "تعديل عنصر" : "إضافة عنصر";
+      document.getElementById("item-modal-subtitle").textContent =
+        target === "public" ? "المكتبة العامة" : "مكتبتي";
 
       fillFilterSelect();
 
       let item = null;
-      if (mode === 'edit') {
-        item = (target === 'public' ? state.publicItems : state.privateItems)
+      if (mode === "edit") {
+        item = (target === "public" ? state.publicItems : state.privateItems)
           .find(x => String(x.id) === String(id));
       }
 
       setFormValues(item);
-      openModal('item-modal-backdrop');
+      openModal("item-modal-backdrop");
     }
 
     async function fetchPoster(title) {
       try {
         const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(title)}`);
         const data = await res.json();
-        return data?.[0]?.show?.image?.original || data?.[0]?.show?.image?.medium || '';
+        return data?.[0]?.show?.image?.original || data?.[0]?.show?.image?.medium || "";
       } catch {
-        return '';
+        return "";
       }
     }
 
     async function saveItem() {
-      const target = document.getElementById('form-target').value;
-      const mode = document.getElementById('form-mode').value;
+      const target = document.getElementById("form-target").value;
+      const mode = document.getElementById("form-mode").value;
       const item = getFormValues(target);
 
       if (!item.title) {
-        toast('⚠️ العنوان مطلوب');
+        toast("⚠️ العنوان مطلوب");
         return;
       }
 
@@ -1255,13 +1334,13 @@
         item.poster = await fetchPoster(item.title);
       }
 
-      if (target === 'public') {
-        await upsertPublic(item, mode === 'edit');
+      if (target === "public") {
+        await upsertPublic(item, mode === "edit");
       } else {
-        await upsertPrivate(item, mode === 'edit');
+        await upsertPrivate(item, mode === "edit");
       }
 
-      closeModal('item-modal-backdrop');
+      closeModal("item-modal-backdrop");
     }
 
     async function upsertPublic(item, isEdit) {
@@ -1281,18 +1360,17 @@
             await dbInsert(PAGE.dbTable, item);
           }
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPublic();
       if (state.dashboardUnlocked) renderDashboard();
-      toast('✅ تم حفظ العنصر في المكتبة العامة');
+      toast("✅ تم حفظ العنصر في المكتبة العامة");
     }
 
     async function addToPrivate(item) {
-      item = normalizeItem(item, 'private');
-
+      item = normalizeItem(item, "private");
       state.privateItems.unshift(item);
       saveLocalPrivate();
 
@@ -1301,12 +1379,12 @@
         try {
           await dbInsert(PAGE.userTable, item);
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPrivate();
-      toast('✅ تمت الإضافة إلى مكتبتك الخاصة');
+      toast("✅ تمت الإضافة إلى مكتبتك الخاصة");
     }
 
     async function upsertPrivate(item, isEdit) {
@@ -1328,19 +1406,19 @@
             await dbInsert(PAGE.userTable, item);
           }
         } catch (e) {
-          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
       }
 
       renderPrivate();
-      toast('✅ تم حفظ العنصر في مكتبتك');
+      toast("✅ تم حفظ العنصر في مكتبتك");
     }
 
     async function deleteItem(target, id) {
-      const ok = confirm('هل أنت متأكد من الحذف؟');
+      const ok = confirm("هل أنت متأكد من الحذف؟");
       if (!ok) return;
 
-      if (target === 'public') {
+      if (target === "public") {
         state.publicItems = state.publicItems.filter(x => String(x.id) !== String(id));
         saveLocalPublic();
 
@@ -1349,7 +1427,7 @@
           try {
             await dbDelete(PAGE.dbTable, `id=eq.${encodeURIComponent(id)}`);
           } catch (e) {
-            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+            toast("⚠️ حُذف محليًا لكن Supabase أعاد خطأ: " + e.message);
           }
         }
 
@@ -1364,22 +1442,22 @@
           try {
             await dbDelete(PAGE.userTable, `id=eq.${encodeURIComponent(id)}`);
           } catch (e) {
-            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+            toast("⚠️ حُذف محليًا لكن Supabase أعاد خطأ: " + e.message);
           }
         }
 
         renderPrivate();
       }
 
-      toast('🗑️ تم الحذف');
+      toast("🗑️ تم الحذف");
     }
 
     async function classifyFormWithAI() {
-      const title = document.getElementById('f-title').value.trim();
-      const desc = document.getElementById('f-desc').value.trim();
+      const title = document.getElementById("f-title").value.trim();
+      const desc = document.getElementById("f-desc").value.trim();
 
       if (!title && !desc) {
-        toast('⚠️ اكتب عنوانًا أو وصفًا أولًا');
+        toast("⚠️ اكتب عنوانًا أو وصفًا أولًا");
         return;
       }
 
@@ -1390,78 +1468,78 @@ Return exactly: {"filter":"sci","tags":["t1","t2","t3"],"vibes":"mood","bar":80,
 Allowed filter values: end, spy, sci, banned, low`;
 
       try {
-        toast('🤖 جارٍ التصنيف...');
-        const raw = await callAI(prompt, 'classify');
-        const parsed = parseAIJson(raw, 'object');
+        toast("🤖 جارٍ التصنيف...");
+        const raw = await callAI(prompt, "classify");
+        const parsed = parseAIJson(raw, "object");
 
         if (!parsed) {
-          throw new Error('تعذر قراءة نتيجة التصنيف');
+          throw new Error("تعذر قراءة نتيجة التصنيف");
         }
 
         if (parsed.filter && FILTER_KEYS.includes(parsed.filter)) {
-          document.getElementById('f-filter').value = parsed.filter;
+          document.getElementById("f-filter").value = parsed.filter;
         }
 
         if (parsed.tags) {
-          document.getElementById('f-tags').value = parsed.tags.join('، ');
+          document.getElementById("f-tags").value = parsed.tags.join("، ");
         }
 
         if (parsed.vibes) {
-          document.getElementById('f-vibes').value = parsed.vibes;
+          document.getElementById("f-vibes").value = parsed.vibes;
         }
 
         if (parsed.bar) {
-          document.getElementById('f-bar').value = parsed.bar;
+          document.getElementById("f-bar").value = parsed.bar;
         }
 
-        if (parsed.desc_ar && !document.getElementById('f-desc').value.trim()) {
-          document.getElementById('f-desc').value = parsed.desc_ar;
+        if (parsed.desc_ar && !document.getElementById("f-desc").value.trim()) {
+          document.getElementById("f-desc").value = parsed.desc_ar;
         }
 
-        toast('✅ تم التصنيف تلقائيًا');
+        toast("✅ تم التصنيف تلقائيًا");
       } catch (e) {
-        toast('❌ ' + e.message);
+        toast("❌ " + e.message);
       }
     }
 
     function openDiscoverModal(target) {
-      document.getElementById('discover-target').value = target;
-      document.getElementById('discover-target-label').textContent =
-        target === 'public' ? 'سيتم الإضافة إلى المكتبة العامة' : 'سيتم الإضافة إلى مكتبتك الخاصة';
+      document.getElementById("discover-target").value = target;
+      document.getElementById("discover-target-label").textContent =
+        target === "public" ? "سيتم الإضافة إلى المكتبة العامة" : "سيتم الإضافة إلى مكتبتك الخاصة";
 
-      document.getElementById('discover-results').innerHTML = '';
-      openModal('discover-modal-backdrop');
+      document.getElementById("discover-results").innerHTML = "";
+      openModal("discover-modal-backdrop");
     }
 
     async function runDiscover() {
-      const target = document.getElementById('discover-target').value;
-      const kind = document.getElementById('d-kind').value;
-      const era = document.getElementById('d-era').value;
-      const topic = document.getElementById('d-topic').value;
-      const length = document.getElementById('d-length').value;
-      const notes = document.getElementById('d-notes').value.trim();
+      const target = document.getElementById("discover-target").value;
+      const kind = document.getElementById("d-kind").value;
+      const era = document.getElementById("d-era").value;
+      const topic = document.getElementById("d-topic").value;
+      const length = document.getElementById("d-length").value;
+      const notes = document.getElementById("d-notes").value.trim();
 
       const prompt = `Recommend 6 ${kind} in Arabic audience style.
 Topic: ${topic}.
 Era: ${era}.
 Length: ${length}.
-Extra notes: ${notes || 'none'}.
+Extra notes: ${notes || "none"}.
 Return ONLY valid JSON array.
 Each item must be:
 {"title":"","year":"","seasons":"","status":"complete","filter":"sci","desc":"","tags":[""],"vibes":"","bar":80}`;
 
-      const resultsWrap = document.getElementById('discover-results');
+      const resultsWrap = document.getElementById("discover-results");
       resultsWrap.innerHTML = '<div class="empty-state">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
 
       try {
-        const raw = await callAI(prompt, 'discover');
-        const parsed = parseAIJson(raw, 'array');
+        const raw = await callAI(prompt, "discover");
+        const parsed = parseAIJson(raw, "array");
 
         if (!Array.isArray(parsed) || !parsed.length) {
-          throw new Error('تعذر قراءة النتائج');
+          throw new Error("تعذر قراءة النتائج");
         }
 
-        resultsWrap.innerHTML = '';
+        resultsWrap.innerHTML = "";
 
         for (const item of parsed.slice(0, 6)) {
           const normalized = normalizeItem(
@@ -1473,44 +1551,44 @@ Each item must be:
             normalized.poster = await fetchPoster(normalized.title);
           }
 
-          const card = document.createElement('div');
-          card.className = 'discover-card';
+          const card = document.createElement("div");
+          card.className = "discover-card";
           card.innerHTML = `
             <strong>${normalized.title}</strong>
             <div class="helper-note" style="margin-top:6px;">
-              ${normalized.year || '—'}
-              ${normalized.seasons ? ' • ' + normalized.seasons : ''}
+              ${normalized.year || "—"}
+              ${normalized.seasons ? " • " + normalized.seasons : ""}
               • ${FILTERS[normalized.filter] || normalized.filter}
             </div>
 
             <p style="color:var(--text-2); line-height:1.8; margin-top:8px;">
-              ${normalized.desc || 'لا يوجد وصف.'}
+              ${normalized.desc || "لا يوجد وصف."}
             </p>
 
             <div class="tag-row" style="margin-top:10px;">
-              ${(normalized.tags || []).slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join('')}
+              ${(normalized.tags || []).slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join("")}
             </div>
 
             <div class="card-actions">
-              <button class="small-btn primary">➕ أضف</button>
+              <button class="small-btn primary">أضف</button>
               <button class="small-btn">تجاهل</button>
             </div>
           `;
 
-          const [addBtn, skipBtn] = card.querySelectorAll('button');
+          const [addBtn, skipBtn] = card.querySelectorAll("button");
 
-          addBtn.addEventListener('click', async () => {
-            if (target === 'public') {
+          addBtn.addEventListener("click", async () => {
+            if (target === "public") {
               await upsertPublic(normalized, false);
             } else {
               await addToPrivate(normalized);
             }
 
             addBtn.disabled = true;
-            addBtn.textContent = '✅ تمت الإضافة';
+            addBtn.textContent = "تمت الإضافة";
           });
 
-          skipBtn.addEventListener('click', () => card.remove());
+          skipBtn.addEventListener("click", () => card.remove());
 
           resultsWrap.appendChild(card);
         }
@@ -1520,97 +1598,102 @@ Each item must be:
     }
 
     function unlockDashboard() {
-      const value = document.getElementById('dashboard-password').value.trim();
+      const value = document.getElementById("dashboard-password").value.trim();
 
       if (value !== window.APP_CONFIG.DASHBOARD_PASSWORD) {
-        toast('❌ كلمة المرور غير صحيحة');
+        toast("❌ كلمة المرور غير صحيحة");
         return;
       }
 
       state.dashboardUnlocked = true;
-      document.getElementById('dashboard-locked').style.display = 'none';
-      document.getElementById('dashboard-content').style.display = 'block';
+      document.getElementById("dashboard-locked").style.display = "none";
+      document.getElementById("dashboard-content").style.display = "block";
 
       renderDashboard();
-      toast('✅ تم فتح لوحة التحكم');
+      toast("✅ تم فتح لوحة التحكم");
     }
 
     function bindGeneralEvents() {
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchView(btn.dataset.view));
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => switchView(btn.dataset.view));
       });
 
-      document.getElementById('hero-go-public').addEventListener('click', () => {
-        switchView('public');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById("hero-go-public").addEventListener("click", () => {
+        switchView("public");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      document.getElementById('hero-open-discover').addEventListener('click', () => {
-        openDiscoverModal('public');
+      document.getElementById("hero-open-discover").addEventListener("click", () => {
+        openDiscoverModal("public");
       });
 
-      document.getElementById('public-search').addEventListener('input', e => {
+      document.getElementById("public-search").addEventListener("input", e => {
         state.publicQuery = e.target.value;
         renderPublic();
       });
 
-      document.getElementById('private-search').addEventListener('input', e => {
+      document.getElementById("private-search").addEventListener("input", e => {
         state.privateQuery = e.target.value;
         renderPrivate();
       });
 
-      document.getElementById('public-discover-btn').addEventListener('click', () => openDiscoverModal('public'));
-      document.getElementById('private-discover-btn').addEventListener('click', () => openDiscoverModal('private'));
-      document.getElementById('dashboard-discover-btn').addEventListener('click', () => openDiscoverModal('public'));
+      document.getElementById("public-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
+      document.getElementById("private-discover-btn").addEventListener("click", () => openDiscoverModal("private"));
+      document.getElementById("dashboard-discover-btn").addEventListener("click", () => openDiscoverModal("public"));
 
-      document.getElementById('private-add-btn').addEventListener('click', () => openItemModal('add', 'private'));
-      document.getElementById('dashboard-add-btn').addEventListener('click', () => openItemModal('add', 'public'));
+      document.getElementById("private-add-btn").addEventListener("click", () => openItemModal("add", "private"));
+      document.getElementById("dashboard-add-btn").addEventListener("click", () => openItemModal("add", "public"));
 
-      document.getElementById('classify-btn').addEventListener('click', classifyFormWithAI);
-      document.getElementById('save-item-btn').addEventListener('click', saveItem);
-      document.getElementById('run-discover-btn').addEventListener('click', runDiscover);
+      document.getElementById("classify-btn").addEventListener("click", classifyFormWithAI);
+      document.getElementById("save-item-btn").addEventListener("click", saveItem);
+      document.getElementById("run-discover-btn").addEventListener("click", runDiscover);
 
-      document.getElementById('unlock-dashboard-btn').addEventListener('click', unlockDashboard);
+      document.getElementById("unlock-dashboard-btn").addEventListener("click", unlockDashboard);
 
-      document.querySelectorAll('[data-close]').forEach(btn => {
-        btn.addEventListener('click', () => closeModal(btn.dataset.close));
+      document.querySelectorAll("[data-close]").forEach(btn => {
+        btn.addEventListener("click", () => closeModal(btn.dataset.close));
       });
 
-      document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-        backdrop.addEventListener('click', e => {
+      document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", e => {
           if (e.target === backdrop) {
-            backdrop.classList.remove('open');
+            backdrop.classList.remove("open");
           }
         });
       });
 
-      document.getElementById('supabase-form').addEventListener('submit', async e => {
+      document.getElementById("supabase-form").addEventListener("submit", async e => {
         e.preventDefault();
 
         saveSupabaseConfig(
-          document.getElementById('supa-url').value,
-          document.getElementById('supa-key').value
+          document.getElementById("supa-url").value,
+          document.getElementById("supa-key").value
         );
 
-        wirePage(PAGE_KEY);
-
+        setPageMeta();
         await loadData();
         renderPublic();
         renderPrivate();
         if (state.dashboardUnlocked) renderDashboard();
 
-        toast('✅ تم حفظ إعدادات Supabase وإعادة التحميل');
+        toast("✅ تم حفظ إعدادات Supabase وإعادة التحميل");
       });
     }
 
     async function init() {
-      wirePage(PAGE_KEY);
+      setPageMeta();
+
+      const supa = getSupabaseConfig();
+      if (supa.url) document.getElementById("supa-url").value = supa.url;
+      if (supa.anonKey) document.getElementById("supa-key").value = supa.anonKey;
+
       bindGeneralEvents();
       await loadData();
       renderPublic();
       renderPrivate();
       refreshStats(state.publicItems.length);
-      toast('✅ تم تحميل صفحة الأفلام والمسلسلات بنجاح');
+
+      toast("✅ تم تحميل صفحة الأفلام والمسلسلات");
     }
 
     init();
