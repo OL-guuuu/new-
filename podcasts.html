@@ -10,11 +10,12 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="assets/css/style.css" />
 
-  <title>البودكاست | المنصة</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>الكتب والروايات | المنصة</title>
 
   <style>
+    /* ===== TOP BAR ===== */
     .page-topbar {
       padding: 24px 0 10px;
     }
@@ -45,6 +46,7 @@
       flex-wrap: wrap;
     }
 
+    /* ===== VIEWS ===== */
     .section-block {
       display: none;
     }
@@ -58,6 +60,7 @@
       padding-bottom: 56px;
     }
 
+    /* ===== TOOLBAR ===== */
     .view-toolbar-shell {
       margin-bottom: 18px;
     }
@@ -89,7 +92,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
-      flex: 1 1 300px;
+      flex: 1 1 320px;
     }
 
     .search-box {
@@ -98,6 +101,7 @@
       width: 100%;
     }
 
+    /* ===== FILTER / TABS ===== */
     .tab-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.03);
@@ -135,28 +139,33 @@
       border-color: rgba(255,255,255,0.14);
     }
 
+    /* ===== BOOK CARDS ===== */
     .media-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: stretch;
     }
 
-    .pod-card {
+    .book-card {
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 24px;
       overflow: hidden;
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
       box-shadow: var(--shadow-md);
       transition: 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
     }
 
-    .pod-card:hover {
-      transform: translateY(-2px);
+    .book-card:hover {
+      transform: translateY(-3px);
       border-color: rgba(255,255,255,0.12);
     }
 
-    .pod-cover {
-      height: 240px;
+    .book-cover {
+      height: 260px;
       background:
         radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05), transparent 24%),
         linear-gradient(180deg, #101010 0%, #181818 100%);
@@ -164,60 +173,86 @@
       overflow: hidden;
     }
 
-    .pod-cover img {
+    .book-cover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .pod-cover-fallback {
+    .book-cover-fallback {
       position: absolute;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 2.8rem;
+      font-size: 4rem;
       color: var(--text-3);
       background:
         radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 24%),
         linear-gradient(180deg, #101010 0%, #151515 100%);
     }
 
-    .pod-body {
-      padding: 18px;
+    .book-body {
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
     }
 
-    .pod-title {
-      font-size: 1.08rem;
+    .book-title {
+      font-size: 1.18rem;
       font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.45;
+      line-height: 1.5;
+      margin: 0;
     }
 
-    .pod-host {
+    .book-author {
       color: var(--text-2);
-      font-size: 0.92rem;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .pod-sub {
-      color: var(--text-3);
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      line-height: 1.9;
-    }
-
-    .pod-desc {
-      color: var(--text-2);
-      line-height: 1.95;
       font-size: 0.95rem;
-      min-height: 86px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .book-sub {
+      color: var(--text-3);
+      font-size: 0.92rem;
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    .book-desc {
+      color: var(--text-2);
+      line-height: 1.9;
+      font-size: 0.95rem;
+      margin: 0;
+      min-height: 88px;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      line-height: 1.2;
     }
 
     .score-row {
-      margin-top: 14px;
+      margin-top: 6px;
     }
 
     .score-bar {
@@ -230,24 +265,25 @@
     .score-bar > span {
       display: block;
       height: 100%;
-      background: linear-gradient(90deg, #bcbcbc, #ffffff);
+      background: linear-gradient(90deg, #cfcfcf, #ffffff);
     }
 
     .card-actions {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: auto;
+      padding-top: 6px;
     }
 
     .small-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.03);
       color: var(--text);
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 12px;
+      padding: 10px 12px;
       font: inherit;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       cursor: pointer;
       transition: 0.16s ease;
     }
@@ -261,6 +297,9 @@
       background: #ffffff;
       color: #111111;
       border: none;
+      width: 100%;
+      justify-content: center;
+      font-weight: 800;
     }
 
     .small-btn.danger {
@@ -268,6 +307,7 @@
       background: rgba(255,255,255,0.03);
     }
 
+    /* ===== DASHBOARD ===== */
     .dashboard-grid {
       display: grid;
       gap: 18px;
@@ -348,6 +388,7 @@
       background: rgba(255,255,255,0.02);
     }
 
+    /* ===== MODAL ===== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -577,7 +618,7 @@
 
       <div id="private-grid" class="media-grid"></div>
       <div id="private-empty" class="empty-state" style="display:none;">
-        لا توجد عناصر في قراءاتك الخاصة بعد.
+        لا توجد عناصر في قراءاتي بعد.
       </div>
     </section>
 
@@ -666,7 +707,7 @@
           <strong id="item-modal-title">إضافة كتاب</strong>
           <div class="helper-note" id="item-modal-subtitle">المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="item-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="item-modal-backdrop" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -766,7 +807,7 @@
           <strong>اكتشف بالذكاء الاصطناعي</strong>
           <div class="helper-note" id="discover-target-label">سيتم الإضافة إلى المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="discover-modal-backdrop" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -1185,25 +1226,34 @@
       card.className = "book-card";
 
       const actions = [];
+
       if (target === "public") {
-        actions.push(
-          `<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">أضف إلى قراءاتي</button>`
-        );
+        actions.push(`
+          <button class="small-btn primary" data-action="clone-private" data-id="${item.id}">
+            أضف إلى قراءاتي
+          </button>
+        `);
       }
 
       if (target === "private") {
-        actions.push(
-          `<button class="small-btn" data-action="edit-private" data-id="${item.id}">تعديل</button>`
-        );
-        actions.push(
-          `<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">حذف</button>`
-        );
+        actions.push(`
+          <button class="small-btn" data-action="edit-private" data-id="${item.id}">
+            تعديل
+          </button>
+        `);
+
+        actions.push(`
+          <button class="small-btn danger" data-action="delete-private" data-id="${item.id}">
+            حذف
+          </button>
+        `);
       }
 
       card.innerHTML = `
         ${createCoverHtml(item)}
         <div class="book-body">
           <div class="book-title">${item.title}</div>
+
           ${item.author ? `<div class="book-author">✍️ ${item.author}</div>` : ""}
 
           <div class="book-sub">
@@ -1214,20 +1264,27 @@
 
           <div class="book-desc">${item.desc || "لا يوجد وصف بعد."}</div>
 
-          <div class="tag-row" style="margin-top:12px;">
+          <div class="tag-row" style="margin-top:4px;">
             <span class="tag">${FILTERS[item.filter] || item.filter}</span>
-            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join("")}
+            ${(item.tags || [])
+              .slice(0, 3)
+              .map(tag => `<span class="tag">${tag}</span>`)
+              .join("")}
           </div>
 
           <div class="score-row">
-            <div class="score-bar"><span style="width:${item.bar || 0}%"></span></div>
+            <div class="score-bar">
+              <span style="width:${item.bar || 0}%"></span>
+            </div>
           </div>
 
-          <div class="helper-note" style="margin-top:8px;">
+          <div class="helper-note" style="margin-top:2px;">
             التقييم: ${item.bar || 0}% ${item.vibes ? "• " + item.vibes : ""}
           </div>
 
-          <div class="card-actions">${actions.join("")}</div>
+          <div class="card-actions">
+            ${actions.join("")}
+          </div>
         </div>
       `;
 
