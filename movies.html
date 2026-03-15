@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+      <title>🎬 الأفلام والمسلسلات</title>
+    </head>
+    <body>
+      <header class="nav">
+        <div class="container nav-inner">
+          <a class="brand" href="index.html">✦ المنصة</a>
+          <nav class="nav-links">
+            <a class="nav-link" href="index.html">الرئيسية</a>
+            <a class="nav-link active" href="movies.html">🎬 الأفلام</a>
+            <a class="nav-link " href="books.html">📚 الكتب</a>
+            <a class="nav-link " href="podcasts.html">🎙️ البودكاست</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="page-head">
+          <span class="pill">🎬 صفحة جديدة من V2</span>
+          <h1>صفحة الأفلام والمسلسلات</h1>
+          <p>هذه النسخة هي نقطة الانطلاق لإعادة بناء صفحة الأفلام بشكل منظم واحترافي.</p>
+          <div class="badge-row">
+            <span class="badge" id="page-db-table">dbTable: ...</span>
+            <span class="badge" id="page-user-table">userTable: ...</span>
+            <span class="badge" id="page-content-type">type: ...</span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">ماذا أنجزنا في هذه الصفحة؟</h2>
+          <div class="grid cols-3">
+            <article class="card">
+              <h3>ربط بالإعدادات المشتركة</h3>
+              <p>الصفحة تقرأ إعداداتها الآن من config.js بدل تكرار الثوابت داخل كل ملف.</p>
+            </article>
+            <article class="card">
+              <h3>ربط بالوظائف المشتركة</h3>
+              <p>الصفحة أصبحت قادرة على استعمال Toast وSupabase Helpers وAI Helpers من common.js.</p>
+            </article>
+            <article class="card">
+              <h3>جاهزة للمرحلة القادمة</h3>
+              <p>سنبدأ بها أولاً لأنها الصفحة الأساسية التي سننسخ منها منطق الكتب والبودكاست.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">منطقة العمل القادمة</h2>
+          <div class="placeholder">
+            في الخطوة القادمة سنحوّل هذه الصفحة إلى نسخة كاملة تشمل:
+            <br>• المكتبة العامة
+            <br>• المكتبة الخاصة
+            <br>• لوحة التحكم
+            <br>• التصنيف بالذكاء الاصطناعي
+            <br>• الاكتشاف بالذكاء الاصطناعي
+            <br>• ربط Supabase
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer container">الأفلام والمسلسلات — نسخة البداية المنظمة</footer>
+
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/common.js"></script>
+
+      <script>
+        const pageKey = 'movies';
+        const { getPageConfig, toast } = window.AppCommon;
+        const page = getPageConfig(pageKey);
+
+        if (page) {
+          document.getElementById('page-db-table').textContent = `dbTable: ${page.dbTable}`;
+          document.getElementById('page-user-table').textContent = `userTable: ${page.userTable}`;
+          document.getElementById('page-content-type').textContent = `type: ${page.contentType}`;
+        }
+
+        setTimeout(() => toast(`تم تحميل صفحة: الأفلام والمسلسلات`), 400);
+      </script>
+    </body>
+    </html>
