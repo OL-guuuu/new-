@@ -630,6 +630,69 @@ select {
     width: min(var(--container), calc(100% - 20px));
   }
 
+  /* ===== CARDS 4-UP LAYOUT ===== */
+.cards-4,
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.compact-card {
+  border-radius: 18px;
+}
+
+.compact-cover {
+  height: 180px;
+}
+
+.compact-body {
+  padding: 14px 14px 16px;
+  gap: 8px;
+}
+
+.compact-title {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.compact-sub {
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.compact-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  min-height: 58px;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .cards-4,
+  .media-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-4,
+  .media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .cards-4,
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
   .hero {
     padding-top: 64px;
   }
