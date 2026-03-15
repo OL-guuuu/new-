@@ -1,16 +1,383 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 
   <title>🎙️ البودكاست | المنصة</title>
+
+  <style>
+    .hero.podcast-hero { padding-bottom: 28px; }
+
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .stat-chip {
+      min-width: 120px;
+      text-align: center;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .stat-chip b {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--amber);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text2);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font: inherit;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      color: var(--text);
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.08);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .toolbar-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text2);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: .92rem;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      color: var(--text);
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.08);
+    }
+
+    .search-box {
+      min-width: 260px;
+      max-width: 360px;
+    }
+
+    .section-block { display: none; }
+    .section-block.active { display: block; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .pod-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow: var(--shadow);
+    }
+
+    .pod-cover {
+      height: 220px;
+      background: linear-gradient(135deg, rgba(245,158,11,.14), rgba(124,58,237,.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .pod-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pod-fallback {
+      font-size: 3rem;
+      opacity: .88;
+    }
+
+    .pod-body {
+      padding: 16px;
+    }
+
+    .pod-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .pod-host {
+      color: var(--amber);
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: 6px;
+    }
+
+    .pod-meta {
+      color: var(--text3);
+      font-size: .9rem;
+      margin-bottom: 10px;
+    }
+
+    .pod-desc {
+      color: var(--text2);
+      line-height: 1.8;
+      font-size: .94rem;
+      min-height: 70px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text2);
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: .8rem;
+    }
+
+    .progress {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--violet), var(--amber));
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .small-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+
+    .small-btn.danger {
+      border-color: rgba(239,68,68,.25);
+      color: #ffb4b4;
+      background: rgba(239,68,68,.08);
+    }
+
+    .small-btn.primary {
+      background: linear-gradient(135deg, var(--amber), #d97706);
+      color: #1b1200;
+      border: none;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrap { overflow: auto; }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 10px;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    .data-table th {
+      color: var(--text2);
+      font-size: .92rem;
+    }
+
+    .data-table td {
+      font-size: .94rem;
+    }
+
+    .muted { color: var(--text3); }
+
+    .empty {
+      padding: 26px;
+      text-align: center;
+      color: var(--text3);
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      width: min(820px, 100%);
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--bg3);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head,
+    .modal-foot {
+      padding: 18px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-foot {
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      justify-content: flex-end;
+    }
+
+    .modal-body { padding: 18px; }
+
+    .close-btn {
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .dash-top {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .stats-mini {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-box {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .mini-box b { color: var(--amber); }
+
+    .discover-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .pw-box {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    @media (max-width:700px) {
+      .split-2 { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; }
+      .search-box { min-width: 100%; max-width: none; }
+    }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -18,64 +385,1139 @@
       <a class="brand" href="index.html">✦ المنصة</a>
       <nav class="nav-links">
         <a class="nav-link" href="index.html">الرئيسية</a>
-        <a class="nav-link " href="movies.html">🎬 الأفلام</a>
-        <a class="nav-link " href="books.html">📚 الكتب</a>
+        <a class="nav-link" href="movies.html">🎬 الأفلام والمسلسلات</a>
+        <a class="nav-link" href="books.html">📚 الكتب</a>
         <a class="nav-link active" href="podcasts.html">🎙️ البودكاست</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <span class="pill">🎙️ صفحة مرتبطة بالنظام الجديد</span>
-      <h1>صفحة البودكاست</h1>
-      <p>هذه الصفحة مربوطة كذلك بالنظام الجديد، وستأخذ نفس المعمارية بعد إنهاء صفحات الأفلام والكتب.</p>
-      <div class="badge-row" style="justify-content:center;">
-        <span class="badge">dbTable: <span id="page-db-table" class="code">—</span></span>
-        <span class="badge">userTable: <span id="page-user-table" class="code">—</span></span>
-        <span class="badge">type: <span id="page-content-type">—</span></span>
+    <section class="hero podcast-hero">
+      <span class="pill">🎙️ Podcasts V2 — مربوطة مع assets + Cloudflare + Supabase</span>
+      <h1>بودكاستات مختارة<br>بنسخة منظمة وجاهزة للتوسعة</h1>
+      <p>
+        هذه الصفحة مبنية على نفس النظام الجديد: مكتبة عامة، مكتبة خاصة، لوحة تحكم،
+        اكتشاف وتصنيف بالذكاء الاصطناعي، وربط فعلي مع Supabase وCloudflare Worker.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-chip"><b id="stat-total">0</b><span>إجمالي البودكاستات</span></div>
+        <div class="stat-chip"><b id="stat-public">0</b><span>المكتبة العامة</span></div>
+        <div class="stat-chip"><b id="stat-private">0</b><span>قائمتي</span></div>
+        <div class="stat-chip"><b id="stat-filtered">0</b><span>النتائج الظاهرة</span></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-view="public">🎧 المكتبة العامة</button>
+        <button class="tab-btn" data-view="private">📻 قائمتي</button>
+        <button class="tab-btn" data-view="dashboard">⚙️ لوحة التحكم</button>
       </div>
     </section>
 
-    <section class="section">
-      <h2 class="section-title">كيف تعرف أن الصفحة مربوطة فعلاً؟</h2>
-      <div class="info-grid">
-        <div class="info-box">
-          <div class="info-label">اسم المنصة من config.js</div>
-          <div class="info-value" id="page-site-name">—</div>
-        </div>
-        <div class="info-box">
-          <div class="info-label">رابط Cloudflare Worker</div>
-          <div class="info-value code" id="page-worker-url">—</div>
-        </div>
-        <div class="info-box">
-          <div class="info-label">حالة Supabase</div>
-          <div class="info-value" id="page-supa-status">—</div>
+    <section id="view-public" class="section-block active">
+      <div class="toolbar">
+        <div class="toolbar-group filters" id="public-filters"></div>
+        <div class="toolbar-group">
+          <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة...">
+          <button id="discover-public-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
         </div>
       </div>
+      <div id="public-content"></div>
     </section>
 
-    <section class="section">
-      <div class="notice">
-        هذه الصفحة لا تزال نسخة بداية، لكنها الآن تستعمل <strong>style.css</strong> و<strong>config.js</strong>
-        و<strong>common.js</strong> فعليًا، وهذا هو المطلوب قبل بناء النسخة الكاملة.
+    <section id="view-private" class="section-block">
+      <div class="toolbar">
+        <div class="toolbar-group filters" id="private-filters"></div>
+        <div class="toolbar-group">
+          <input id="private-search" class="input search-box" placeholder="ابحث في قائمتي...">
+          <button id="add-private-btn" class="btn btn-ghost" type="button">＋ إضافة يدويًا</button>
+          <button id="discover-private-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+        </div>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" id="test-ai-btn" type="button">اختبار ربط Cloudflare</button>
+      <div id="private-content"></div>
+    </section>
+
+    <section id="view-dashboard" class="section-block">
+      <div id="dashboard-locked" class="panel pw-box">
+        <h2 class="section-title">🔐 لوحة التحكم محمية</h2>
+        <p class="muted">أدخل كلمة المرور للوصول إلى إدارة مكتبة البودكاست العامة.</p>
+        <div class="split-2">
+          <input id="dashboard-password" class="input code" type="password" placeholder="كلمة المرور">
+          <button id="unlock-dashboard-btn" class="btn btn-primary" type="button">دخول</button>
+        </div>
+      </div>
+
+      <div id="dashboard-content" style="display:none;">
+        <div class="dash-top">
+          <div class="stats-mini" id="dash-stats"></div>
+          <div class="toolbar-group">
+            <button id="add-public-btn" class="btn btn-primary" type="button">＋ إضافة بودكاست</button>
+            <button id="discover-dashboard-btn" class="btn btn-ghost" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-bottom:16px;">
+          <h3 style="margin-top:0;">🗄️ إعدادات Supabase</h3>
+          <form id="supabase-form">
+            <div class="split-2">
+              <div>
+                <div class="muted" style="margin-bottom:6px;">Project URL</div>
+                <input id="supa-url" class="input code" placeholder="https://xxxx.supabase.co">
+              </div>
+              <div>
+                <div class="muted" style="margin-bottom:6px;">Anon Key</div>
+                <input id="supa-key" class="input code" placeholder="eyJhbGci...">
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary" type="submit">حفظ بيانات Supabase</button>
+            </div>
+          </form>
+
+          <div class="badge-row">
+            <span class="badge">dbTable: <span id="page-db-table" class="code">—</span></span>
+            <span class="badge">userTable: <span id="page-user-table" class="code">—</span></span>
+            <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
+            <span class="badge">Cloudflare: <span id="page-worker-url" class="code">—</span></span>
+            <span class="badge">Supabase: <span id="page-supa-status">—</span></span>
+          </div>
+        </div>
+
+        <div class="panel table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>العنوان</th>
+                <th>المضيف</th>
+                <th>السنة</th>
+                <th>الفئة</th>
+                <th>التقييم</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="dashboard-table-body"></tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer container">بعد الكتب سنبني نسخة البودكاست الكاملة.</footer>
+  <!-- Modal: Add/Edit -->
+  <div id="form-modal-backdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <strong id="form-modal-title">إضافة بودكاست</strong>
+          <div class="muted" id="form-modal-subtitle">المكتبة العامة</div>
+        </div>
+        <button class="close-btn" data-close="form-modal-backdrop">✕</button>
+      </div>
 
-  
-<script src="assets/js/config.js"></script>
-<script src="assets/js/common.js"></script>
+      <div class="modal-body">
+        <div class="notice" style="margin-bottom:16px;">
+          يمكنك إدخال البيانات يدويًا أو الضغط على زر <strong>✨ تصنيف تلقائي</strong> بعد كتابة العنوان والوصف.
+        </div>
 
+        <input type="hidden" id="form-mode">
+        <input type="hidden" id="form-target">
+        <input type="hidden" id="form-id">
+
+        <div class="split-2">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">العنوان *</div>
+            <input id="f-title" class="input" placeholder="مثال: Lex Fridman Podcast">
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">المضيف</div>
+            <input id="f-host" class="input" placeholder="مثال: Lex Fridman">
+          </div>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">السنة</div>
+            <input id="f-year" class="input" placeholder="2021">
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">عدد الحلقات</div>
+            <input id="f-episodes" class="input" placeholder="100+ حلقة">
+          </div>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">الحالة</div>
+            <select id="f-status" class="input">
+              <option value="complete">استمعت إليه</option>
+              <option value="ongoing">أتابعه</option>
+              <option value="cancelled">توقفت</option>
+            </select>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">التصنيف</div>
+            <select id="f-filter" class="input"></select>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="muted" style="margin-bottom:6px;">الوصف</div>
+          <textarea id="f-desc" class="textarea" placeholder="اكتب وصفًا مختصرًا..."></textarea>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">التاغات (مفصولة بفواصل)</div>
+            <input id="f-tags" class="input" placeholder="تقنية، أعمال، مقابلات">
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">الأجواء</div>
+            <input id="f-vibes" class="input" placeholder="هادئ، عميق، تحليلي">
+          </div>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">التقييم (0–100)</div>
+            <input id="f-bar" class="input code" type="number" min="0" max="100" value="80">
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">صورة الغلاف (اختياري)</div>
+            <input id="f-poster" class="input code" placeholder="سيتم جلبها تلقائيًا إن أمكن">
+          </div>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">المنصة</div>
+            <input id="f-platform" class="input" placeholder="Spotify / Apple Podcasts">
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">اللغة</div>
+            <input id="f-language" class="input" placeholder="English / Arabic">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button id="classify-btn" class="btn btn-ghost" type="button">✨ تصنيف تلقائي</button>
+        <button id="save-form-btn" class="btn btn-primary" type="button">💾 حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Discover -->
+  <div id="discover-modal-backdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <strong>🔍 اكتشف بودكاستات بالذكاء الاصطناعي</strong>
+          <div class="muted" id="discover-subtitle">سيتم الإضافة إلى المكتبة العامة</div>
+        </div>
+        <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="discover-target" value="public">
+
+        <div class="split-2">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">النوع</div>
+            <select id="d-kind" class="input">
+              <option value="بودكاستات متنوعة">بودكاستات متنوعة</option>
+              <option value="بودكاستات حوارية">بودكاستات حوارية</option>
+              <option value="بودكاستات تعليمية">بودكاستات تعليمية</option>
+            </select>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">الفترة</div>
+            <select id="d-era" class="input">
+              <option value="حديثة نسبيًا">حديثة نسبيًا</option>
+              <option value="كلاسيكية">كلاسيكية</option>
+              <option value="مختلطة">مختلطة</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="split-2" style="margin-top:12px;">
+          <div>
+            <div class="muted" style="margin-bottom:6px;">الموضوع</div>
+            <select id="d-topic" class="input">
+              <option value="علوم">علوم</option>
+              <option value="جريمة حقيقية">جريمة حقيقية</option>
+              <option value="تكنولوجيا">تكنولوجيا</option>
+              <option value="تاريخ">تاريخ</option>
+              <option value="ثقافة وفلسفة">ثقافة وفلسفة</option>
+              <option value="أعمال وريادة">أعمال وريادة</option>
+            </select>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px;">الطول</div>
+            <select id="d-length" class="input">
+              <option value="قصير">قصير</option>
+              <option value="متوسط">متوسط</option>
+              <option value="طويل">طويل</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="muted" style="margin-bottom:6px;">تفضيلات إضافية</div>
+          <textarea id="d-notes" class="textarea" placeholder="مثال: أريد بودكاستات شبيهة بـ Huberman Lab أو بودكاست تاريخي عربي هادئ..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button id="run-discover-btn" class="btn btn-primary" type="button">🚀 ابحث الآن</button>
+        </div>
+
+        <div id="discover-results" class="discover-grid" style="margin-top:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/common.js"></script>
   <script>
-    const { wirePage, toast } = window.AppCommon;
-    wirePage('podcasts');
-    setTimeout(() => toast('✅ تم تحميل صفحة البودكاست وربطها مع assets'), 500);
+    const {
+      toast,
+      storageGet,
+      storageSet,
+      ensureUserId,
+      getPageConfig,
+      getSupabaseConfig,
+      saveSupabaseConfig,
+      dbFetch,
+      dbInsert,
+      dbUpdate,
+      dbDelete,
+      callAI,
+      parseAIJson,
+      wirePage
+    } = window.AppCommon;
+
+    const PAGE_KEY = 'podcasts';
+    const PAGE = getPageConfig(PAGE_KEY);
+    const FILTERS = PAGE.filters;
+    const FILTER_KEYS = Object.keys(FILTERS);
+
+    const state = {
+      publicItems: [],
+      privateItems: [],
+      publicFilter: 'all',
+      privateFilter: 'all',
+      publicQuery: '',
+      privateQuery: '',
+      dashboardUnlocked: false,
+      currentView: 'public'
+    };
+
+    const SAMPLE_PUBLIC = [
+      {
+        id: '1',
+        title: 'Huberman Lab',
+        host: 'Andrew Huberman',
+        year: '2021',
+        episodes: '100+ حلقة',
+        status: 'ongoing',
+        filter: 'sci',
+        type: 'sci',
+        desc: 'بودكاست علمي يشرح الأعصاب والصحة والأداء الذهني بأسلوب مبسط وعميق.',
+        tags: ['علوم', 'صحة', 'أعصاب'],
+        vibes: 'تحليلي وهادئ',
+        bar: 97,
+        badge_extra: '',
+        poster: '',
+        platform: 'Spotify',
+        language: 'English'
+      },
+      {
+        id: '2',
+        title: 'Hardcore History',
+        host: 'Dan Carlin',
+        year: '2006',
+        episodes: 'عشرات الحلقات',
+        status: 'complete',
+        filter: 'history',
+        type: 'history',
+        desc: 'بودكاست تاريخي شهير يقدم سردًا ملحميًا لأحداث وشخصيات تاريخية كبرى.',
+        tags: ['تاريخ', 'سرد', 'ملحمي'],
+        vibes: 'غني وعميق',
+        bar: 96,
+        badge_extra: '',
+        poster: '',
+        platform: 'Apple Podcasts',
+        language: 'English'
+      },
+      {
+        id: '3',
+        title: 'Darknet Diaries',
+        host: 'Jack Rhysider',
+        year: '2017',
+        episodes: '100+ حلقة',
+        status: 'ongoing',
+        filter: 'horror',
+        type: 'horror',
+        desc: 'قصص حقيقية من عالم الاختراق والأمن السيبراني والجريمة الرقمية.',
+        tags: ['أمن سيبراني', 'تقنية', 'قصص حقيقية'],
+        vibes: 'مشوق ومظلم',
+        bar: 95,
+        badge_extra: '',
+        poster: '',
+        platform: 'Spotify',
+        language: 'English'
+      }
+    ];
+
+    function loadLocalPublic() {
+      const raw = storageGet(PAGE.localKey, '');
+      if (!raw) return SAMPLE_PUBLIC.slice();
+      try { return JSON.parse(raw); } catch { return SAMPLE_PUBLIC.slice(); }
+    }
+
+    function saveLocalPublic() {
+      storageSet(PAGE.localKey, JSON.stringify(state.publicItems));
+    }
+
+    function loadLocalPrivate() {
+      const raw = storageGet(PAGE.myLocalKey, '');
+      if (!raw) return [];
+      try { return JSON.parse(raw); } catch { return []; }
+    }
+
+    function saveLocalPrivate() {
+      storageSet(PAGE.myLocalKey, JSON.stringify(state.privateItems));
+    }
+
+    function normalizeItem(item, target = 'public') {
+      const out = { ...item };
+      out.id = String(out.id || Date.now());
+      out.title = out.title || 'بدون عنوان';
+      out.host = out.host || '';
+      out.year = out.year || '';
+      out.episodes = out.episodes || '';
+      out.status = out.status || 'complete';
+      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : 'fiction';
+      out.type = out.type || out.filter;
+      out.desc = out.desc || out.desc_ar || '';
+      out.tags = Array.isArray(out.tags)
+        ? out.tags
+        : (typeof out.tags === 'string'
+            ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
+            : []);
+      out.vibes = out.vibes || '';
+      out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
+      out.badge_extra = out.badge_extra || '';
+      out.poster = out.poster || '';
+      out.platform = out.platform || '';
+      out.language = out.language || '';
+
+      if (target === 'private') {
+        out.user_id = out.user_id || ensureUserId();
+      }
+
+      return out;
+    }
+
+    async function loadData() {
+      const supa = getSupabaseConfig();
+
+      state.publicItems = loadLocalPublic().map(item => normalizeItem(item, 'public'));
+      state.privateItems = loadLocalPrivate().map(item => normalizeItem(item, 'private'));
+
+      if (supa.connected) {
+        try {
+          const publicData = await dbFetch(PAGE.dbTable, 'select=*');
+          if (Array.isArray(publicData)) {
+            state.publicItems = publicData.map(item => normalizeItem(item, 'public'));
+            saveLocalPublic();
+          }
+        } catch {
+          toast('ℹ️ تعذر تحميل المكتبة العامة من Supabase — تم استخدام النسخة المحلية');
+        }
+
+        try {
+          const userId = ensureUserId();
+          const privateData = await dbFetch(PAGE.userTable, `select=*&user_id=eq.${encodeURIComponent(userId)}`);
+          if (Array.isArray(privateData)) {
+            state.privateItems = privateData.map(item => normalizeItem(item, 'private'));
+            saveLocalPrivate();
+          }
+        } catch {
+          toast('ℹ️ تعذر تحميل قائمتك الخاصة من Supabase — تم استخدام النسخة المحلية');
+        }
+      }
+    }
+
+    function buildFilters(containerId, activeValue, onClick) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      Object.entries(FILTERS).forEach(([key, label]) => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (key === activeValue ? ' active' : '');
+        btn.type = 'button';
+        btn.textContent = label;
+        btn.addEventListener('click', () => onClick(key));
+        container.appendChild(btn);
+      });
+    }
+
+    function filterItems(items, filterKey, query) {
+      return items.filter(item => {
+        const matchFilter = filterKey === 'all' || item.filter === filterKey;
+        const q = (query || '').trim().toLowerCase();
+        if (!q) return matchFilter;
+
+        const text = [
+          item.title,
+          item.host,
+          item.desc,
+          item.year,
+          item.episodes,
+          item.platform,
+          item.language,
+          item.vibes,
+          ...(item.tags || [])
+        ].join(' ').toLowerCase();
+
+        return matchFilter && text.includes(q);
+      });
+    }
+
+    function createCard(item, target) {
+      const card = document.createElement('article');
+      card.className = 'pod-card';
+
+      const poster = item.poster
+        ? `<div class="pod-cover"><img src="${item.poster}" alt="${item.title}" onerror="this.closest('.pod-cover').innerHTML='<div class=\\'pod-fallback\\'>🎙️</div>'"></div>`
+        : `<div class="pod-cover"><div class="pod-fallback">🎙️</div></div>`;
+
+      const actions = [];
+
+      if (target === 'public') {
+        actions.push(`<button class="small-btn primary" data-action="clone-private" data-id="${item.id}">➕ أضف إلى قائمتي</button>`);
+      }
+
+      if (target === 'private') {
+        actions.push(`<button class="small-btn" data-action="edit-private" data-id="${item.id}">✏️ تعديل</button>`);
+        actions.push(`<button class="small-btn danger" data-action="delete-private" data-id="${item.id}">🗑️ حذف</button>`);
+      }
+
+      card.innerHTML = `
+        ${poster}
+        <div class="pod-body">
+          <div class="pod-title">${item.title}</div>
+          ${item.host ? `<div class="pod-host">🎙️ ${item.host}</div>` : ''}
+          <div class="pod-meta">
+            ${item.year || '—'}
+            ${item.episodes ? '• ' + item.episodes : ''}
+            ${item.platform ? '• ' + item.platform : ''}
+            ${item.status ? '• ' + statusLabel(item.status) : ''}
+          </div>
+          <div class="pod-desc">${item.desc || 'لا يوجد وصف بعد.'}</div>
+          <div class="tag-row">
+            <span class="tag">${FILTERS[item.filter] || item.filter}</span>
+            ${(item.tags || []).slice(0,3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+          <div class="progress"><span style="width:${item.bar || 0}%"></span></div>
+          <div class="muted" style="margin-top:8px;">
+            التقييم: ${item.bar || 0}% ${item.vibes ? '• ' + item.vibes : ''} ${item.language ? '• ' + item.language : ''}
+          </div>
+          <div class="card-actions">${actions.join('')}</div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function statusLabel(status) {
+      return ({ complete: 'استمعت إليه', ongoing: 'أتابعه', cancelled: 'توقفت' }[status] || status || '—');
+    }
+
+    function renderPublic() {
+      buildFilters('public-filters', state.publicFilter, key => {
+        state.publicFilter = key;
+        renderPublic();
+      });
+
+      const items = filterItems(state.publicItems, state.publicFilter, state.publicQuery);
+      const wrap = document.getElementById('public-content');
+
+      if (!items.length) {
+        wrap.innerHTML = '<div class="empty">لا توجد نتائج في المكتبة العامة بهذا الفلتر.</div>';
+      } else {
+        const grid = document.createElement('div');
+        grid.className = 'cards-grid';
+        items.forEach(item => grid.appendChild(createCard(item, 'public')));
+        wrap.innerHTML = '';
+        wrap.appendChild(grid);
+      }
+
+      bindPublicCardActions();
+      refreshStats(items.length);
+    }
+
+    function renderPrivate() {
+      buildFilters('private-filters', state.privateFilter, key => {
+        state.privateFilter = key;
+        renderPrivate();
+      });
+
+      const items = filterItems(state.privateItems, state.privateFilter, state.privateQuery);
+      const wrap = document.getElementById('private-content');
+
+      if (!items.length) {
+        wrap.innerHTML = '<div class="empty">لا توجد عناصر في قائمتك بعد.</div>';
+      } else {
+        const grid = document.createElement('div');
+        grid.className = 'cards-grid';
+        items.forEach(item => grid.appendChild(createCard(item, 'private')));
+        wrap.innerHTML = '';
+        wrap.appendChild(grid);
+      }
+
+      bindPrivateCardActions();
+      refreshStats(items.length);
+    }
+
+    function renderDashboard() {
+      const stats = document.getElementById('dash-stats');
+      const counts = {};
+      state.publicItems.forEach(item => {
+        counts[item.filter] = (counts[item.filter] || 0) + 1;
+      });
+
+      stats.innerHTML = [
+        `<div class="mini-box"><b>${state.publicItems.length}</b> إجمالي</div>`,
+        ...Object.entries(FILTERS)
+          .filter(([k]) => k !== 'all')
+          .map(([k, v]) => `<div class="mini-box"><b>${counts[k] || 0}</b> ${v}</div>`)
+      ].join('');
+
+      const tbody = document.getElementById('dashboard-table-body');
+
+      if (!state.publicItems.length) {
+        tbody.innerHTML = '<tr><td colspan="7" class="muted">لا توجد عناصر بعد.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = state.publicItems.map((item, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td><strong>${item.title}</strong><div class="muted">${item.desc ? item.desc.slice(0, 70) : '—'}</div></td>
+          <td>${item.host || '—'}</td>
+          <td>${item.year || '—'}</td>
+          <td>${FILTERS[item.filter] || item.filter}</td>
+          <td>${item.bar || 0}%</td>
+          <td>
+            <div class="card-actions">
+              <button class="small-btn" data-action="edit-public" data-id="${item.id}">✏️ تعديل</button>
+              <button class="small-btn danger" data-action="delete-public" data-id="${item.id}">🗑️ حذف</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('[data-action="edit-public"]').forEach(btn => {
+        btn.addEventListener('click', () => openFormModal('edit', 'public', btn.dataset.id));
+      });
+
+      tbody.querySelectorAll('[data-action="delete-public"]').forEach(btn => {
+        btn.addEventListener('click', () => deleteItem('public', btn.dataset.id));
+      });
+    }
+
+    function refreshStats(filteredCount) {
+      document.getElementById('stat-total').textContent = state.publicItems.length + state.privateItems.length;
+      document.getElementById('stat-public').textContent = state.publicItems.length;
+      document.getElementById('stat-private').textContent = state.privateItems.length;
+      document.getElementById('stat-filtered').textContent = filteredCount;
+    }
+
+    function switchView(view) {
+      state.currentView = view;
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === view);
+      });
+
+      document.querySelectorAll('.section-block').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      document.getElementById(`view-${view}`).classList.add('active');
+
+      if (view === 'public') renderPublic();
+      if (view === 'private') renderPrivate();
+      if (view === 'dashboard' && state.dashboardUnlocked) renderDashboard();
+      if (view === 'dashboard' && !state.dashboardUnlocked) refreshStats(state.publicItems.length);
+    }
+
+    function bindPublicCardActions() {
+      document.querySelectorAll('[data-action="clone-private"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = state.publicItems.find(x => String(x.id) === String(btn.dataset.id));
+          if (!item) return;
+          addToPrivate({ ...item, id: String(Date.now()) + Math.random().toString(36).slice(2) });
+        });
+      });
+    }
+
+    function bindPrivateCardActions() {
+      document.querySelectorAll('[data-action="edit-private"]').forEach(btn => {
+        btn.addEventListener('click', () => openFormModal('edit', 'private', btn.dataset.id));
+      });
+
+      document.querySelectorAll('[data-action="delete-private"]').forEach(btn => {
+        btn.addEventListener('click', () => deleteItem('private', btn.dataset.id));
+      });
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function fillFilterSelect() {
+      const select = document.getElementById('f-filter');
+      select.innerHTML = Object.entries(FILTERS)
+        .filter(([k]) => k !== 'all')
+        .map(([k, label]) => `<option value="${k}">${label}</option>`)
+        .join('');
+    }
+
+    function getFormValues(target) {
+      return normalizeItem({
+        id: document.getElementById('form-id').value || String(Date.now()),
+        title: document.getElementById('f-title').value.trim(),
+        host: document.getElementById('f-host').value.trim(),
+        year: document.getElementById('f-year').value.trim(),
+        episodes: document.getElementById('f-episodes').value.trim(),
+        status: document.getElementById('f-status').value,
+        filter: document.getElementById('f-filter').value,
+        type: document.getElementById('f-filter').value,
+        desc: document.getElementById('f-desc').value.trim(),
+        tags: document.getElementById('f-tags').value.split(/[,،]/).map(s => s.trim()).filter(Boolean),
+        vibes: document.getElementById('f-vibes').value.trim(),
+        bar: parseInt(document.getElementById('f-bar').value || '80', 10),
+        poster: document.getElementById('f-poster').value.trim(),
+        platform: document.getElementById('f-platform').value.trim(),
+        language: document.getElementById('f-language').value.trim(),
+        badge_extra: ''
+      }, target);
+    }
+
+    function setFormValues(item) {
+      document.getElementById('form-id').value = item?.id || '';
+      document.getElementById('f-title').value = item?.title || '';
+      document.getElementById('f-host').value = item?.host || '';
+      document.getElementById('f-year').value = item?.year || '';
+      document.getElementById('f-episodes').value = item?.episodes || '';
+      document.getElementById('f-status').value = item?.status || 'complete';
+      document.getElementById('f-filter').value = item?.filter || 'fiction';
+      document.getElementById('f-desc').value = item?.desc || '';
+      document.getElementById('f-tags').value = (item?.tags || []).join('، ');
+      document.getElementById('f-vibes').value = item?.vibes || '';
+      document.getElementById('f-bar').value = item?.bar || 80;
+      document.getElementById('f-poster').value = item?.poster || '';
+      document.getElementById('f-platform').value = item?.platform || '';
+      document.getElementById('f-language').value = item?.language || '';
+    }
+
+    function openFormModal(mode, target, id = '') {
+      document.getElementById('form-mode').value = mode;
+      document.getElementById('form-target').value = target;
+      document.getElementById('form-modal-title').textContent = mode === 'edit' ? 'تعديل بودكاست' : 'إضافة بودكاست';
+      document.getElementById('form-modal-subtitle').textContent = target === 'public' ? 'المكتبة العامة' : 'قائمتي';
+
+      fillFilterSelect();
+
+      let item = null;
+      if (mode === 'edit') {
+        item = (target === 'public' ? state.publicItems : state.privateItems).find(x => String(x.id) === String(id));
+      }
+
+      setFormValues(item);
+      openModal('form-modal-backdrop');
+    }
+
+    async function fetchPodcastCover(title) {
+      try {
+        const url = `https://itunes.apple.com/search?media=podcast&term=${encodeURIComponent(title)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        const art = data?.results?.[0]?.artworkUrl600 || data?.results?.[0]?.artworkUrl100 || '';
+        return art || '';
+      } catch {
+        return '';
+      }
+    }
+
+    async function saveForm() {
+      const target = document.getElementById('form-target').value;
+      const mode = document.getElementById('form-mode').value;
+      const item = getFormValues(target);
+
+      if (!item.title) {
+        toast('⚠️ العنوان مطلوب');
+        return;
+      }
+
+      if (!item.poster) item.poster = await fetchPodcastCover(item.title);
+
+      if (target === 'public') {
+        await upsertPublic(item, mode === 'edit');
+      } else {
+        await upsertPrivate(item, mode === 'edit');
+      }
+
+      closeModal('form-modal-backdrop');
+    }
+
+    async function upsertPublic(item, isEdit) {
+      const idx = state.publicItems.findIndex(x => String(x.id) === String(item.id));
+      if (idx >= 0) state.publicItems[idx] = item;
+      else state.publicItems.unshift(item);
+
+      saveLocalPublic();
+
+      const supa = getSupabaseConfig();
+      if (supa.connected) {
+        try {
+          if (isEdit) await dbUpdate(PAGE.dbTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          else await dbInsert(PAGE.dbTable, item);
+        } catch (e) {
+          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+        }
+      }
+
+      renderPublic();
+      if (state.dashboardUnlocked) renderDashboard();
+      toast('✅ تم حفظ البودكاست في المكتبة العامة');
+    }
+
+    async function addToPrivate(item) {
+      item = normalizeItem(item, 'private');
+      state.privateItems.unshift(item);
+      saveLocalPrivate();
+
+      const supa = getSupabaseConfig();
+      if (supa.connected) {
+        try {
+          await dbInsert(PAGE.userTable, item);
+        } catch (e) {
+          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+        }
+      }
+
+      renderPrivate();
+      toast('✅ تمت الإضافة إلى قائمتك');
+    }
+
+    async function upsertPrivate(item, isEdit) {
+      item.user_id = ensureUserId();
+
+      const idx = state.privateItems.findIndex(x => String(x.id) === String(item.id));
+      if (idx >= 0) state.privateItems[idx] = item;
+      else state.privateItems.unshift(item);
+
+      saveLocalPrivate();
+
+      const supa = getSupabaseConfig();
+      if (supa.connected) {
+        try {
+          if (isEdit) await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          else await dbInsert(PAGE.userTable, item);
+        } catch (e) {
+          toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
+        }
+      }
+
+      renderPrivate();
+      toast('✅ تم حفظ البودكاست في قائمتك');
+    }
+
+    async function deleteItem(target, id) {
+      const ok = confirm('هل أنت متأكد من الحذف؟');
+      if (!ok) return;
+
+      if (target === 'public') {
+        state.publicItems = state.publicItems.filter(x => String(x.id) !== String(id));
+        saveLocalPublic();
+
+        const supa = getSupabaseConfig();
+        if (supa.connected) {
+          try {
+            await dbDelete(PAGE.dbTable, `id=eq.${encodeURIComponent(id)}`);
+          } catch (e) {
+            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          }
+        }
+
+        renderPublic();
+        if (state.dashboardUnlocked) renderDashboard();
+      } else {
+        state.privateItems = state.privateItems.filter(x => String(x.id) !== String(id));
+        saveLocalPrivate();
+
+        const supa = getSupabaseConfig();
+        if (supa.connected) {
+          try {
+            await dbDelete(PAGE.userTable, `id=eq.${encodeURIComponent(id)}`);
+          } catch (e) {
+            toast('⚠️ حُذف محليًا لكن Supabase أعاد خطأ: ' + e.message);
+          }
+        }
+
+        renderPrivate();
+      }
+
+      toast('🗑️ تم الحذف');
+    }
+
+    async function classifyCurrentForm() {
+      const title = document.getElementById('f-title').value.trim();
+      const host = document.getElementById('f-host').value.trim();
+      const desc = document.getElementById('f-desc').value.trim();
+
+      if (!title && !desc) {
+        toast('⚠️ اكتب عنوانًا أو وصفًا أولًا');
+        return;
+      }
+
+      const prompt =
+`You are a podcast expert. Return ONLY valid JSON.
+Title: ${title}
+Host: ${host}
+Description: ${desc}
+Return exactly: {"filter":"fiction","tags":["t1","t2","t3"],"vibes":"mood","bar":80,"desc_ar":"short arabic description"}
+Allowed filter values: sci, mystery, horror, history, philosophy, fiction`;
+
+      try {
+        toast('🤖 جارٍ التصنيف...');
+        const raw = await callAI(prompt, 'classify');
+        const parsed = parseAIJson(raw, 'object');
+        if (!parsed) throw new Error('تعذر قراءة نتيجة التصنيف');
+
+        if (parsed.filter && FILTER_KEYS.includes(parsed.filter)) {
+          document.getElementById('f-filter').value = parsed.filter;
+        }
+        if (parsed.tags) {
+          document.getElementById('f-tags').value = parsed.tags.join('، ');
+        }
+        if (parsed.vibes) {
+          document.getElementById('f-vibes').value = parsed.vibes;
+        }
+        if (parsed.bar) {
+          document.getElementById('f-bar').value = parsed.bar;
+        }
+        if (parsed.desc_ar && !document.getElementById('f-desc').value.trim()) {
+          document.getElementById('f-desc').value = parsed.desc_ar;
+        }
+
+        toast('✅ تم التصنيف تلقائيًا');
+      } catch (e) {
+        toast('❌ ' + e.message);
+      }
+    }
+
+    function openDiscoverModal(target) {
+      document.getElementById('discover-target').value = target;
+      document.getElementById('discover-subtitle').textContent =
+        target === 'public'
+          ? 'سيتم الإضافة إلى المكتبة العامة'
+          : 'سيتم الإضافة إلى قائمتك الخاصة';
+
+      document.getElementById('discover-results').innerHTML = '';
+      openModal('discover-modal-backdrop');
+    }
+
+    async function runDiscover() {
+      const target = document.getElementById('discover-target').value;
+      const kind = document.getElementById('d-kind').value;
+      const era = document.getElementById('d-era').value;
+      const topic = document.getElementById('d-topic').value;
+      const length = document.getElementById('d-length').value;
+      const notes = document.getElementById('d-notes').value.trim();
+
+      const prompt =
+`Recommend 6 ${kind} for Arabic audience style.
+Topic: ${topic}.
+Era: ${era}.
+Length: ${length}.
+Extra notes: ${notes || 'none'}.
+Return ONLY valid JSON array.
+Each item must be:
+{"title":"","host":"","year":"","episodes":"","status":"ongoing","filter":"fiction","desc":"","tags":[""],"vibes":"","bar":80,"platform":"","language":""}`;
+
+      const resultsEl = document.getElementById('discover-results');
+      resultsEl.innerHTML = '<div class="empty">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
+
+      try {
+        const raw = await callAI(prompt, 'discover');
+        const parsed = parseAIJson(raw, 'array');
+
+        if (!Array.isArray(parsed) || !parsed.length) {
+          throw new Error('تعذر قراءة النتائج');
+        }
+
+        resultsEl.innerHTML = '';
+
+        for (const item of parsed.slice(0, 6)) {
+          const normalized = normalizeItem(
+            { ...item, id: String(Date.now()) + Math.random().toString(36).slice(2) },
+            target
+          );
+
+          if (!normalized.poster) {
+            normalized.poster = await fetchPodcastCover(normalized.title);
+          }
+
+          const div = document.createElement('div');
+          div.className = 'result-card';
+          div.innerHTML = `
+            <strong>${normalized.title}</strong>
+            ${normalized.host ? `<div class="muted">🎙️ ${normalized.host}</div>` : ''}
+            <div class="muted">
+              ${normalized.year || '—'}
+              ${normalized.episodes ? '• ' + normalized.episodes : ''}
+              ${normalized.platform ? '• ' + normalized.platform : ''}
+              • ${FILTERS[normalized.filter] || normalized.filter}
+            </div>
+            <p style="color:var(--text2); line-height:1.8;">${normalized.desc || 'لا يوجد وصف.'}</p>
+            <div class="tag-row">
+              ${(normalized.tags || []).slice(0,4).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="card-actions">
+              <button class="small-btn primary">➕ أضف</button>
+              <button class="small-btn">تجاهل</button>
+            </div>
+          `;
+
+          const [addBtn, skipBtn] = div.querySelectorAll('button');
+
+          addBtn.addEventListener('click', async () => {
+            if (target === 'public') {
+              await upsertPublic(normalized, false);
+            } else {
+              await addToPrivate(normalized);
+            }
+            addBtn.disabled = true;
+            addBtn.textContent = '✅ تمت الإضافة';
+          });
+
+          skipBtn.addEventListener('click', () => div.remove());
+          resultsEl.appendChild(div);
+        }
+      } catch (e) {
+        resultsEl.innerHTML = `<div class="empty">❌ ${e.message}</div>`;
+      }
+    }
+
+    function unlockDashboard() {
+      const value = document.getElementById('dashboard-password').value;
+      if (value !== window.APP_CONFIG.DASHBOARD_PASSWORD) {
+        toast('❌ كلمة المرور غير صحيحة');
+        return;
+      }
+
+      state.dashboardUnlocked = true;
+      document.getElementById('dashboard-locked').style.display = 'none';
+      document.getElementById('dashboard-content').style.display = 'block';
+      renderDashboard();
+      toast('✅ تم فتح لوحة التحكم');
+    }
+
+    function initBindings() {
+      wirePage(PAGE_KEY);
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchView(btn.dataset.view));
+      });
+
+      document.getElementById('public-search').addEventListener('input', e => {
+        state.publicQuery = e.target.value;
+        renderPublic();
+      });
+
+      document.getElementById('private-search').addEventListener('input', e => {
+        state.privateQuery = e.target.value;
+        renderPrivate();
+      });
+
+      document.getElementById('unlock-dashboard-btn').addEventListener('click', unlockDashboard);
+
+      document.getElementById('add-public-btn').addEventListener('click', () => {
+        openFormModal('add', 'public');
+      });
+
+      document.getElementById('add-private-btn').addEventListener('click', () => {
+        openFormModal('add', 'private');
+      });
+
+      document.getElementById('save-form-btn').addEventListener('click', saveForm);
+      document.getElementById('classify-btn').addEventListener('click', classifyCurrentForm);
+
+      document.getElementById('discover-public-btn').addEventListener('click', () => {
+        openDiscoverModal('public');
+      });
+
+      document.getElementById('discover-private-btn').addEventListener('click', () => {
+        openDiscoverModal('private');
+      });
+
+      document.getElementById('discover-dashboard-btn').addEventListener('click', () => {
+        openDiscoverModal('public');
+      });
+
+      document.getElementById('run-discover-btn').addEventListener('click', runDiscover);
+
+      document.querySelectorAll('[data-close]').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(btn.dataset.close));
+      });
+
+      document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+        backdrop.addEventListener('click', e => {
+          if (e.target === backdrop) {
+            backdrop.classList.remove('open');
+          }
+        });
+      });
+
+      document.getElementById('supabase-form').addEventListener('submit', async e => {
+        e.preventDefault();
+
+        saveSupabaseConfig(
+          document.getElementById('supa-url').value,
+          document.getElementById('supa-key').value
+        );
+
+        wirePage(PAGE_KEY);
+        await loadData();
+        renderPublic();
+        renderPrivate();
+        if (state.dashboardUnlocked) renderDashboard();
+
+        toast('✅ تم حفظ إعدادات Supabase وإعادة التحميل');
+      });
+    }
+
+    async function init() {
+      initBindings();
+      await loadData();
+      renderPublic();
+      renderPrivate();
+      refreshStats(state.publicItems.length);
+      toast('✅ تم تحميل Podcasts V2 بنجاح');
+    }
+
+    init();
   </script>
 </body>
 </html>
