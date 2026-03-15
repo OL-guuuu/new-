@@ -1,319 +1,426 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
   <title>🎬 الأفلام والمسلسلات | المنصة</title>
+
   <style>
-    .hero.movie-hero { padding-bottom: 28px; }
-    .stats-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px; }
-    .stat-chip { min-width:120px; text-align:center; padding:12px 16px; border:1px solid var(--border); border-radius:14px; background:rgba(255,255,255,.03); }
-    .stat-chip b { display:block; font-size:1.35rem; color:var(--accent); }
-    .tabs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:20px; }
-    .tab-btn { border:1px solid var(--border); background:rgba(255,255,255,.03); color:var(--text2); border-radius:12px; padding:10px 14px; font:inherit; cursor:pointer; font-weight:700; }
-    .tab-btn.active { color:var(--text); border-color:rgba(0,212,255,.35); background:rgba(0,212,255,.08); }
-
-    .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-bottom:16px; }
-    .toolbar-group { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .filters { display:flex; gap:8px; flex-wrap:wrap; }
-    .filter-btn { border:1px solid var(--border); background:rgba(255,255,255,.03); color:var(--text2); border-radius:999px; padding:8px 12px; font:inherit; font-size:.92rem; cursor:pointer; }
-    .filter-btn.active { color:var(--text); border-color:rgba(0,212,255,.35); background:rgba(0,212,255,.08); }
-
-    .search-box { min-width:260px; max-width:360px; }
-
-    .section-block { display:none; }
-    .section-block.active { display:block; }
-
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
-
-    .show-card {
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow:var(--shadow);
+    .movies-hero {
+      padding-bottom: 30px;
     }
 
-    .show-poster {
-      height:220px;
-      background:linear-gradient(135deg, rgba(0,212,255,.12), rgba(124,58,237,.12));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
+    .movies-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
     }
 
-    .show-poster img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+    .section-block {
+      display: none;
     }
 
-    .show-fallback {
-      font-size:3rem;
-      opacity:.85;
+    .section-block.active {
+      display: block;
     }
 
-    .show-body {
-      padding:16px;
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
     }
 
-    .show-title {
-      font-size:1.08rem;
-      font-weight:800;
-      margin-bottom:6px;
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
     }
 
-    .show-meta {
-      color:var(--text3);
-      font-size:.9rem;
-      margin-bottom:10px;
+    .media-card {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      box-shadow: var(--shadow-lg);
+      transition: .2s ease;
     }
 
-    .show-desc {
-      color:var(--text2);
-      line-height:1.8;
-      font-size:.94rem;
-      min-height:70px;
+    .media-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(25, 211, 255, 0.22);
     }
 
-    .tag-row {
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-      margin-top:10px;
+    .media-cover {
+      height: 230px;
+      background:
+        radial-gradient(circle at top right, rgba(25, 211, 255, 0.12), transparent 30%),
+        linear-gradient(135deg, rgba(25, 211, 255, 0.08), rgba(139, 92, 246, 0.12));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
 
-    .tag {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text2);
-      border-radius:999px;
-      padding:5px 8px;
-      font-size:.8rem;
+    .media-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .media-cover-fallback {
+      font-size: 3rem;
+      opacity: .9;
+    }
+
+    .media-body {
+      padding: 16px;
+    }
+
+    .media-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .media-sub {
+      color: var(--text-3);
+      font-size: .9rem;
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    .media-desc {
+      color: var(--text-2);
+      font-size: .94rem;
+      line-height: 1.85;
+      min-height: 78px;
+    }
+
+    .progress-wrap {
+      margin-top: 12px;
     }
 
     .progress {
-      height:6px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      overflow:hidden;
-      margin-top:12px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
     }
 
     .progress > span {
-      display:block;
-      height:100%;
-      background:linear-gradient(90deg, var(--violet), var(--accent));
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
     }
 
     .card-actions {
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
     }
 
     .small-btn {
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--text);
-      border-radius:10px;
-      padding:8px 10px;
-      font:inherit;
-      font-size:.9rem;
-      cursor:pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: .18s ease;
     }
 
-    .small-btn.danger {
-      border-color:rgba(239,68,68,.25);
-      color:#ffb4b4;
-      background:rgba(239,68,68,.08);
+    .small-btn:hover {
+      transform: translateY(-1px);
     }
 
     .small-btn.primary {
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      color:#001018;
-      border:none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #041019;
+      border: none;
     }
 
-    .panel {
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow:var(--shadow);
+    .small-btn.danger {
+      border-color: rgba(239,68,68,.26);
+      color: #ffcbcb;
+      background: rgba(239,68,68,.08);
     }
 
-    .table-wrap { overflow:auto; }
+    .toolbar-sticky {
+      position: sticky;
+      top: 88px;
+      z-index: 100;
+    }
 
-    table.data-table {
-      width:100%;
-      border-collapse:collapse;
+    .toolbar-card {
+      padding: 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-box {
+      min-width: 260px;
+      max-width: 360px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,.03);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-card b {
+      display: block;
+      color: var(--primary);
+      font-size: 1.45rem;
+      margin-bottom: 4px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .dashboard-top {
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .mini-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-stat {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .mini-stat b {
+      color: var(--primary);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
     .data-table th,
     .data-table td {
-      border-bottom:1px solid var(--border);
-      padding:12px 10px;
-      text-align:right;
-      vertical-align:top;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 10px;
+      text-align: right;
+      vertical-align: top;
     }
 
     .data-table th {
-      color:var(--text2);
-      font-size:.92rem;
+      color: var(--text-2);
+      font-size: .92rem;
     }
 
     .data-table td {
-      font-size:.94rem;
+      font-size: .94rem;
     }
 
-    .muted { color:var(--text3); }
-
-    .empty {
-      padding:26px;
-      text-align:center;
-      color:var(--text3);
-      border:1px dashed var(--border);
-      border-radius:18px;
+    .empty-state {
+      padding: 30px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 20px;
+      color: var(--text-3);
+      background: rgba(255,255,255,.02);
     }
 
     .modal-backdrop {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      z-index:1000;
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.62);
+      z-index: 2000;
     }
 
-    .modal-backdrop.open { display:flex; }
+    .modal-backdrop.open {
+      display: flex;
+    }
 
     .modal {
-      width:min(820px, 100%);
-      max-height:calc(100vh - 32px);
-      overflow:auto;
-      border:1px solid var(--border);
-      border-radius:20px;
-      background:var(--bg3);
-      box-shadow:var(--shadow);
+      width: min(860px, 100%);
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface-solid);
+      box-shadow: var(--shadow-lg);
     }
 
     .modal-head,
     .modal-foot {
-      padding:18px 18px;
-      border-bottom:1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .modal-foot {
-      border-top:1px solid var(--border);
-      border-bottom:none;
-      justify-content:flex-end;
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      justify-content: flex-end;
     }
 
-    .modal-body { padding:18px; }
+    .modal-body {
+      padding: 18px;
+    }
 
     .close-btn {
-      border:none;
-      background:transparent;
-      color:var(--text2);
-      font-size:1.2rem;
-      cursor:pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      font-size: 1.2rem;
+      cursor: pointer;
     }
 
-    .split-2 {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .dash-top {
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:18px;
+    .discover-results {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
     }
 
-    .stats-mini {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .discover-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,.03);
     }
 
-    .mini-box {
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:rgba(255,255,255,.02);
+    .pw-panel {
+      max-width: 480px;
+      margin-inline: auto;
     }
 
-    .mini-box b { color:var(--accent); }
-
-    .discover-grid {
-      display:grid;
-      gap:12px;
+    .helper-note {
+      color: var(--text-3);
+      font-size: .92rem;
     }
 
-    .result-card {
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:14px;
-      background:rgba(255,255,255,.03);
-    }
+    @media (max-width: 760px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
 
-    .pw-box {
-      max-width:460px;
-      margin:0 auto;
-    }
+      .toolbar-sticky {
+        position: static;
+      }
 
-    @media (max-width:700px){
-      .split-2 { grid-template-columns:1fr; }
-      .toolbar { align-items:stretch; }
-      .search-box { min-width:100%; max-width:none; }
+      .search-box {
+        min-width: 100%;
+        max-width: none;
+      }
     }
   </style>
 </head>
-<body>
+<body class="page-shell">
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href="index.html">✦ المنصة</a>
+
       <nav class="nav-links">
         <a class="nav-link" href="index.html">الرئيسية</a>
         <a class="nav-link active" href="movies.html">🎬 الأفلام والمسلسلات</a>
-        <a class="nav-link" href="books.html">📚 الكتب</a>
+        <a class="nav-link" href="books.html">📚 الكتب والروايات</a>
         <a class="nav-link" href="podcasts.html">🎙️ البودكاست</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero movie-hero">
-      <span class="pill">🎬 Movies V2 — مربوطة مع assets + Cloudflare + Supabase</span>
-      <h1>أفلام ومسلسلات<br>بنسخة منظمة وجاهزة للتوسعة</h1>
+  <main class="container movies-layout">
+    <!-- HERO -->
+    <section class="hero movies-hero">
+      <span class="hero-badge">🎬 مساحة مرئية ذكية — عامة + خاصة + AI + Dashboard</span>
+      <h1>مكتبة أفلام ومسلسلات<br />تعمل فعلًا هذه المرة</h1>
       <p>
-        هذه أول صفحة كاملة في الإصلاح الكبير: مكتبة عامة، مكتبة خاصة، لوحة تحكم، تصنيف واكتشاف بالذكاء الاصطناعي،
-        وربط فعلي مع Supabase وCloudflare Worker.
+        تصفح المكتبة العامة، أضف ما يعجبك إلى قائمتك الخاصة، دع الذكاء الاصطناعي يقترح محتوى جديدًا،
+        ثم أدر كل شيء من لوحة تحكم واضحة ومنظمة.
       </p>
 
-      <div class="stats-row">
-        <div class="stat-chip"><b id="stat-total">0</b><span>إجمالي المحتوى</span></div>
-        <div class="stat-chip"><b id="stat-public">0</b><span>المكتبة العامة</span></div>
-        <div class="stat-chip"><b id="stat-private">0</b><span>مكتبتي</span></div>
-        <div class="stat-chip"><b id="stat-filtered">0</b><span>النتائج الظاهرة</span></div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="hero-go-public" type="button">ابدأ بالمكتبة العامة</button>
+        <button class="btn btn-ghost" id="hero-open-discover" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <b id="stat-total">0</b>
+          <span>إجمالي العناصر</span>
+        </div>
+        <div class="stat-card">
+          <b id="stat-public">0</b>
+          <span>المكتبة العامة</span>
+        </div>
+        <div class="stat-card">
+          <b id="stat-private">0</b>
+          <span>مكتبتي</span>
+        </div>
+        <div class="stat-card">
+          <b id="stat-visible">0</b>
+          <span>النتائج الظاهرة</span>
+        </div>
       </div>
 
       <div class="tabs">
@@ -323,132 +430,179 @@
       </div>
     </section>
 
+    <!-- PUBLIC -->
     <section id="view-public" class="section-block active">
-      <div class="toolbar">
-        <div class="toolbar-group filters" id="public-filters"></div>
-        <div class="toolbar-group">
-          <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة...">
-          <button id="discover-public-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+      <div class="toolbar-sticky">
+        <div class="panel toolbar-card">
+          <div class="toolbar">
+            <div class="toolbar-left filters" id="public-filters"></div>
+
+            <div class="toolbar-right">
+              <input id="public-search" class="input search-box" placeholder="ابحث في المكتبة العامة..." />
+              <button id="public-discover-btn" class="btn btn-primary" type="button">🔍 اكتشف</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="public-content"></div>
+
+      <div id="public-grid" class="content-grid"></div>
+      <div id="public-empty" class="empty-state" style="display:none;">
+        لا توجد نتائج مطابقة في المكتبة العامة.
+      </div>
     </section>
 
+    <!-- PRIVATE -->
     <section id="view-private" class="section-block">
-      <div class="toolbar">
-        <div class="toolbar-group filters" id="private-filters"></div>
-        <div class="toolbar-group">
-          <input id="private-search" class="input search-box" placeholder="ابحث في مكتبتي...">
-          <button id="add-private-btn" class="btn btn-ghost" type="button">＋ إضافة يدويًا</button>
-          <button id="discover-private-btn" class="btn btn-primary" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+      <div class="toolbar-sticky">
+        <div class="panel toolbar-card">
+          <div class="toolbar">
+            <div class="toolbar-left filters" id="private-filters"></div>
+
+            <div class="toolbar-right">
+              <input id="private-search" class="input search-box" placeholder="ابحث في مكتبتي..." />
+              <button id="private-add-btn" class="btn btn-ghost" type="button">＋ إضافة يدويًا</button>
+              <button id="private-discover-btn" class="btn btn-primary" type="button">🔍 اكتشف</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div id="private-content"></div>
+
+      <div id="private-grid" class="content-grid"></div>
+      <div id="private-empty" class="empty-state" style="display:none;">
+        لا توجد عناصر في مكتبتك الخاصة بعد.
+      </div>
     </section>
 
+    <!-- DASHBOARD -->
     <section id="view-dashboard" class="section-block">
-      <div id="dashboard-locked" class="panel pw-box">
-        <h2 class="section-title">🔐 لوحة التحكم محمية</h2>
-        <p class="muted">أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة.</p>
-        <div class="split-2">
-          <input id="dashboard-password" class="input code" type="password" placeholder="كلمة المرور">
+      <div id="dashboard-locked" class="panel pw-panel">
+        <div class="section-head" style="margin-bottom:12px;">
+          <div>
+            <h2 class="section-title">🔐 لوحة التحكم</h2>
+            <p class="section-subtitle">أدخل كلمة المرور للوصول إلى إدارة المكتبة العامة وإعدادات Supabase.</p>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <input id="dashboard-password" class="input" type="password" placeholder="كلمة المرور" />
           <button id="unlock-dashboard-btn" class="btn btn-primary" type="button">دخول</button>
         </div>
       </div>
 
       <div id="dashboard-content" style="display:none;">
-        <div class="dash-top">
-          <div class="stats-mini" id="dash-stats"></div>
-          <div class="toolbar-group">
-            <button id="add-public-btn" class="btn btn-primary" type="button">＋ إضافة محتوى</button>
-            <button id="discover-dashboard-btn" class="btn btn-ghost" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
-          </div>
-        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-top">
+            <div class="mini-stats" id="dashboard-stats"></div>
 
-        <div class="panel" style="margin-bottom:16px;">
-          <h3 style="margin-top:0;">🗄️ إعدادات Supabase</h3>
-          <form id="supabase-form">
-            <div class="split-2">
+            <div class="toolbar-right">
+              <button id="dashboard-add-btn" class="btn btn-primary" type="button">＋ إضافة عنصر</button>
+              <button id="dashboard-discover-btn" class="btn btn-ghost" type="button">🔍 اكتشف بالذكاء الاصطناعي</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head" style="margin-bottom:14px;">
               <div>
-                <div class="muted" style="margin-bottom:6px;">Project URL</div>
-                <input id="supa-url" class="input code" placeholder="https://xxxx.supabase.co">
-              </div>
-              <div>
-                <div class="muted" style="margin-bottom:6px;">Anon Key</div>
-                <input id="supa-key" class="input code" placeholder="eyJhbGci...">
+                <h3 style="margin:0;">🗄️ إعدادات Supabase</h3>
+                <p class="section-subtitle" style="margin-top:6px;">
+                  هذه الإعدادات تخص التخزين السحابي للمكتبة العامة ومكتبتك الخاصة.
+                </p>
               </div>
             </div>
-            <div class="btn-row">
-              <button class="btn btn-primary" type="submit">حفظ بيانات Supabase</button>
+
+            <form id="supabase-form">
+              <div class="form-grid-2">
+                <div>
+                  <div class="field-label">Project URL</div>
+                  <input id="supa-url" class="input" placeholder="https://xxxx.supabase.co" />
+                </div>
+
+                <div>
+                  <div class="field-label">Anon Key</div>
+                  <input id="supa-key" class="input" placeholder="eyJhbGci..." />
+                </div>
+              </div>
+
+              <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
+                <button class="btn btn-primary" type="submit">حفظ إعدادات Supabase</button>
+              </div>
+            </form>
+
+            <div class="badge-row" style="margin-top:14px;">
+              <span class="badge">dbTable: <span id="page-db-table">—</span></span>
+              <span class="badge">userTable: <span id="page-user-table">—</span></span>
+              <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
+              <span class="badge">Cloudflare: <span id="page-worker-url">—</span></span>
+              <span class="badge">Supabase: <span id="page-supa-status">—</span></span>
             </div>
-          </form>
-
-          <div class="badge-row">
-            <span class="badge">dbTable: <span id="page-db-table" class="code">—</span></span>
-            <span class="badge">userTable: <span id="page-user-table" class="code">—</span></span>
-            <span class="badge">نوع المحتوى: <span id="page-content-type">—</span></span>
-            <span class="badge">Cloudflare: <span id="page-worker-url" class="code">—</span></span>
-            <span class="badge">Supabase: <span id="page-supa-status">—</span></span>
           </div>
-        </div>
 
-        <div class="panel table-wrap">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>العنوان</th>
-                <th>السنة</th>
-                <th>الفئة</th>
-                <th>التقييم</th>
-                <th>إجراءات</th>
-              </tr>
-            </thead>
-            <tbody id="dashboard-table-body"></tbody>
-          </table>
+          <div class="panel table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>العنوان</th>
+                  <th>السنة</th>
+                  <th>المواسم</th>
+                  <th>الفئة</th>
+                  <th>التقييم</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-tbody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal: Add/Edit -->
-  <div id="form-modal-backdrop" class="modal-backdrop">
+  <!-- FORM MODAL -->
+  <div id="item-modal-backdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-head">
         <div>
-          <strong id="form-modal-title">إضافة محتوى</strong>
-          <div class="muted" id="form-modal-subtitle">المكتبة العامة</div>
+          <strong id="item-modal-title">إضافة عنصر</strong>
+          <div class="helper-note" id="item-modal-subtitle">المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="form-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="item-modal-backdrop">✕</button>
       </div>
+
       <div class="modal-body">
-        <div class="notice" style="margin-bottom:16px;">
-          يمكنك إدخال البيانات يدويًا أو الضغط على زر <strong>✨ تصنيف تلقائي</strong> بعد كتابة العنوان والوصف.
-        </div>
-
-        <input type="hidden" id="form-mode">
-        <input type="hidden" id="form-target">
-        <input type="hidden" id="form-id">
-
-        <div class="split-2">
-          <div>
-            <div class="muted" style="margin-bottom:6px;">العنوان *</div>
-            <input id="f-title" class="input" placeholder="مثال: Dark">
-          </div>
-          <div>
-            <div class="muted" style="margin-bottom:6px;">السنة</div>
-            <input id="f-year" class="input" placeholder="2017–2020">
+        <div class="panel" style="padding:14px; margin-bottom:14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <strong>✨ تصنيف تلقائي</strong>
+              <div class="helper-note">اكتب العنوان والوصف، ثم دع الذكاء الاصطناعي يساعدك في تعبئة التصنيف.</div>
+            </div>
+            <button id="classify-btn" class="btn btn-ghost" type="button">✨ تصنيف الآن</button>
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <input type="hidden" id="form-mode" />
+        <input type="hidden" id="form-target" />
+        <input type="hidden" id="form-id" />
+
+        <div class="form-grid-2">
           <div>
-            <div class="muted" style="margin-bottom:6px;">عدد المواسم</div>
-            <input id="f-seasons" class="input" placeholder="3 مواسم">
+            <div class="field-label">العنوان *</div>
+            <input id="f-title" class="input" placeholder="مثال: Dark" />
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">الحالة</div>
-            <select id="f-status" class="input">
+            <div class="field-label">السنة</div>
+            <input id="f-year" class="input" placeholder="2017–2020" />
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:12px;">
+          <div>
+            <div class="field-label">عدد المواسم</div>
+            <input id="f-seasons" class="input" placeholder="3 مواسم" />
+          </div>
+          <div>
+            <div class="field-label">الحالة</div>
+            <select id="f-status" class="select input">
               <option value="complete">مكتمل</option>
               <option value="ongoing">مستمر</option>
               <option value="cancelled">مُلغى</option>
@@ -456,70 +610,73 @@
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">التصنيف</div>
-            <select id="f-filter" class="input"></select>
+            <div class="field-label">التصنيف</div>
+            <select id="f-filter" class="select input"></select>
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">التقييم (0–100)</div>
-            <input id="f-bar" class="input code" type="number" min="0" max="100" value="80">
+            <div class="field-label">التقييم (0–100)</div>
+            <input id="f-bar" class="input" type="number" min="0" max="100" value="80" />
           </div>
         </div>
 
         <div style="margin-top:12px;">
-          <div class="muted" style="margin-bottom:6px;">الوصف</div>
+          <div class="field-label">الوصف</div>
           <textarea id="f-desc" class="textarea" placeholder="اكتب وصفًا مختصرًا..."></textarea>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">التاغات (مفصولة بفواصل)</div>
-            <input id="f-tags" class="input" placeholder="مؤامرة، سفر الزمن، بقاء">
+            <div class="field-label">التاغات (مفصولة بفواصل)</div>
+            <input id="f-tags" class="input" placeholder="مؤامرة، سفر الزمن، نجاة" />
           </div>
           <div>
-            <div class="muted" style="margin-bottom:6px;">الأجواء</div>
-            <input id="f-vibes" class="input" placeholder="مظلم، فلسفي، توتر">
+            <div class="field-label">الأجواء</div>
+            <input id="f-vibes" class="input" placeholder="مظلم، فلسفي، متوتر" />
           </div>
         </div>
 
         <div style="margin-top:12px;">
-          <div class="muted" style="margin-bottom:6px;">صورة البوستر (اختياري)</div>
-          <input id="f-poster" class="input code" placeholder="سيتم جلبها تلقائيًا إن أمكن">
+          <div class="field-label">صورة البوستر (اختياري)</div>
+          <input id="f-poster" class="input" placeholder="سيتم جلبها تلقائيًا إن أمكن" />
         </div>
       </div>
+
       <div class="modal-foot">
-        <button id="classify-btn" class="btn btn-ghost" type="button">✨ تصنيف تلقائي</button>
-        <button id="save-form-btn" class="btn btn-primary" type="button">💾 حفظ</button>
+        <button class="btn btn-ghost" data-close="item-modal-backdrop" type="button">إلغاء</button>
+        <button id="save-item-btn" class="btn btn-primary" type="button">💾 حفظ</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Discover -->
+  <!-- DISCOVER MODAL -->
   <div id="discover-modal-backdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-head">
         <div>
           <strong>🔍 اكتشف بالذكاء الاصطناعي</strong>
-          <div class="muted" id="discover-subtitle">سيتم الإضافة إلى المكتبة العامة</div>
+          <div class="helper-note" id="discover-target-label">سيتم الإضافة إلى المكتبة العامة</div>
         </div>
         <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
       </div>
-      <div class="modal-body">
-        <input type="hidden" id="discover-target" value="public">
 
-        <div class="split-2">
+      <div class="modal-body">
+        <input type="hidden" id="discover-target" value="public" />
+
+        <div class="form-grid-2">
           <div>
-            <div class="muted" style="margin-bottom:6px;">النوع</div>
-            <select id="d-kind" class="input">
+            <div class="field-label">النوع</div>
+            <select id="d-kind" class="select input">
               <option value="مسلسلات وأفلام">مسلسلات وأفلام</option>
               <option value="مسلسلات فقط">مسلسلات فقط</option>
               <option value="أفلام فقط">أفلام فقط</option>
             </select>
           </div>
+
           <div>
-            <div class="muted" style="margin-bottom:6px;">الفترة</div>
-            <select id="d-era" class="input">
+            <div class="field-label">الفترة</div>
+            <select id="d-era" class="select input">
               <option value="حديثة نسبيًا">حديثة نسبيًا</option>
               <option value="كلاسيكية">كلاسيكية</option>
               <option value="مختلطة">مختلطة</option>
@@ -527,10 +684,10 @@
           </div>
         </div>
 
-        <div class="split-2" style="margin-top:12px;">
+        <div class="form-grid-2" style="margin-top:12px;">
           <div>
-            <div class="muted" style="margin-bottom:6px;">الموضوع</div>
-            <select id="d-topic" class="input">
+            <div class="field-label">الموضوع</div>
+            <select id="d-topic" class="select input">
               <option value="نظريات المؤامرة">نظريات المؤامرة</option>
               <option value="نهاية العالم">نهاية العالم</option>
               <option value="الاستخبارات والعملاء السريين">الاستخبارات والعملاء السريين</option>
@@ -538,9 +695,10 @@
               <option value="خيال علمي وسياسة">خيال علمي وسياسة</option>
             </select>
           </div>
+
           <div>
-            <div class="muted" style="margin-bottom:6px;">الطول</div>
-            <select id="d-length" class="input">
+            <div class="field-label">الطول</div>
+            <select id="d-length" class="select input">
               <option value="قصير">قصير</option>
               <option value="متوسط">متوسط</option>
               <option value="طويل">طويل</option>
@@ -549,15 +707,15 @@
         </div>
 
         <div style="margin-top:12px;">
-          <div class="muted" style="margin-bottom:6px;">تفضيلات إضافية</div>
-          <textarea id="d-notes" class="textarea" placeholder="مثال: أريد شيئًا مثل Dark لكن أقصر، أو مسلسل كوري استخباراتي..."></textarea>
+          <div class="field-label">تفضيلات إضافية</div>
+          <textarea id="d-notes" class="textarea" placeholder="مثال: أريد شيئًا مثل Dark لكن أقصر، أو مسلسل استخباراتي مشوق..."></textarea>
         </div>
 
-        <div class="btn-row">
+        <div class="hero-actions" style="justify-content:flex-start; margin-top:16px;">
           <button id="run-discover-btn" class="btn btn-primary" type="button">🚀 ابحث الآن</button>
         </div>
 
-        <div id="discover-results" class="discover-grid" style="margin-top:16px;"></div>
+        <div id="discover-results" class="discover-results"></div>
       </div>
     </div>
   </div>
@@ -581,7 +739,6 @@
       dbDelete,
       callAI,
       parseAIJson,
-      setText,
       wirePage
     } = window.AppCommon;
 
@@ -591,17 +748,20 @@
     const FILTER_KEYS = Object.keys(FILTERS);
 
     const state = {
+      currentView: 'public',
+      dashboardUnlocked: false,
+
       publicItems: [],
       privateItems: [],
+
       publicFilter: 'all',
       privateFilter: 'all',
+
       publicQuery: '',
-      privateQuery: '',
-      dashboardUnlocked: false,
-      currentView: 'public'
+      privateQuery: ''
     };
 
-    const SAMPLE_PUBLIC = [
+    const DEFAULT_PUBLIC = [
       {
         id: '1',
         title: 'Dark',
@@ -641,7 +801,7 @@
         filter: 'sci',
         type: 'sci',
         desc: 'خيال علمي ذكي حول فصل الذاكرة بين العمل والحياة في شركة مليئة بالغموض.',
-        tags: ['شركة', 'هوية', 'ذكاء'],
+        tags: ['شركة', 'هوية', 'غموض'],
         vibes: 'بارد وغامض',
         bar: 95,
         badge_extra: '',
@@ -649,42 +809,25 @@
       }
     ];
 
-    function loadLocalPublic() {
-      const raw = storageGet(PAGE.localKey, '');
-      if (!raw) return SAMPLE_PUBLIC.slice();
-      try { return JSON.parse(raw); } catch { return SAMPLE_PUBLIC.slice(); }
-    }
-
-    function saveLocalPublic() {
-      storageSet(PAGE.localKey, JSON.stringify(state.publicItems));
-    }
-
-    function loadLocalPrivate() {
-      const raw = storageGet(PAGE.myLocalKey, '');
-      if (!raw) return [];
-      try { return JSON.parse(raw); } catch { return []; }
-    }
-
-    function saveLocalPrivate() {
-      storageSet(PAGE.myLocalKey, JSON.stringify(state.privateItems));
-    }
-
     function normalizeItem(item, target = 'public') {
       const out = { ...item };
+
       out.id = String(out.id || Date.now());
       out.title = out.title || 'بدون عنوان';
       out.year = out.year || '';
       out.seasons = out.seasons || '';
       out.status = out.status || 'complete';
-      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : 'all';
-      if (out.filter === 'all') out.filter = 'sci';
+
+      out.filter = FILTER_KEYS.includes(out.filter) ? out.filter : 'sci';
       out.type = out.type || out.filter;
+
       out.desc = out.desc || out.desc_ar || '';
       out.tags = Array.isArray(out.tags)
         ? out.tags
         : (typeof out.tags === 'string'
             ? out.tags.split(/[,،]/).map(s => s.trim()).filter(Boolean)
             : []);
+
       out.vibes = out.vibes || '';
       out.bar = Math.max(0, Math.min(100, parseInt(out.bar || 75, 10)));
       out.badge_extra = out.badge_extra || '';
@@ -697,6 +840,34 @@
       return out;
     }
 
+    function loadLocalPublic() {
+      const raw = storageGet(PAGE.localKey, '');
+      if (!raw) return DEFAULT_PUBLIC.slice();
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return DEFAULT_PUBLIC.slice();
+      }
+    }
+
+    function saveLocalPublic() {
+      storageSet(PAGE.localKey, JSON.stringify(state.publicItems));
+    }
+
+    function loadLocalPrivate() {
+      const raw = storageGet(PAGE.myLocalKey, '');
+      if (!raw) return [];
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return [];
+      }
+    }
+
+    function saveLocalPrivate() {
+      storageSet(PAGE.myLocalKey, JSON.stringify(state.privateItems));
+    }
+
     async function loadData() {
       const supa = getSupabaseConfig();
 
@@ -705,9 +876,9 @@
 
       if (supa.connected) {
         try {
-          const publicData = await dbFetch(PAGE.dbTable, 'select=*');
-          if (Array.isArray(publicData)) {
-            state.publicItems = publicData.map(item => normalizeItem(item, 'public'));
+          const publicRows = await dbFetch(PAGE.dbTable, 'select=*');
+          if (Array.isArray(publicRows)) {
+            state.publicItems = publicRows.map(item => normalizeItem(item, 'public'));
             saveLocalPublic();
           }
         } catch (e) {
@@ -716,57 +887,89 @@
 
         try {
           const userId = ensureUserId();
-          const privateData = await dbFetch(PAGE.userTable, `select=*&user_id=eq.${encodeURIComponent(userId)}`);
-          if (Array.isArray(privateData)) {
-            state.privateItems = privateData.map(item => normalizeItem(item, 'private'));
+          const privateRows = await dbFetch(
+            PAGE.userTable,
+            `select=*&user_id=eq.${encodeURIComponent(userId)}`
+          );
+
+          if (Array.isArray(privateRows)) {
+            state.privateItems = privateRows.map(item => normalizeItem(item, 'private'));
             saveLocalPrivate();
           }
         } catch (e) {
-          toast('ℹ️ تعذر تحميل مكتبتي من Supabase — تم استخدام النسخة المحلية');
+          toast('ℹ️ تعذر تحميل مكتبتك الخاصة من Supabase — تم استخدام النسخة المحلية');
         }
       }
     }
 
-    function buildFilters(containerId, activeValue, onClick) {
+    function statusLabel(status) {
+      return ({
+        complete: 'مكتمل',
+        ongoing: 'مستمر',
+        cancelled: 'مُلغى'
+      }[status] || status || '—');
+    }
+
+    function buildFilterButtons(containerId, activeKey, onChange) {
       const container = document.getElementById(containerId);
       container.innerHTML = '';
 
       Object.entries(FILTERS).forEach(([key, label]) => {
         const btn = document.createElement('button');
-        btn.className = 'filter-btn' + (key === activeValue ? ' active' : '');
         btn.type = 'button';
+        btn.className = 'filter-btn' + (key === activeKey ? ' active' : '');
         btn.textContent = label;
-        btn.addEventListener('click', () => onClick(key));
+        btn.addEventListener('click', () => onChange(key));
         container.appendChild(btn);
       });
     }
 
-    function filterItems(items, filterKey, query) {
+    function textMatches(item, query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) return true;
+
+      const text = [
+        item.title,
+        item.year,
+        item.seasons,
+        item.desc,
+        item.vibes,
+        ...(item.tags || [])
+      ].join(' ').toLowerCase();
+
+      return text.includes(q);
+    }
+
+    function getFilteredItems(target) {
+      const items = target === 'public' ? state.publicItems : state.privateItems;
+      const filterKey = target === 'public' ? state.publicFilter : state.privateFilter;
+      const query = target === 'public' ? state.publicQuery : state.privateQuery;
+
       return items.filter(item => {
-        const matchFilter = filterKey === 'all' || item.filter === filterKey;
-        const q = (query || '').trim().toLowerCase();
-        if (!q) return matchFilter;
-
-        const text = [
-          item.title,
-          item.desc,
-          item.year,
-          item.seasons,
-          item.vibes,
-          ...(item.tags || [])
-        ].join(' ').toLowerCase();
-
-        return matchFilter && text.includes(q);
+        const passFilter = filterKey === 'all' || item.filter === filterKey;
+        return passFilter && textMatches(item, query);
       });
+    }
+
+    function createPosterHtml(item) {
+      if (item.poster) {
+        return `
+          <div class="media-cover">
+            <img src="${item.poster}" alt="${item.title}" onerror="this.parentElement.innerHTML='<div class=&quot;media-cover-fallback&quot;>🎬</div>'" />
+          </div>
+        `;
+      }
+
+      return `
+        <div class="media-cover">
+          <div class="media-cover-fallback">🎬</div>
+        </div>
+      `;
     }
 
     function createCard(item, target) {
       const card = document.createElement('article');
-      card.className = 'show-card';
-
-      const poster = item.poster
-        ? `<div class="show-poster"><img src="${item.poster}" alt="${item.title}" onerror="this.closest('.show-poster').innerHTML='<div class=\\'show-fallback\\'>🎬</div>'"></div>`
-        : `<div class="show-poster"><div class="show-fallback">🎬</div></div>`;
+      card.className = 'media-card';
 
       const actions = [];
 
@@ -780,48 +983,56 @@
       }
 
       card.innerHTML = `
-        ${poster}
-        <div class="show-body">
-          <div class="show-title">${item.title}</div>
-          <div class="show-meta">
+        ${createPosterHtml(item)}
+        <div class="media-body">
+          <div class="media-title">${item.title}</div>
+          <div class="media-sub">
             ${item.year || '—'}
-            ${item.seasons ? '• ' + item.seasons : ''}
-            ${item.status ? '• ' + statusLabel(item.status) : ''}
+            ${item.seasons ? ' • ' + item.seasons : ''}
+            ${item.status ? ' • ' + statusLabel(item.status) : ''}
           </div>
-          <div class="show-desc">${item.desc || 'لا يوجد وصف بعد.'}</div>
-          <div class="tag-row">
+
+          <div class="media-desc">${item.desc || 'لا يوجد وصف بعد.'}</div>
+
+          <div class="tag-row" style="margin-top:12px;">
             <span class="tag">${FILTERS[item.filter] || item.filter}</span>
-            ${(item.tags || []).slice(0,3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${(item.tags || []).slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
-          <div class="progress"><span style="width:${item.bar || 0}%"></span></div>
-          <div class="muted" style="margin-top:8px;">التقييم: ${item.bar || 0}% ${item.vibes ? '• ' + item.vibes : ''}</div>
-          <div class="card-actions">${actions.join('')}</div>
+
+          <div class="progress-wrap">
+            <div class="progress"><span style="width:${item.bar || 0}%"></span></div>
+          </div>
+
+          <div class="helper-note" style="margin-top:8px;">
+            التقييم: ${item.bar || 0}% ${item.vibes ? '• ' + item.vibes : ''}
+          </div>
+
+          <div class="card-actions">
+            ${actions.join('')}
+          </div>
         </div>
       `;
+
       return card;
     }
 
-    function statusLabel(status) {
-      return ({ complete: 'مكتمل', ongoing: 'مستمر', cancelled: 'مُلغى' }[status] || status || '—');
-    }
-
     function renderPublic() {
-      buildFilters('public-filters', state.publicFilter, key => {
+      buildFilterButtons('public-filters', state.publicFilter, key => {
         state.publicFilter = key;
         renderPublic();
       });
 
-      const items = filterItems(state.publicItems, state.publicFilter, state.publicQuery);
-      const wrap = document.getElementById('public-content');
+      const items = getFilteredItems('public');
+      const grid = document.getElementById('public-grid');
+      const empty = document.getElementById('public-empty');
+
+      grid.innerHTML = '';
 
       if (!items.length) {
-        wrap.innerHTML = '<div class="empty">لا توجد نتائج في المكتبة العامة بهذا الفلتر.</div>';
+        empty.style.display = 'block';
       } else {
-        const grid = document.createElement('div');
-        grid.className = 'cards-grid';
+        empty.style.display = 'none';
         items.forEach(item => grid.appendChild(createCard(item, 'public')));
-        wrap.innerHTML = '';
-        wrap.appendChild(grid);
       }
 
       bindPublicCardActions();
@@ -829,22 +1040,22 @@
     }
 
     function renderPrivate() {
-      buildFilters('private-filters', state.privateFilter, key => {
+      buildFilterButtons('private-filters', state.privateFilter, key => {
         state.privateFilter = key;
         renderPrivate();
       });
 
-      const items = filterItems(state.privateItems, state.privateFilter, state.privateQuery);
-      const wrap = document.getElementById('private-content');
+      const items = getFilteredItems('private');
+      const grid = document.getElementById('private-grid');
+      const empty = document.getElementById('private-empty');
+
+      grid.innerHTML = '';
 
       if (!items.length) {
-        wrap.innerHTML = '<div class="empty">لا توجد عناصر في مكتبتك الخاصة بعد.</div>';
+        empty.style.display = 'block';
       } else {
-        const grid = document.createElement('div');
-        grid.className = 'cards-grid';
+        empty.style.display = 'none';
         items.forEach(item => grid.appendChild(createCard(item, 'private')));
-        wrap.innerHTML = '';
-        wrap.appendChild(grid);
       }
 
       bindPrivateCardActions();
@@ -852,23 +1063,23 @@
     }
 
     function renderDashboard() {
-      const stats = document.getElementById('dash-stats');
+      const statsWrap = document.getElementById('dashboard-stats');
+      const tbody = document.getElementById('dashboard-tbody');
+
       const counts = {};
       state.publicItems.forEach(item => {
         counts[item.filter] = (counts[item.filter] || 0) + 1;
       });
 
-      stats.innerHTML = [
-        `<div class="mini-box"><b>${state.publicItems.length}</b> إجمالي</div>`,
+      statsWrap.innerHTML = [
+        `<div class="mini-stat"><b>${state.publicItems.length}</b> إجمالي</div>`,
         ...Object.entries(FILTERS)
-          .filter(([k]) => k !== 'all')
-          .map(([k, v]) => `<div class="mini-box"><b>${counts[k] || 0}</b> ${v}</div>`)
+          .filter(([key]) => key !== 'all')
+          .map(([key, label]) => `<div class="mini-stat"><b>${counts[key] || 0}</b> ${label}</div>`)
       ].join('');
 
-      const tbody = document.getElementById('dashboard-table-body');
-
       if (!state.publicItems.length) {
-        tbody.innerHTML = '<tr><td colspan="6" class="muted">لا توجد عناصر بعد.</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="7" class="muted">لا توجد عناصر بعد.</td></tr>`;
         return;
       }
 
@@ -880,6 +1091,7 @@
             <div class="muted">${item.desc ? item.desc.slice(0, 70) : '—'}</div>
           </td>
           <td>${item.year || '—'}</td>
+          <td>${item.seasons || '—'}</td>
           <td>${FILTERS[item.filter] || item.filter}</td>
           <td>${item.bar || 0}%</td>
           <td>
@@ -892,7 +1104,7 @@
       `).join('');
 
       tbody.querySelectorAll('[data-action="edit-public"]').forEach(btn => {
-        btn.addEventListener('click', () => openFormModal('edit', 'public', btn.dataset.id));
+        btn.addEventListener('click', () => openItemModal('edit', 'public', btn.dataset.id));
       });
 
       tbody.querySelectorAll('[data-action="delete-public"]').forEach(btn => {
@@ -900,11 +1112,11 @@
       });
     }
 
-    function refreshStats(filteredCount) {
+    function refreshStats(visibleCount) {
       document.getElementById('stat-total').textContent = state.publicItems.length + state.privateItems.length;
       document.getElementById('stat-public').textContent = state.publicItems.length;
       document.getElementById('stat-private').textContent = state.privateItems.length;
-      document.getElementById('stat-filtered').textContent = filteredCount;
+      document.getElementById('stat-visible').textContent = visibleCount;
     }
 
     function switchView(view) {
@@ -931,14 +1143,18 @@
         btn.addEventListener('click', () => {
           const item = state.publicItems.find(x => String(x.id) === String(btn.dataset.id));
           if (!item) return;
-          addToPrivate({ ...item, id: String(Date.now()) + Math.random().toString(36).slice(2) });
+
+          addToPrivate({
+            ...item,
+            id: String(Date.now()) + Math.random().toString(36).slice(2)
+          });
         });
       });
     }
 
     function bindPrivateCardActions() {
       document.querySelectorAll('[data-action="edit-private"]').forEach(btn => {
-        btn.addEventListener('click', () => openFormModal('edit', 'private', btn.dataset.id));
+        btn.addEventListener('click', () => openItemModal('edit', 'private', btn.dataset.id));
       });
 
       document.querySelectorAll('[data-action="delete-private"]').forEach(btn => {
@@ -957,9 +1173,23 @@
     function fillFilterSelect() {
       const select = document.getElementById('f-filter');
       select.innerHTML = Object.entries(FILTERS)
-        .filter(([k]) => k !== 'all')
-        .map(([k, label]) => `<option value="${k}">${label}</option>`)
+        .filter(([key]) => key !== 'all')
+        .map(([key, label]) => `<option value="${key}">${label}</option>`)
         .join('');
+    }
+
+    function setFormValues(item) {
+      document.getElementById('form-id').value = item?.id || '';
+      document.getElementById('f-title').value = item?.title || '';
+      document.getElementById('f-year').value = item?.year || '';
+      document.getElementById('f-seasons').value = item?.seasons || '';
+      document.getElementById('f-status').value = item?.status || 'complete';
+      document.getElementById('f-filter').value = item?.filter || 'sci';
+      document.getElementById('f-desc').value = item?.desc || '';
+      document.getElementById('f-tags').value = (item?.tags || []).join('، ');
+      document.getElementById('f-vibes').value = item?.vibes || '';
+      document.getElementById('f-bar').value = item?.bar || 80;
+      document.getElementById('f-poster').value = item?.poster || '';
     }
 
     function getFormValues(target) {
@@ -980,49 +1210,38 @@
       }, target);
     }
 
-    function setFormValues(item) {
-      document.getElementById('form-id').value = item?.id || '';
-      document.getElementById('f-title').value = item?.title || '';
-      document.getElementById('f-year').value = item?.year || '';
-      document.getElementById('f-seasons').value = item?.seasons || '';
-      document.getElementById('f-status').value = item?.status || 'complete';
-      document.getElementById('f-filter').value = item?.filter || 'sci';
-      document.getElementById('f-desc').value = item?.desc || '';
-      document.getElementById('f-tags').value = (item?.tags || []).join('، ');
-      document.getElementById('f-vibes').value = item?.vibes || '';
-      document.getElementById('f-bar').value = item?.bar || 80;
-      document.getElementById('f-poster').value = item?.poster || '';
-    }
-
-    function openFormModal(mode, target, id = '') {
+    function openItemModal(mode, target, id = '') {
       document.getElementById('form-mode').value = mode;
       document.getElementById('form-target').value = target;
-      document.getElementById('form-modal-title').textContent = mode === 'edit' ? 'تعديل محتوى' : 'إضافة محتوى';
-      document.getElementById('form-modal-subtitle').textContent = target === 'public' ? 'المكتبة العامة' : 'مكتبتي';
+
+      document.getElementById('item-modal-title').textContent =
+        mode === 'edit' ? 'تعديل عنصر' : 'إضافة عنصر';
+      document.getElementById('item-modal-subtitle').textContent =
+        target === 'public' ? 'المكتبة العامة' : 'مكتبتي';
 
       fillFilterSelect();
 
       let item = null;
       if (mode === 'edit') {
-        item = (target === 'public' ? state.publicItems : state.privateItems).find(x => String(x.id) === String(id));
+        item = (target === 'public' ? state.publicItems : state.privateItems)
+          .find(x => String(x.id) === String(id));
       }
 
       setFormValues(item);
-      openModal('form-modal-backdrop');
+      openModal('item-modal-backdrop');
     }
 
     async function fetchPoster(title) {
       try {
         const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(title)}`);
         const data = await res.json();
-        const image = data?.[0]?.show?.image?.original || data?.[0]?.show?.image?.medium || '';
-        return image || '';
+        return data?.[0]?.show?.image?.original || data?.[0]?.show?.image?.medium || '';
       } catch {
         return '';
       }
     }
 
-    async function saveForm() {
+    async function saveItem() {
       const target = document.getElementById('form-target').value;
       const mode = document.getElementById('form-mode').value;
       const item = getFormValues(target);
@@ -1032,7 +1251,9 @@
         return;
       }
 
-      if (!item.poster) item.poster = await fetchPoster(item.title);
+      if (!item.poster) {
+        item.poster = await fetchPoster(item.title);
+      }
 
       if (target === 'public') {
         await upsertPublic(item, mode === 'edit');
@@ -1040,12 +1261,13 @@
         await upsertPrivate(item, mode === 'edit');
       }
 
-      closeModal('form-modal-backdrop');
+      closeModal('item-modal-backdrop');
     }
 
     async function upsertPublic(item, isEdit) {
-      const idx = state.publicItems.findIndex(x => String(x.id) === String(item.id));
-      if (idx >= 0) state.publicItems[idx] = item;
+      const index = state.publicItems.findIndex(x => String(x.id) === String(item.id));
+
+      if (index >= 0) state.publicItems[index] = item;
       else state.publicItems.unshift(item);
 
       saveLocalPublic();
@@ -1053,8 +1275,11 @@
       const supa = getSupabaseConfig();
       if (supa.connected) {
         try {
-          if (isEdit) await dbUpdate(PAGE.dbTable, `id=eq.${encodeURIComponent(item.id)}`, item);
-          else await dbInsert(PAGE.dbTable, item);
+          if (isEdit) {
+            await dbUpdate(PAGE.dbTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          } else {
+            await dbInsert(PAGE.dbTable, item);
+          }
         } catch (e) {
           toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
         }
@@ -1067,6 +1292,7 @@
 
     async function addToPrivate(item) {
       item = normalizeItem(item, 'private');
+
       state.privateItems.unshift(item);
       saveLocalPrivate();
 
@@ -1080,14 +1306,15 @@
       }
 
       renderPrivate();
-      toast('✅ تمت الإضافة إلى مكتبتي');
+      toast('✅ تمت الإضافة إلى مكتبتك الخاصة');
     }
 
     async function upsertPrivate(item, isEdit) {
       item.user_id = ensureUserId();
 
-      const idx = state.privateItems.findIndex(x => String(x.id) === String(item.id));
-      if (idx >= 0) state.privateItems[idx] = item;
+      const index = state.privateItems.findIndex(x => String(x.id) === String(item.id));
+
+      if (index >= 0) state.privateItems[index] = item;
       else state.privateItems.unshift(item);
 
       saveLocalPrivate();
@@ -1095,15 +1322,18 @@
       const supa = getSupabaseConfig();
       if (supa.connected) {
         try {
-          if (isEdit) await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
-          else await dbInsert(PAGE.userTable, item);
+          if (isEdit) {
+            await dbUpdate(PAGE.userTable, `id=eq.${encodeURIComponent(item.id)}`, item);
+          } else {
+            await dbInsert(PAGE.userTable, item);
+          }
         } catch (e) {
           toast('⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: ' + e.message);
         }
       }
 
       renderPrivate();
-      toast('✅ تم حفظ العنصر في مكتبتي');
+      toast('✅ تم حفظ العنصر في مكتبتك');
     }
 
     async function deleteItem(target, id) {
@@ -1144,7 +1374,7 @@
       toast('🗑️ تم الحذف');
     }
 
-    async function classifyCurrentForm() {
+    async function classifyFormWithAI() {
       const title = document.getElementById('f-title').value.trim();
       const desc = document.getElementById('f-desc').value.trim();
 
@@ -1153,8 +1383,7 @@
         return;
       }
 
-      const prompt =
-`You are a TV and film expert. Return ONLY valid JSON.
+      const prompt = `You are a TV and film expert. Return ONLY valid JSON.
 Title: ${title}
 Description: ${desc}
 Return exactly: {"filter":"sci","tags":["t1","t2","t3"],"vibes":"mood","bar":80,"desc_ar":"short arabic description"}
@@ -1164,20 +1393,27 @@ Allowed filter values: end, spy, sci, banned, low`;
         toast('🤖 جارٍ التصنيف...');
         const raw = await callAI(prompt, 'classify');
         const parsed = parseAIJson(raw, 'object');
-        if (!parsed) throw new Error('تعذر قراءة نتيجة التصنيف');
+
+        if (!parsed) {
+          throw new Error('تعذر قراءة نتيجة التصنيف');
+        }
 
         if (parsed.filter && FILTER_KEYS.includes(parsed.filter)) {
           document.getElementById('f-filter').value = parsed.filter;
         }
+
         if (parsed.tags) {
           document.getElementById('f-tags').value = parsed.tags.join('، ');
         }
+
         if (parsed.vibes) {
           document.getElementById('f-vibes').value = parsed.vibes;
         }
+
         if (parsed.bar) {
           document.getElementById('f-bar').value = parsed.bar;
         }
+
         if (parsed.desc_ar && !document.getElementById('f-desc').value.trim()) {
           document.getElementById('f-desc').value = parsed.desc_ar;
         }
@@ -1190,10 +1426,8 @@ Allowed filter values: end, spy, sci, banned, low`;
 
     function openDiscoverModal(target) {
       document.getElementById('discover-target').value = target;
-      document.getElementById('discover-subtitle').textContent =
-        target === 'public'
-          ? 'سيتم الإضافة إلى المكتبة العامة'
-          : 'سيتم الإضافة إلى مكتبتك الخاصة';
+      document.getElementById('discover-target-label').textContent =
+        target === 'public' ? 'سيتم الإضافة إلى المكتبة العامة' : 'سيتم الإضافة إلى مكتبتك الخاصة';
 
       document.getElementById('discover-results').innerHTML = '';
       openModal('discover-modal-backdrop');
@@ -1207,8 +1441,7 @@ Allowed filter values: end, spy, sci, banned, low`;
       const length = document.getElementById('d-length').value;
       const notes = document.getElementById('d-notes').value.trim();
 
-      const prompt =
-`Recommend 6 ${kind} in Arabic audience style.
+      const prompt = `Recommend 6 ${kind} in Arabic audience style.
 Topic: ${topic}.
 Era: ${era}.
 Length: ${length}.
@@ -1217,28 +1450,54 @@ Return ONLY valid JSON array.
 Each item must be:
 {"title":"","year":"","seasons":"","status":"complete","filter":"sci","desc":"","tags":[""],"vibes":"","bar":80}`;
 
-      const resultsEl = document.getElementById('discover-results');
-      results= 'result-card';
-          div.innerHTML = `
+      const resultsWrap = document.getElementById('discover-results');
+      resultsWrap.innerHTML = '<div class="empty-state">⏳ جارٍ البحث بالذكاء الاصطناعي...</div>';
+
+      try {
+        const raw = await callAI(prompt, 'discover');
+        const parsed = parseAIJson(raw, 'array');
+
+        if (!Array.isArray(parsed) || !parsed.length) {
+          throw new Error('تعذر قراءة النتائج');
+        }
+
+        resultsWrap.innerHTML = '';
+
+        for (const item of parsed.slice(0, 6)) {
+          const normalized = normalizeItem(
+            { ...item, id: String(Date.now()) + Math.random().toString(36).slice(2) },
+            target
+          );
+
+          if (!normalized.poster) {
+            normalized.poster = await fetchPoster(normalized.title);
+          }
+
+          const card = document.createElement('div');
+          card.className = 'discover-card';
+          card.innerHTML = `
             <strong>${normalized.title}</strong>
-            <div class="muted">
+            <div class="helper-note" style="margin-top:6px;">
               ${normalized.year || '—'}
-              ${normalized.seasons ? '• ' + normalized.seasons : ''}
+              ${normalized.seasons ? ' • ' + normalized.seasons : ''}
               • ${FILTERS[normalized.filter] || normalized.filter}
             </div>
-            <p style="color:var(--text2); line-height:1.8;">
+
+            <p style="color:var(--text-2); line-height:1.8; margin-top:8px;">
               ${normalized.desc || 'لا يوجد وصف.'}
             </p>
-            <div class="tag-row">
-              ${(normalized.tags || []).slice(0,4).map(tag => `<span class="tag">${tag}</span>`).join('')}
+
+            <div class="tag-row" style="margin-top:10px;">
+              ${(normalized.tags || []).slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
+
             <div class="card-actions">
               <button class="small-btn primary">➕ أضف</button>
               <button class="small-btn">تجاهل</button>
             </div>
           `;
 
-          const [addBtn, skipBtn] = div.querySelectorAll('button');
+          const [addBtn, skipBtn] = card.querySelectorAll('button');
 
           addBtn.addEventListener('click', async () => {
             if (target === 'public') {
@@ -1246,20 +1505,23 @@ Each item must be:
             } else {
               await addToPrivate(normalized);
             }
+
             addBtn.disabled = true;
             addBtn.textContent = '✅ تمت الإضافة';
           });
 
-          skipBtn.addEventListener('click', () => div.remove());
-          resultsEl.appendChild(div);
+          skipBtn.addEventListener('click', () => card.remove());
+
+          resultsWrap.appendChild(card);
         }
       } catch (e) {
-        resultsEl.innerHTML = `<div class="empty">❌ ${e.message}</div>`;
+        resultsWrap.innerHTML = `<div class="empty-state">❌ ${e.message}</div>`;
       }
     }
 
     function unlockDashboard() {
-      const value = document.getElementById('dashboard-password').value;
+      const value = document.getElementById('dashboard-password').value.trim();
+
       if (value !== window.APP_CONFIG.DASHBOARD_PASSWORD) {
         toast('❌ كلمة المرور غير صحيحة');
         return;
@@ -1268,15 +1530,23 @@ Each item must be:
       state.dashboardUnlocked = true;
       document.getElementById('dashboard-locked').style.display = 'none';
       document.getElementById('dashboard-content').style.display = 'block';
+
       renderDashboard();
       toast('✅ تم فتح لوحة التحكم');
     }
 
-    function initBindings() {
-      wirePage(PAGE_KEY);
-
+    function bindGeneralEvents() {
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => switchView(btn.dataset.view));
+      });
+
+      document.getElementById('hero-go-public').addEventListener('click', () => {
+        switchView('public');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.getElementById('hero-open-discover').addEventListener('click', () => {
+        openDiscoverModal('public');
       });
 
       document.getElementById('public-search').addEventListener('input', e => {
@@ -1289,32 +1559,18 @@ Each item must be:
         renderPrivate();
       });
 
-      document.getElementById('unlock-dashboard-btn').addEventListener('click', unlockDashboard);
+      document.getElementById('public-discover-btn').addEventListener('click', () => openDiscoverModal('public'));
+      document.getElementById('private-discover-btn').addEventListener('click', () => openDiscoverModal('private'));
+      document.getElementById('dashboard-discover-btn').addEventListener('click', () => openDiscoverModal('public'));
 
-      document.getElementById('add-public-btn').addEventListener('click', () => {
-        openFormModal('add', 'public');
-      });
+      document.getElementById('private-add-btn').addEventListener('click', () => openItemModal('add', 'private'));
+      document.getElementById('dashboard-add-btn').addEventListener('click', () => openItemModal('add', 'public'));
 
-      document.getElementById('add-private-btn').addEventListener('click', () => {
-        openFormModal('add', 'private');
-      });
-
-      document.getElementById('save-form-btn').addEventListener('click', saveForm);
-      document.getElementById('classify-btn').addEventListener('click', classifyCurrentForm);
-
-      document.getElementById('discover-public-btn').addEventListener('click', () => {
-        openDiscoverModal('public');
-      });
-
-      document.getElementById('discover-private-btn').addEventListener('click', () => {
-        openDiscoverModal('private');
-      });
-
-      document.getElementById('discover-dashboard-btn').addEventListener('click', () => {
-        openDiscoverModal('public');
-      });
-
+      document.getElementById('classify-btn').addEventListener('click', classifyFormWithAI);
+      document.getElementById('save-item-btn').addEventListener('click', saveItem);
       document.getElementById('run-discover-btn').addEventListener('click', runDiscover);
+
+      document.getElementById('unlock-dashboard-btn').addEventListener('click', unlockDashboard);
 
       document.querySelectorAll('[data-close]').forEach(btn => {
         btn.addEventListener('click', () => closeModal(btn.dataset.close));
@@ -1337,6 +1593,7 @@ Each item must be:
         );
 
         wirePage(PAGE_KEY);
+
         await loadData();
         renderPublic();
         renderPrivate();
@@ -1347,12 +1604,13 @@ Each item must be:
     }
 
     async function init() {
-      initBindings();
+      wirePage(PAGE_KEY);
+      bindGeneralEvents();
       await loadData();
       renderPublic();
       renderPrivate();
       refreshStats(state.publicItems.length);
-      toast('✅ تم تحميل Movies V2 بنجاح');
+      toast('✅ تم تحميل صفحة الأفلام والمسلسلات بنجاح');
     }
 
     init();
