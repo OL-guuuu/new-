@@ -9,8 +9,6 @@ window.APP_CONFIG = {
     USER_ID: 'platform_user_id_v2'
   },
 
-  // يمكنك تركهما فارغين الآن
-  // أو وضع Project URL و anon key هنا لاحقًا
   SUPABASE: {
     URL: '',
     ANON_KEY: ''
@@ -32,7 +30,6 @@ window.APP_CONFIG = {
         low: '📉 نادر المشاهدة'
       }
     },
-
     books: {
       dbTable: 'books',
       userTable: 'user_books',
@@ -49,7 +46,6 @@ window.APP_CONFIG = {
         fiction: '📖 رواية'
       }
     },
-
     podcasts: {
       dbTable: 'podcasts',
       userTable: 'user_podcasts',
@@ -68,4 +64,3 @@ window.APP_CONFIG = {
     }
   }
 };
-``
