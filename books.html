@@ -89,7 +89,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
-      flex: 1 1 300px;
+      flex: 1 1 320px;
     }
 
     .search-box {
@@ -137,26 +137,30 @@
 
     .media-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      align-items: stretch;
     }
 
     .book-card {
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 24px;
       overflow: hidden;
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
       box-shadow: var(--shadow-md);
       transition: 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
     }
 
     .book-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       border-color: rgba(255,255,255,0.12);
     }
 
     .book-cover {
-      height: 240px;
+      height: 260px;
       background:
         radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05), transparent 24%),
         linear-gradient(180deg, #101010 0%, #181818 100%);
@@ -177,7 +181,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 2.8rem;
+      font-size: 4rem;
       color: var(--text-3);
       background:
         radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 24%),
@@ -185,39 +189,65 @@
     }
 
     .book-body {
-      padding: 18px;
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
     }
 
     .book-title {
-      font-size: 1.08rem;
+      font-size: 1.18rem;
       font-weight: 800;
-      margin-bottom: 8px;
-      line-height: 1.45;
+      line-height: 1.5;
+      margin: 0;
     }
 
     .book-author {
       color: var(--text-2);
-      font-size: 0.92rem;
-      margin-bottom: 8px;
+      font-size: 0.95rem;
       font-weight: 700;
+      margin: 0;
+      line-height: 1.6;
     }
 
     .book-sub {
       color: var(--text-3);
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      line-height: 1.9;
+      font-size: 0.92rem;
+      line-height: 1.85;
+      margin: 0;
     }
 
     .book-desc {
       color: var(--text-2);
-      line-height: 1.95;
+      line-height: 1.9;
       font-size: 0.95rem;
-      min-height: 86px;
+      margin: 0;
+      min-height: 88px;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      line-height: 1.2;
     }
 
     .score-row {
-      margin-top: 14px;
+      margin-top: 6px;
     }
 
     .score-bar {
@@ -230,24 +260,25 @@
     .score-bar > span {
       display: block;
       height: 100%;
-      background: linear-gradient(90deg, #bcbcbc, #ffffff);
+      background: linear-gradient(90deg, #cfcfcf, #ffffff);
     }
 
     .card-actions {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: auto;
+      padding-top: 6px;
     }
 
     .small-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.03);
       color: var(--text);
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 12px;
+      padding: 10px 12px;
       font: inherit;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       cursor: pointer;
       transition: 0.16s ease;
     }
@@ -261,6 +292,9 @@
       background: #ffffff;
       color: #111111;
       border: none;
+      width: 100%;
+      justify-content: center;
+      font-weight: 800;
     }
 
     .small-btn.danger {
@@ -577,7 +611,7 @@
 
       <div id="private-grid" class="media-grid"></div>
       <div id="private-empty" class="empty-state" style="display:none;">
-        لا توجد عناصر في قراءاتك الخاصة بعد.
+        لا توجد عناصر في قراءاتي بعد.
       </div>
     </section>
 
@@ -666,7 +700,7 @@
           <strong id="item-modal-title">إضافة كتاب</strong>
           <div class="helper-note" id="item-modal-subtitle">المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="item-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="item-modal-backdrop" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -766,7 +800,7 @@
           <strong>اكتشف بالذكاء الاصطناعي</strong>
           <div class="helper-note" id="discover-target-label">سيتم الإضافة إلى المكتبة العامة</div>
         </div>
-        <button class="close-btn" data-close="discover-modal-backdrop">✕</button>
+        <button class="close-btn" data-close="discover-modal-backdrop" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -1050,6 +1084,7 @@
     function loadLocalPublic() {
       const raw = storageGet(PAGE.localKey, "");
       if (!raw) return DEFAULT_PUBLIC.slice();
+
       try {
         return JSON.parse(raw);
       } catch {
@@ -1064,6 +1099,7 @@
     function loadLocalPrivate() {
       const raw = storageGet(PAGE.myLocalKey, "");
       if (!raw) return [];
+
       try {
         return JSON.parse(raw);
       } catch {
@@ -1545,34 +1581,7 @@
         } catch (e) {
           toast("⚠️ تم الحفظ محليًا لكن Supabase أعاد خطأ: " + e.message);
         }
-      }
-
-      renderPrivate();
-      toast("✅ تم حفظ الكتاب في قراءاتي");
-    }
-
-    async function deleteItem(target, id) {
-      const ok = confirm("هل أنت متأكد من الحذف؟");
-      if (!ok) return;
-
-      if (target === "public") {
-        state.publicItems = state.publicItems.filter(x => String(x.id) !== String(id));
-        saveLocalPublic();
-
-        const supa = getSupabaseConfig();
-        if (supa.connected) {
-          try {
-            await dbDelete(PAGE.dbTable, `id=eq.${encodeURIComponent(id)}`);
-          } catch (e) {
-            toast("⚠️ حُذف محليًا لكن Supabase أعاد خطأ: " + e.message);
-          }
-        }
-
-        renderPublic();
-        if (state.dashboardUnlocked) renderDashboard();
-      } else {
-        state.privateItems = state.privateItems.filter(x => String(x.id) !== String(id));
-        saveLocalPrivate();
+veLocalPrivate();
 
         const supa = getSupabaseConfig();
         if (supa.connected) {
@@ -1823,4 +1832,18 @@ Each item must be:
       setPageMeta();
 
       const supa = getSupabaseConfig();
-      if (supa.url) document
+      if (supa.url) document.getElementById("supa-url").value = supa.url;
+      if (supa.anonKey) document.getElementById("supa-key").value = supa.anonKey;
+
+      bindGeneralEvents();
+      await loadData();
+      renderPublic();
+      renderPrivate();
+
+      toast("✅ تم تحميل صفحة الكتب والروايات");
+    }
+
+    init();
+  </script>
+</body>
+</html>
