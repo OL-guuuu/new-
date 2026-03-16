@@ -3,323 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
-
   <title>المنصة | أفلام • كتب • بودكاست</title>
-
   <style>
-    /* ===== LANDING HERO ===== */
-    .landing-hero {
-      min-height: calc(100vh - 72px);
-      display: flex;
-      align-items: center;
-      padding-top: 24px;
-      padding-bottom: 24px;
-    }
-
-    .landing-hero .hero-grid {
-      grid-template-columns: minmax(0, 700px) 320px;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      width: 100%;
-    }
-
-    .landing-hero .hero-copy {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .landing-hero .hero-badge {
-      margin-inline: auto;
-    }
-
-    .landing-hero .hero-copy h1 {
-      margin: 18px 0 16px;
-      line-height: 1.08;
-      letter-spacing: -0.045em;
-      max-width: 720px;
-    }
-
-    .landing-hero .hero-copy p {
-      margin-top: 0;
-      font-size: 1rem;
-      line-height: 1.95;
-      max-width: 640px;
-    }
-
-    .landing-hero .hero-actions {
-      margin-top: 24px;
-      justify-content: center;
-    }
-
-    .landing-hero .hero-side {
-      justify-content: center;
-    }
-
-    .landing-hero .preview-panel {
-      width: 320px;
-      max-width: 320px;
-      aspect-ratio: 1 / 1;
-      min-height: 0;
-      padding: 16px;
-      overflow: hidden;
-    }
-
-    .preview-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: 999px;
-      padding: 6px 10px;
-      border: 1px solid var(--border);
-      color: var(--text-3);
-      font-size: 0.76rem;
-      background: rgba(255,255,255,0.02);
-      white-space: nowrap;
-    }
-
-    .preview-stack {
-      display: grid;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .preview-card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      padding: 10px 12px;
-    }
-
-    .preview-card strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.88rem;
-    }
-
-    .preview-card p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.6;
-      font-size: 0.82rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .preview-mini-list {
-      display: grid;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .preview-mini-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid var(--border);
-      color: var(--text-2);
-      font-size: 0.8rem;
-    }
-
-    .preview-mini-item b {
-      color: var(--text);
-      font-size: 0.84rem;
-    }
-
-    /* ===== CONTENT BLOCKS ===== */
-    .category-card {
-      padding: 24px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .category-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-      margin-bottom: 14px;
-      font-size: 1.35rem;
-    }
-
-    .category-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.14rem;
-      line-height: 1.4;
-    }
-
-    .category-card p {
-      flex: 1;
-    }
-
-    .category-actions {
-      margin-top: 18px;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .step-card {
-      padding: 22px;
-      height: 100%;
-    }
-
-    .step-number {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      background: rgba(255,255,255,0.03);
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .step-card h4 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      line-height: 1.45;
-    }
-
-    .step-card p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.85;
-    }
-
-    .feature-card {
-      padding: 22px;
-      height: 100%;
-    }
-
-    .feature-card h4 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .feature-card p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.85;
-    }
-
-    .cta-band {
-      padding: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .cta-band h3 {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
-      line-height: 1.35;
-    }
-
-    .cta-band p {
-      margin: 0;
-      color: var(--text-2);
-      line-height: 1.9;
-      max-width: 720px;
-    }
-
-    .section {
-      padding-top: 84px;
-      padding-bottom: 84px;
-    }
-
-    .section-head {
-      margin-bottom: 28px;
-    }
-
-    .section-head h2 {
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
-
-    @media (max-width: 980px) {
-      .landing-hero {
-        min-height: auto;
-        padding-top: 52px;
-        padding-bottom: 24px;
-      }
-
-      .landing-hero .hero-grid {
-        grid-template-columns: 1fr;
-        justify-content: center;
-        gap: 22px;
-      }
-
-      .landing-hero .preview-panel {
-        width: min(100%, 340px);
-        max-width: 340px;
-        margin-inline: auto;
-      }
-
-      .landing-hero .hero-copy h1,
-      .landing-hero .hero-copy p {
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .landing-hero .hero-copy h1 {
-        margin: 16px 0 14px;
-        line-height: 1.14;
-      }
-
-      .section {
-        padding-top: 64px;
-        padding-bottom: 64px;
-      }
-
-      .cta-band {
-        padding: 22px;
-      }
-
-      .landing-hero .preview-panel {
-        width: 100%;
-        max-width: 100%;
-        aspect-ratio: auto;
-      }
-    }
+.ticker-row{display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;margin-top:48px;padding-top:40px;border-top:1px solid var(--border);}
+.ticker-item{text-align:center;}
+.ticker-num{font-size:clamp(2rem,4vw,2.8rem);font-weight:900;letter-spacing:-0.04em;line-height:1;color:var(--text);}
+.ticker-label{font-size:0.78rem;color:var(--text-3);margin-top:4px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;}
+.ticker-sep{width:1px;height:40px;background:var(--border);}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);}
+.platform-card{background:var(--surface);padding:36px 30px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background 0.3s;text-decoration:none;color:inherit;}
+.platform-card:hover{background:var(--surface-2);}
+.platform-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent 60%);opacity:0;transition:opacity 0.3s;}
+.platform-card:hover::after{opacity:1;}
+.platform-icon{font-size:2rem;margin-bottom:20px;display:block;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);}
+.platform-card:hover .platform-icon{transform:scale(1.12) rotate(-4deg);}
+.platform-label{font-size:0.7rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
+.platform-title{font-size:1.2rem;font-weight:900;letter-spacing:-0.03em;color:var(--text);margin-bottom:10px;line-height:1.2;}
+.platform-desc{font-size:0.84rem;color:var(--text-2);line-height:1.8;flex:1;}
+.platform-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:16px;}
+.platform-tag{font-size:0.7rem;font-weight:700;color:var(--text-3);border:1px solid var(--border);padding:2px 8px;border-radius:4px;transition:color 0.2s,border-color 0.2s;}
+.platform-card:hover .platform-tag{color:var(--text-2);border-color:var(--border-hi);}
+.platform-cta{display:flex;align-items:center;gap:6px;margin-top:22px;font-size:0.82rem;font-weight:800;color:var(--text-2);transition:color 0.2s,gap 0.25s cubic-bezier(0.16,1,0.3,1);}
+.platform-card:hover .platform-cta{color:var(--text);gap:10px;}
+.platform-cta-arrow{transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);font-size:1rem;}
+.platform-card:hover .platform-cta-arrow{transform:translateX(-4px);}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;}
+.step{padding:28px 24px;border-left:1px solid var(--border);transition:background 0.3s;}
+.step:last-child{border-left:none;}
+.step:hover{background:var(--surface-2);}
+.step-num{font-size:0.65rem;font-weight:900;letter-spacing:0.12em;color:var(--text-3);text-transform:uppercase;margin-bottom:14px;}
+.step-title{font-size:0.92rem;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-0.02em;}
+.step-desc{font-size:0.8rem;color:var(--text-2);line-height:1.8;}
+.features-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;}
+.feature-item{background:var(--surface);padding:24px 22px;transition:background 0.3s;}
+.feature-item:hover{background:var(--surface-2);}
+.feature-title{font-size:0.88rem;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-0.02em;}
+.feature-desc{font-size:0.8rem;color:var(--text-2);line-height:1.8;}
+.cta-band{padding:48px;text-align:center;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);position:relative;overflow:hidden;}
+.cta-band::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);}
+.cta-band h3{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-0.04em;margin-bottom:12px;}
+.cta-band p{color:var(--text-2);font-size:0.95rem;line-height:1.9;max-width:580px;margin:0 auto 28px;}
+.cta-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;margin:60px 0;}
+.marquee-track{display:flex;gap:48px;white-space:nowrap;animation:marquee 28s linear infinite;width:max-content;}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-item{font-size:0.78rem;font-weight:700;color:var(--text-3);letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:12px;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--text-3);}
+@keyframes marquee{to{transform:translateX(-50%);}}
+@media(max-width:900px){.platform-grid{grid-template-columns:1fr;}.steps-row{grid-template-columns:1fr 1fr;}.step{border-bottom:1px solid var(--border);}}
+@media(max-width:600px){.steps-row{grid-template-columns:1fr;}.ticker-row{gap:20px;}.ticker-sep{display:none;}.cta-band{padding:28px 20px;}}
   </style>
 </head>
-
 <body class="page-shell">
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href="index.html">المنصة</a>
-
       <nav class="nav-links">
         <a class="nav-link active" href="index.html">الرئيسية</a>
         <a class="nav-link" href="movies.html">الأفلام والمسلسلات</a>
@@ -330,234 +75,188 @@
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero landing-hero container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <span class="hero-badge">منصة محتوى عربية • منظمة • قابلة للتوسعة</span>
-
-          <h1>
-            اكتشف المحتوى
-            <br />
-            ونظّم مكتبتك
-            <br />
-            في مكان واحد
-          </h1>
-
-          <p>
-            منصة تجمع بين الأفلام والمسلسلات والكتب والروايات والبودكاست، مع مكتبة عامة،
-            ومكتبتك الخاصة، واكتشاف مدعوم بالذكاء الاصطناعي — ضمن تجربة واضحة،
-            هادئة، وسهلة الاستخدام.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="movies.html">ابدأ بالمكتبة المرئية</a>
-            <a class="btn btn-secondary" href="#platforms">استكشف الأقسام</a>
-          </div>
+    <section class="hero container">
+      <div class="hero-copy reveal">
+        <span class="hero-badge">منصة محتوى عربية</span>
+        <h1>
+          اكتشف المحتوى<br />
+          <span class="grad">ونظّم مكتبتك</span><br />
+          في مكان واحد
+        </h1>
+        <p>منصة تجمع بين الأفلام والمسلسلات والكتب والبودكاست،<br />مع مكتبة عامة ومكتبتك الخاصة واكتشاف مدعوم بالذكاء الاصطناعي.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="movies.html">ابدأ باستكشاف المكتبة</a>
+          <a class="btn btn-secondary" href="#platforms">تصفح الأقسام</a>
         </div>
-
-        <div class="hero-side">
-          <div class="preview-panel">
-            <div class="preview-top">
-              <div>
-                <div class="preview-title">كيف تعمل المنصة؟</div>
-                <div class="preview-sub">رحلة بسيطة من الاكتشاف إلى التنظيم</div>
-              </div>
-              <span class="preview-tag">واجهة موحّدة</span>
-            </div>
-
-            <div class="preview-stack">
-              <div class="preview-card">
-                <strong>1) تصفح المكتبة العامة</strong>
-                <p>ابدأ بالقسم الذي يهمك، ثم استخدم الفلاتر والبحث للوصول بسرعة إلى ما تريد.</p>
-              </div>
-
-              <div class="preview-card">
-                <strong>2) احفظ ما يعجبك</strong>
-                <p>أضف العناصر المناسبة إلى مساحتك الخاصة وعد إليها لاحقًا بسهولة.</p>
-              </div>
-
-              <div class="preview-card">
-                <strong>3) استخدم الذكاء الاصطناعي</strong>
-                <p>اطلب اقتراحات جديدة أو دع النظام يساعدك في التصنيف والتنظيم.</p>
-              </div>
-
-              <div class="preview-mini-list">
-                <div class="preview-mini-item">
-                  <span>مكتبة عامة</span>
-                  <b>3 أقسام</b>
-                </div>
-                <div class="preview-mini-item">
-                  <span>اكتشاف ذكي</span>
-                  <b>AI</b>
-                </div>
-                <div class="preview-mini-item">
-                  <span>تخزين سحابي</span>
-                  <b>Supabase</b>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="ticker-row reveal reveal-delay-2">
+          <div class="ticker-item"><div class="ticker-num" data-target="3">0</div><div class="ticker-label">أقسام</div></div>
+          <div class="ticker-sep"></div>
+          <div class="ticker-item"><div class="ticker-num">∞</div><div class="ticker-label">مكتبة خاصة</div></div>
+          <div class="ticker-sep"></div>
+          <div class="ticker-item"><div class="ticker-num">AI</div><div class="ticker-label">اكتشاف ذكي</div></div>
+          <div class="ticker-sep"></div>
+          <div class="ticker-item"><div class="ticker-num">0ms</div><div class="ticker-label">تسجيل مطلوب</div></div>
         </div>
       </div>
     </section>
 
-    <!-- PLATFORMS -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span class="marquee-item">أفلام ومسلسلات <span class="marquee-dot"></span></span>
+        <span class="marquee-item">كتب وروايات <span class="marquee-dot"></span></span>
+        <span class="marquee-item">بودكاست <span class="marquee-dot"></span></span>
+        <span class="marquee-item">ذكاء اصطناعي <span class="marquee-dot"></span></span>
+        <span class="marquee-item">مكتبة خاصة <span class="marquee-dot"></span></span>
+        <span class="marquee-item">تصنيف تلقائي <span class="marquee-dot"></span></span>
+        <span class="marquee-item">Supabase <span class="marquee-dot"></span></span>
+        <span class="marquee-item">Gemini AI <span class="marquee-dot"></span></span>
+        <span class="marquee-item">أفلام ومسلسلات <span class="marquee-dot"></span></span>
+        <span class="marquee-item">كتب وروايات <span class="marquee-dot"></span></span>
+        <span class="marquee-item">بودكاست <span class="marquee-dot"></span></span>
+        <span class="marquee-item">ذكاء اصطناعي <span class="marquee-dot"></span></span>
+        <span class="marquee-item">مكتبة خاصة <span class="marquee-dot"></span></span>
+        <span class="marquee-item">تصنيف تلقائي <span class="marquee-dot"></span></span>
+        <span class="marquee-item">Supabase <span class="marquee-dot"></span></span>
+        <span class="marquee-item">Gemini AI <span class="marquee-dot"></span></span>
+      </div>
+    </div>
+
     <section id="platforms" class="section container">
-      <div class="section-head">
-        <h2>اختر المساحة المناسبة لك</h2>
-        <p>
-          كل قسم صُمم ليكون واضحًا وسهل الاستخدام، مع نفس اللغة البصرية ونفس منطق
-          التصفح والتنظيم.
-        </p>
+      <div class="section-head reveal">
+        <div class="section-line"></div>
+        <h2>اختر القسم المناسب</h2>
+        <p>ثلاث مساحات منفصلة، كل واحدة مصممة لمحتوى مختلف — نفس التجربة، نفس الجودة.</p>
       </div>
-
-      <div class="grid cols-3">
-        <article class="card category-card">
-          <div class="category-icon">🎬</div>
-          <h3>الأفلام والمسلسلات</h3>
-          <p>
-            مكتبة موجهة للمحتوى المرئي: خيال علمي، مؤامرات، استخبارات، نهاية العالم،
-            وأعمال مميزة ونادرة.
-          </p>
-
-          <div class="badge-row" style="margin-top: 14px;">
-            <span class="badge">المكتبة العامة</span>
-            <span class="badge">مكتبتي</span>
-            <span class="badge">AI</span>
+      <div class="platform-grid stagger">
+        <a href="movies.html" class="platform-card">
+          <span class="platform-icon">🎬</span>
+          <div class="platform-label">01 — مرئي</div>
+          <div class="platform-title">الأفلام والمسلسلات</div>
+          <div class="platform-desc">خيال علمي، مؤامرات، استخبارات، نهاية العالم، وأعمال مميزة ونادرة تجاوزت الرقابة.</div>
+          <div class="platform-tags">
+            <span class="platform-tag">نهاية العالم</span>
+            <span class="platform-tag">تجسس</span>
+            <span class="platform-tag">خيال علمي</span>
+            <span class="platform-tag">ممنوع</span>
           </div>
-
-          <div class="category-actions">
-            <a class="btn btn-secondary" href="movies.html">ادخل القسم</a>
+          <div class="platform-cta"><span>ادخل القسم</span><span class="platform-cta-arrow">←</span></div>
+        </a>
+        <a href="books.html" class="platform-card">
+          <span class="platform-icon">📚</span>
+          <div class="platform-label">02 — مقروء</div>
+          <div class="platform-title">الكتب والروايات</div>
+          <div class="platform-desc">روايات، كتب فكرية، غموض، فلسفة، تاريخ، وخيال علمي — مع تنظيم شخصي واضح.</div>
+          <div class="platform-tags">
+            <span class="platform-tag">خيال علمي</span>
+            <span class="platform-tag">غموض</span>
+            <span class="platform-tag">فلسفة</span>
+            <span class="platform-tag">تاريخ</span>
           </div>
-        </article>
-
-        <article class="card category-card">
-          <div class="category-icon">📚</div>
-          <h3>الكتب والروايات</h3>
-          <p>
-            مساحة للقراءة والاكتشاف: روايات، كتب فكرية، غموض، فلسفة، تاريخ، وخيال
-            علمي — مع تنظيم شخصي واضح.
-          </p>
-
-          <div class="badge-row" style="margin-top: 14px;">
-            <span class="badge">تصنيفات متعددة</span>
-            <span class="badge">قراءاتي</span>
-            <span class="badge">اقتراحات ذكية</span>
+          <div class="platform-cta"><span>ادخل القسم</span><span class="platform-cta-arrow">←</span></div>
+        </a>
+        <a href="podcasts.html" class="platform-card">
+          <span class="platform-icon">🎙️</span>
+          <div class="platform-label">03 — مسموع</div>
+          <div class="platform-title">البودكاست</div>
+          <div class="platform-desc">علوم، تقنية، تاريخ، ثقافة — بودكاستات منتقاة لتجربة استماع أكثر عمقاً وتركيزاً.</div>
+          <div class="platform-tags">
+            <span class="platform-tag">علوم</span>
+            <span class="platform-tag">تقنية</span>
+            <span class="platform-tag">جريمة</span>
+            <span class="platform-tag">ثقافة</span>
           </div>
-
-          <div class="category-actions">
-            <a class="btn btn-secondary" href="books.html">ادخل القسم</a>
-          </div>
-        </article>
-
-        <article class="card category-card">
-          <div class="category-icon">🎙️</div>
-          <h3>البودكاست</h3>
-          <p>
-            بودكاستات في العلوم والتقنية والتاريخ والثقافة، مع تجربة تصفح أخف وتنظيم
-            شخصي مناسب للاستماع اليومي.
-          </p>
-
-          <div class="badge-row" style="margin-top: 14px;">
-            <span class="badge">قائمة خاصة</span>
-            <span class="badge">فلاتر</span>
-            <span class="badge">اكتشاف ذكي</span>
-          </div>
-
-          <div class="category-actions">
-            <a class="btn btn-secondary" href="podcasts.html">ادخل القسم</a>
-          </div>
-        </article>
+          <div class="platform-cta"><span>ادخل القسم</span><span class="platform-cta-arrow">←</span></div>
+        </a>
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
     <section class="section container">
-      <div class="section-head">
+      <div class="section-head reveal">
+        <div class="section-line"></div>
         <h2>كيف تعمل المنصة؟</h2>
-        <p>تجربة قصيرة وواضحة: استكشف → اختر → احفظ → اكتشف المزيد.</p>
+        <p>أربع خطوات بسيطة من الاستكشاف إلى التنظيم.</p>
       </div>
-
-      <div class="steps-grid">
-        <article class="card step-card">
-          <div class="step-number">1</div>
-          <h4>ابدأ من المكتبة العامة</h4>
-          <p>
-            تصفح المحتوى المتاح في القسم الذي يهمك، واستخدم البحث والفلاتر للوصول
-            بسرعة إلى ما تريد.
-          </p>
-        </article>
-
-        <article class="card step-card">
-          <div class="step-number">2</div>
-          <h4>ابنِ مكتبتك الخاصة</h4>
-          <p>
-            أضف العناصر التي تهمك إلى قائمتك الخاصة، ثم تابعها لاحقًا ضمن مساحة أكثر
-            قربًا لذوقك.
-          </p>
-        </article>
-
-        <article class="card step-card">
-          <div class="step-number">3</div>
-          <h4>دع الذكاء الاصطناعي يساعدك</h4>
-          <p>
-            استخدم الاكتشاف الذكي أو التصنيف التلقائي عندما تريد تسريع العمل أو العثور
-            على اقتراحات مناسبة.
-          </p>
-        </article>
-
-        <article class="card step-card">
-          <div class="step-number">4</div>
-          <h4>أدر المحتوى بسهولة</h4>
-          <p>
-            من لوحة التحكم يمكنك تنظيم المكتبة العامة، بينما تبقى مكتبتك الخاصة مساحة
-            شخصية واضحة وبسيطة.
-          </p>
-        </article>
+      <div class="steps-row stagger">
+        <div class="step"><div class="step-num">01</div><div class="step-title">ابدأ من المكتبة العامة</div><div class="step-desc">تصفح المحتوى المتاح واستخدم الفلاتر والبحث للوصول بسرعة إلى ما تريد.</div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-title">ابنِ مكتبتك الخاصة</div><div class="step-desc">أضف ما يهمك إلى قائمتك الشخصية المحفوظة في السحاب — تعود إليها من أي جهاز.</div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-title">اكتشف بالذكاء الاصطناعي</div><div class="step-desc">اطلب اقتراحات مخصصة أو صنّف محتوى جديد تلقائياً بضغطة واحدة.</div></div>
+        <div class="step"><div class="step-num">04</div><div class="step-title">أدر المحتوى بسهولة</div><div class="step-desc">لوحة تحكم محمية تتيح تنظيم المكتبة العامة ومشاركتها مع الجميع.</div></div>
       </div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="section container">
-      <div class="section-head">
-        <h2>لماذا هذا الأسلوب؟</h2>
-        <p>
-          الهدف ليس مجرد واجهة جميلة، بل منتج واضح يوجّه المستخدم نحو ما يجب فعله
-          بأقل تشتت ممكن.
-        </p>
+    <section class="section-sm container">
+      <div class="section-head reveal">
+        <div class="section-line"></div>
+        <h2>لماذا هذا التصميم؟</h2>
       </div>
-
-      <div class="grid cols-4">
-        <article class="card feature-card">
-          <h4>واجهة هادئة</h4>
-          <p>ألوان محدودة، تباين واضح، ومساحات أكثر راحة بصريًا.</p>
-        </article>
-
-        <article class="card feature-card">
-          <h4>تسلسل هرمي واضح</h4>
-          <p>عناوين أكبر، نصوص ثانوية أخف، وأزرار رئيسية واضحة.</p>
-        </article>
-
-        <article class="card feature-card">
-          <h4>بنية موحّدة</h4>
-          <p>كل الصفحات مبنية على نفس النظام البصري ونفس منطق التفاعل.</p>
-        </article>
-
-        <article class="card feature-card">
-          <h4>جاهزة للتوسعة</h4>
-          <p>يمكن تطويرها لاحقًا دون الحاجة إلى إعادة كسر التصميم في كل مرة.</p>
-        </article>
+      <div class="features-row stagger">
+        <div class="feature-item"><div class="feature-title">واجهة هادئة</div><div class="feature-desc">ألوان محدودة، تباين واضح، ومساحات مريحة بصرياً بدون ضجيج.</div></div>
+        <div class="feature-item"><div class="feature-title">لا تسجيل دخول</div><div class="feature-desc">مكتبتك الخاصة تعمل بدون حساب — محفوظة بمعرّف فريد في متصفحك.</div></div>
+        <div class="feature-item"><div class="feature-title">AI مخفي</div><div class="feature-desc">الذكاء الاصطناعي يعمل عبر Worker آمن — لا مفتاح API مكشوف لأحد.</div></div>
+        <div class="feature-item"><div class="feature-title">بنية موحّدة</div><div class="feature-desc">كل الأقسام مبنية على نفس النظام البصري ونفس منطق التفاعل.</div></div>
+        <div class="feature-item"><div class="feature-title">جاهزة للتوسعة</div><div class="feature-desc">Supabase + config مركزي يسمح بإضافة أقسام جديدة بسهولة.</div></div>
+        <div class="feature-item"><div class="feature-title">مفتوح المصدر</div><div class="feature-desc">HTML نقي، لا frameworks، لا build steps — سهل الفهم والتعديل.</div></div>
       </div>
     </section>
 
-    <!-- FINAL CTA -->
     <section class="section container">
-      <div class="panel cta-band">
-        <div>
-          <h3>ابدأ الآن بالقسم الأنسب لاهتمامك</h3>
-          <p>
-            إذا كان تركيزك على المشاهدة ابدأ بالأفلام والمسلسلات، وإذا كنت تميل
-            للقراءة فابدأ بالكتب، وإذا كنت تفضل الاستماع أثناء العمل والتن/common.js</script>
+      <div class="cta-band reveal">
+        <h3>ابدأ الآن بالقسم الأنسب لك</h3>
+        <p>إذا كان تركيزك على المشاهدة ابدأ بالأفلام، وإذا كنت تميل للقراءة فابدأ بالكتب، وإذا كنت تفضل الاستماع فالبودكاست ينتظرك.</p>
+        <div class="cta-buttons">
+          <a class="btn btn-primary" href="movies.html">🎬 الأفلام والمسلسلات</a>
+          <a class="btn btn-secondary" href="books.html">📚 الكتب والروايات</a>
+          <a class="btn btn-ghost" href="podcasts.html">🎙️ البودكاست</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><p>المنصة · أفلام • كتب • بودكاست · مبني بـ Supabase + Gemini AI</p></footer>
+
+  <script>
+    // CUSTOM CURSOR
+    const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    if(cur&&ring){
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+      (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+      document.querySelectorAll('a,button,.platform-card,.step,.feature-item').forEach(el=>{
+        el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+      });
+      document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
+      document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+    }
+
+    // SCROLL REVEAL
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+    },{threshold:0.1});
+    document.querySelectorAll('.reveal,.stagger').forEach(el=>obs.observe(el));
+
+    // NUMBER TICKER
+    document.querySelectorAll('[data-target]').forEach(el=>{
+      const target=parseInt(el.dataset.target);let c=0;
+      const step=()=>{c=Math.min(c+1,target);el.textContent=c;if(c<target)requestAnimationFrame(step);};
+      new IntersectionObserver(entries=>{if(entries[0].isIntersecting)step();},{threshold:0.5}).observe(el);
+    });
+
+    // NAV SHADOW ON SCROLL
+    const nav=document.querySelector('.nav');
+    window.addEventListener('scroll',()=>{
+      nav.style.boxShadow=window.scrollY>60?'0 1px 0 rgba(255,255,255,0.05),0 8px 32px rgba(0,0,0,0.4)':'';
+    },{passive:true});
+
+    // MAGNETIC BUTTONS
+    document.querySelectorAll('.btn-primary').forEach(btn=>{
+      btn.addEventListener('mousemove',e=>{
+        const r=btn.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        btn.style.transform=`translate(${x*0.15}px,${y*0.18}px)`;
+      });
+      btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+    });
+  </script>
 </body>
 </html>
