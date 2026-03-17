@@ -518,6 +518,8 @@
 </head>
 
 <body class="page-shell">
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href="index.html">المنصة</a>
@@ -2162,6 +2164,22 @@
     }
 
     init();
+  </script>
+  <script>
+    const _c=document.getElementById('cursor'),_r=document.getElementById('cursor-ring');
+    let _mx=0,_my=0,_rx=0,_ry=0;
+    if(_c&&_r){
+      document.addEventListener('mousemove',e=>{_mx=e.clientX;_my=e.clientY;_c.style.left=_mx+'px';_c.style.top=_my+'px';});
+      (function loop(){_rx+=(_mx-_rx)*0.12;_ry+=(_my-_ry)*0.12;_r.style.left=_rx+'px';_r.style.top=_ry+'px';requestAnimationFrame(loop);})();
+      document.querySelectorAll('a,button,.book-card,.pod-card,.media-card').forEach(el=>{
+        el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+      });
+      document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
+      document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+    }
+    const _nav=document.querySelector('.nav');
+    window.addEventListener('scroll',()=>{if(_nav)_nav.style.boxShadow=window.scrollY>40?'0 1px 0 rgba(255,255,255,0.05),0 8px 28px rgba(0,0,0,0.4)':'';},{passive:true});
   </script>
 </body>
 </html>
